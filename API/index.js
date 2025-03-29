@@ -3,23 +3,14 @@ const express = require("express");
 const db = require("./models");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const { Pool } = require("pg");
+const router = require("./router/router");
 
 const app = express();
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.get("/users", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM users");
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
-  }
-});
+app.use("/api", router);
 
 const port = process.env.PORT || 3000;
 
