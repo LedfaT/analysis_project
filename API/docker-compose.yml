@@ -1,0 +1,36 @@
+version: "3"
+services:
+  backend:
+    build: .
+    image: backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    networks:
+      - comp-service
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+
+  database:
+    image: postgres
+    ports:
+      - "5000:5000"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgre-data:/var/lib/postgresql/data
+    networks:
+      - comp-service
+
+networks:
+  comp-service:
+    driver: bridge
+
+volumes:
+  postgre-data:
+    driver: local
