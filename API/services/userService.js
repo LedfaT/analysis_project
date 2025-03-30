@@ -20,10 +20,10 @@ class UserService {
       activationLink,
     });
 
-    // await mailService.sendActivationMail(
-    //   email,
-    //   `${process.env.API_URL}/api/activate/${activationLink}`
-    // );
+    await mailService.sendActivationMail(
+      email,
+      `${process.env.API_URL}/api/activate/${activationLink}`
+    );
 
     const userDto = new UserDto(newUser);
     const tokens = tokenService.generateToken({ ...userDto });
@@ -33,6 +33,16 @@ class UserService {
       ...tokens,
       user: { ...userDto },
     };
+  }
+
+  async activate(activationLink) {
+    const user = await User.findOne({ where: { activationLink } });
+    console.log(user);
+    if (!user) {
+      throw new Error(`Incorrect activation link `);
+    }
+    user.isActivated = true;
+    await user.save();
   }
 }
 
