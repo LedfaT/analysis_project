@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const uuid = require("uuid");
 const mailService = require("./mailService");
 const tokenService = require("./token-service");
-const UserDto = require("../dtos/user-dto");
+const UserDto = require("../dtos/dtos-in/user-dto");
 
 class UserService {
   async registration(email, password) {
