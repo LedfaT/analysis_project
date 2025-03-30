@@ -1,5 +1,5 @@
 const { User } = require("../models");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const uuid = require("uuid");
 const mailService = require("./mailService");
 const tokenService = require("./token-service");
@@ -13,7 +13,7 @@ class UserService {
     }
 
     const hashPassword = await bcrypt.hash(password, 3);
-    const activationLink = uuid.v4;
+    const activationLink = uuid.v4();
     const newUser = await User.create({
       email,
       password: hashPassword,
@@ -28,7 +28,7 @@ class UserService {
 
     return {
       ...tokens,
-      userDto,
+      user: { ...userDto },
     };
   }
 }
