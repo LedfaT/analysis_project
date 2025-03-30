@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const uuid = require("uuid");
 const User = db.User;
 
-const MailService = require("./mailService");
 const mailService = require("./mailService");
 class UserService {
   async registration(email, password) {
