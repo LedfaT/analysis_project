@@ -1,9 +1,10 @@
-const db = require("../models");
+const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const uuid = require("uuid");
-const User = db.User;
-
 const mailService = require("./mailService");
+const tokenService = require("./token-service");
+const UserDto = require("../dtos/user-dto");
+
 class UserService {
   async registration(email, password) {
     const candidate = await User.findOne({ where: { email } });
@@ -20,6 +21,15 @@ class UserService {
     });
 
     await mailService.sendActivationMail(email, activationLink);
+
+    const userDto = new UserDto(newUser);
+    const tokens = tokenService.generateToken({ ...userDto });
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return {
+      ...tokens,
+      userDto,
+    };
   }
 }
 
