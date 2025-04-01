@@ -40,7 +40,7 @@ class UserService {
     const user = await User.findOne({ where: { activationLink } });
     console.log(user);
     if (!user) {
-      throw new Error(`Incorrect activation link `);
+      throw ApiError.BadRequest(`Incorrect activation link`);
     }
     user.isActivated = true;
     await user.save();
