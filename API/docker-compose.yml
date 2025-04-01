@@ -3,8 +3,10 @@ services:
   backend:
     build: .
     image: backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
-      - "3000:3000"
+      - "8080:8080"
     depends_on:
       - database
     networks:

@@ -4,12 +4,13 @@ const uuid = require("uuid");
 const mailService = require("./mailService");
 const tokenService = require("./token-service");
 const UserDto = require("../dtos/dtos-in/user-dto");
+const ApiError = require("../exeptions/api-error");
 
 class UserService {
   async registration(email, password) {
     const candidate = await User.findOne({ where: { email } });
     if (candidate) {
-      throw new Error(`User with email ${email} already exists`);
+      throw ApiError.BadRequest(`User with email ${email} already exists`);
     }
 
     const hashPassword = await bcrypt.hash(password, 3);
