@@ -5,8 +5,20 @@ const mailService = require("./mailService");
 const tokenService = require("./token-service");
 const UserDto = require("../dtos/dtos-in/user-dto");
 const ApiError = require("../exeptions/api-error");
+const { where } = require("sequelize");
 
 class UserService {
+  async _generateUserPayload(user) {
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateToken({ ...userDto });
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return {
+      ...tokens,
+      user: { ...userDto },
+    };
+  }
+
   async registration(email, password) {
     const candidate = await User.findOne({ where: { email } });
     if (candidate) {
@@ -26,14 +38,7 @@ class UserService {
       `${process.env.API_URL}/api/activate/${activationLink}`
     );
 
-    const userDto = new UserDto(newUser);
-    const tokens = tokenService.generateToken({ ...userDto });
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-    return {
-      ...tokens,
-      user: { ...userDto },
-    };
+    return this._generateUserPayload(newUser);
   }
 
   async activate(activationLink) {
@@ -44,6 +49,24 @@ class UserService {
     }
     user.isActivated = true;
     await user.save();
+  }
+
+  async login(email, password) {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      throw ApiError.BadRequest("User with this email not found not found");
+    }
+
+    const isPassEquils = await bcrypt.compare(password, user.password);
+    if (!isPassEquils) {
+      throw ApiError.BadRequest("Incorrect password");
+    }
+    return this._generateUserPayload(user);
+  }
+
+  async logout(refreshToken) {
+    const token = await tokenService.removeToken(refreshToken);
+    return token;
   }
 }
 
