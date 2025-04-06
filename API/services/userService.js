@@ -43,7 +43,6 @@ class UserService {
 
   async activate(activationLink) {
     const user = await User.findOne({ where: { activationLink } });
-    console.log(user);
     if (!user) {
       throw ApiError.BadRequest(`Incorrect activation link`);
     }
@@ -84,6 +83,11 @@ class UserService {
     const user = await User.findByPk(userData.id);
 
     return this._generateUserPayload(user);
+  }
+
+  async getAllUsers() {
+    const users = await User.findAll();
+    return users.map((user) => new UserDto(user));
   }
 }
 
