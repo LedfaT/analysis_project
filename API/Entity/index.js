@@ -16,8 +16,8 @@ sequelize
 const db = {
   sequelize,
   Sequelize,
-  User: require("./userModel")(sequelize, Sequelize),
-  Token: require("./tokenModel")(sequelize, Sequelize),
+  User: require("./User")(sequelize, Sequelize),
+  Token: require("./Token")(sequelize, Sequelize),
 };
 
 module.exports = db;
