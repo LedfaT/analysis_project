@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+import { DataTypes } from "@sequelize/core";
 
 const sequelize = new Sequelize(process.env.DB_URI, {
   logging: false,
@@ -18,6 +19,7 @@ const db = {
   Sequelize,
   User: require("./User")(sequelize, Sequelize),
   Token: require("./Token")(sequelize, Sequelize),
+  CPU: require("./CPU")(sequelize, Sequelize, DataTypes),
 };
 
 module.exports = db;
