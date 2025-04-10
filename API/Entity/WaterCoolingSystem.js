@@ -25,5 +25,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  WaterCoolingSystem.associate = (models) => {
+    WaterCoolingSystem.hasOne(models.Computer, {
+      foreignKey: "water_cooling_system_id",
+    });
+  };
+
   return WaterCoolingSystem;
 };

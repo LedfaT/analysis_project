@@ -36,6 +36,10 @@ module.exports = (sequelize, Sequelize) => {
     User.hasOne(models.Token, {
       foreignKey: "userId",
     });
+
+    User.hasOne(models.Computer, {
+      foreignKey: "userId",
+    });
   };
 
   return User;

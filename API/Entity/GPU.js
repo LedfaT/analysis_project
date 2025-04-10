@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize, DataTypes) => {
-  const GNU = sequelize.define(
-    "GNU",
+  const GPU = sequelize.define(
+    "GPU",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -35,9 +35,15 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       },
     },
     {
-      tableName: "gnu",
+      tableName: "gpu",
     }
   );
 
-  return GNU;
+  GPU.associate = (models) => {
+    GPU.hasOne(models.Computer, {
+      foreignKey: "gpu_id",
+    });
+  };
+
+  return GPU;
 };

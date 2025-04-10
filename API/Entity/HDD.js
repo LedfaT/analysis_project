@@ -29,5 +29,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  HDD.associate = (models) => {
+    HDD.hasOne(models.Computer, {
+      foreignKey: "hdd_id",
+    });
+  };
+
   return HDD;
 };

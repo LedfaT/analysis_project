@@ -29,5 +29,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  RAM.associate = (models) => {
+    RAM.hasOne(models.Computer, {
+      foreignKey: "ram_id",
+    });
+  };
+
   return RAM;
 };

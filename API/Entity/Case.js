@@ -29,5 +29,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  Case.associate = (models) => {
+    Case.hasOne(models.Computer, {
+      foreignKey: "case_id",
+    });
+  };
+
   return Case;
 };

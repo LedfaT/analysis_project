@@ -21,5 +21,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  BluetoothModule.associate = (models) => {
+    BluetoothModule.hasOne(models.Computer, {
+      foreignKey: "bluetooth_module_id",
+    });
+  };
+
   return BluetoothModule;
 };

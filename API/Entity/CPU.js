@@ -36,5 +36,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  CPU.associate = (models) => {
+    CPU.hasOne(models.Computer, {
+      foreignKey: "cpu_id",
+    });
+  };
+
   return CPU;
 };

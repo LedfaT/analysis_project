@@ -21,5 +21,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  PowerSupply.associate = (models) => {
+    PowerSupply.hasOne(models.Computer, {
+      foreignKey: "power_supply_id",
+    });
+  };
+
   return PowerSupply;
 };

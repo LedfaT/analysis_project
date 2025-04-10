@@ -33,5 +33,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  SSD.associate = (models) => {
+    SSD.hasOne(models.Computer, {
+      foreignKey: "ssd_id",
+    });
+  };
+
   return SSD;
 };

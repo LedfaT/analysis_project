@@ -21,5 +21,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  WifiModule.associate = (models) => {
+    WifiModule.hasOne(models.Computer, {
+      foreignKey: "wifi_module_id",
+    });
+  };
+
   return WifiModule;
 };

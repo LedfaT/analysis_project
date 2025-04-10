@@ -29,5 +29,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     }
   );
 
+  Motherboard.associate = (models) => {
+    Motherboard.hasOne(models.Computer, {
+      foreignKey: "motherboard_id",
+    });
+  };
+
   return Motherboard;
 };
