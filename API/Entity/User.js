@@ -11,6 +11,14 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      username: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      user_role: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       isActivated: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
