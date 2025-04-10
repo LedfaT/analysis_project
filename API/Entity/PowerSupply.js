@@ -1,33 +1,25 @@
 module.exports = (sequelize, Sequelize, DataTypes) => {
-  const RAM = sequelize.define(
-    "RAM",
+  const PowerSupply = sequelize.define(
+    "PowerSupply",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      memory_quantity: {
+      power: {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
-      memory_type: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      radiator_type: {
+      sertificate: {
         type: Sequelize.STRING,
         allowNull: true,
       },
     },
     {
-      tableName: "ram",
+      tableName: "power_supply",
     }
   );
 
-  return RAM;
+  return PowerSupply;
 };

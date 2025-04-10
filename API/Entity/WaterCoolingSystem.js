@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize, DataTypes) => {
-  const SSD = sequelize.define(
-    "SSD",
+  const WaterCoolingSystem = sequelize.define(
+    "WaterCoolingSystem",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -11,27 +11,19 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      memory_quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
-      radiator_type: {
+      type: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      reading_speed: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
-      write_speed: {
+      heat_removal: {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
     },
     {
-      tableName: "sdd",
+      tableName: "water_cooling_system",
     }
   );
 
-  return SSD;
+  return WaterCoolingSystem;
 };

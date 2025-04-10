@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize, DataTypes) => {
-  const SSD = sequelize.define(
-    "SSD",
+  const Case = sequelize.define(
+    "Case",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -11,27 +11,23 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      memory_quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+      Fan_included: {
+        type: Sequelize.BOOLEAN,
+        default: true,
       },
-      radiator_type: {
+      type: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      reading_speed: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
-      write_speed: {
-        type: Sequelize.INTEGER,
+      Fan_type: {
+        type: Sequelize.STRING,
         allowNull: true,
       },
     },
     {
-      tableName: "sdd",
+      tableName: "case",
     }
   );
 
-  return SSD;
+  return Case;
 };

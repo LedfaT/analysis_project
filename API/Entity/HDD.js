@@ -13,15 +13,15 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       },
       memory_quantity: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       reading_speed: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       write_speed: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
     },
     {

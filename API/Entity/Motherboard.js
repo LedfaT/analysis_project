@@ -13,15 +13,15 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       },
       chipset: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       type: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       socket: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
     },
     {
