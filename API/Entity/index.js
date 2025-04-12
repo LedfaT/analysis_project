@@ -1,12 +1,5 @@
 const Sequelize = require("sequelize");
-import { DataTypes } from "@sequelize/core";
-import Case from "./Case";
-import BluetoothModule from "./BluetoothModule";
-import CoolingSystem from "./CoolingSystem";
-import Motherboard from "./Motherboard";
-import powerSupply from "./powerSupply";
-import RAM from "./RAM";
-import WifiModule from "./WifiModule";
+const { DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize(process.env.DB_URI, {
   logging: false,
@@ -29,7 +22,7 @@ const db = {
   CPU: require("./CPU")(sequelize, Sequelize, DataTypes),
   GNU: require("./GPU")(sequelize, Sequelize, DataTypes),
   HDD: require("./HDD")(sequelize, Sequelize, DataTypes),
-  Case: require("./Case")(sequelize, Sequelize, DataTypes),
+  Case: require("./Tower")(sequelize, Sequelize, DataTypes),
   BluetoothModule: require("./BluetoothModule")(
     sequelize,
     Sequelize,
@@ -46,6 +39,7 @@ const db = {
     DataTypes
   ),
   WifiModule: require("./WifiModule")(sequelize, Sequelize, DataTypes),
+  Computer: require("./Computer")(sequelize, Sequelize, DataTypes),
 };
 
 module.exports = db;

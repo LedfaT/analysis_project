@@ -21,8 +21,14 @@ const start = async () => {
     console.log(`Server listens on port ${port}`);
   });
 
-  await db.sequelize.sync();
-  console.log("Database synced");
+  await db.sequelize
+    .sync()
+    .then(() => {
+      console.log("База данных и таблицы пересозданы!");
+    })
+    .catch((err) => {
+      console.error("Ошибка при синхронизации:", err);
+    });
 };
 
 start();

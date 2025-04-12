@@ -12,12 +12,12 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         allowNull: false,
       },
       memory_quantity: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: true,
       },
       memory_type: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       radiator_type: {
         type: Sequelize.STRING,

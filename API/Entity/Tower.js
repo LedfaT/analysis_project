@@ -1,39 +1,42 @@
 module.exports = (sequelize, Sequelize, DataTypes) => {
-  const Case = sequelize.define(
-    "Case",
+  const Tower = sequelize.define(
+    "Tower",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Fan_included: {
+      fan_included: {
         type: Sequelize.BOOLEAN,
         default: true,
       },
-      type: {
+      type_size: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      fan_type: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      Fan_type: {
-        type: Sequelize.STRING,
-        allowNull: true,
+      cost: {
+        type: DataTypes.FLOAT,
       },
     },
     {
-      tableName: "case",
+      tableName: "tower",
     }
   );
 
-  Case.associate = (models) => {
-    Case.hasOne(models.Computer, {
-      foreignKey: "case_id",
+  Tower.associate = (models) => {
+    Tower.hasOne(models.Computer, {
+      foreignKey: "tower_id",
     });
   };
 
-  return Case;
+  return Tower;
 };

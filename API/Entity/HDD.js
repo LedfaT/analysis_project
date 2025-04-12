@@ -7,21 +7,24 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       memory_quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       reading_speed: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       write_speed: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      cost: {
+        type: DataTypes.FLOAT,
       },
     },
     {

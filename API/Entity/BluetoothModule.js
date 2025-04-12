@@ -7,13 +7,16 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
-        type: Sequelize.STRING,
+      title: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      version: {
-        type: Sequelize.FLOAT,
-        allowNull: true,
+      generation: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      cost: {
+        type: DataTypes.FLOAT,
       },
     },
     {

@@ -11,8 +11,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
       isPublished: {
-        type: BOOLEAN,
+        type: DataTypes.BOOLEAN,
         default: false,
+      },
+      cost: {
+        type: DataTypes.FLOAT,
       },
       user_id: {
         type: Sequelize.INTEGER,
@@ -26,15 +29,15 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "BluetoothModule",
+          model: "bluetooth_module",
           key: "id",
         },
       },
-      case_id: {
+      tower_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Case",
+          model: "tower",
           key: "id",
         },
       },
@@ -42,7 +45,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "CoolingSystem",
+          model: "cooling_system",
           key: "id",
         },
       },
@@ -50,7 +53,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "CPU",
+          model: "cpu",
           key: "id",
         },
       },
@@ -58,7 +61,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "GPU",
+          model: "gpu",
           key: "id",
         },
       },
@@ -66,7 +69,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "HDD",
+          model: "hdd",
           key: "id",
         },
       },
@@ -74,7 +77,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Motherboard",
+          model: "motherboard",
           key: "id",
         },
       },
@@ -82,7 +85,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "PowerSupply",
+          model: "power_supply",
           key: "id",
         },
       },
@@ -90,7 +93,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "RAM",
+          model: "ram",
           key: "id",
         },
       },
@@ -98,7 +101,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "SSD",
+          model: "ssd",
           key: "id",
         },
       },
@@ -106,7 +109,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "WaterCoolingSystem",
+          model: "water_cooling_system",
           key: "id",
         },
       },
@@ -114,7 +117,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "WifiModule",
+          model: "wifi_module",
           key: "id",
         },
       },
@@ -133,8 +136,8 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       foreignKey: "bluetooth_module_id",
     });
 
-    Computer.belongsTo(models.Case, {
-      foreignKey: "case_id",
+    Computer.belongsTo(models.Tower, {
+      foreignKey: "tower_id",
     });
 
     Computer.belongsTo(models.CoolingSystem, {

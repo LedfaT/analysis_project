@@ -7,21 +7,24 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       chipset: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      type: {
+      type_size: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       socket: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
+      },
+      cost: {
+        type: DataTypes.FLOAT,
       },
     },
     {

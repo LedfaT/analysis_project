@@ -7,17 +7,20 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      type: {
+      type_size: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       heat_removal: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      cost: {
+        type: DataTypes.FLOAT,
       },
     },
     {
