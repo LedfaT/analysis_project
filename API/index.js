@@ -4,6 +4,8 @@ const db = require("./Entity");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const router = require("./router/router");
+const bluetoothModuleRouter = require("./router/bluetoothModuleRouter");
+
 const errorMiddleware = require("./middlewares/error-middleware");
 
 const app = express();
@@ -11,7 +13,9 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", router);
+app.use("/api/user", router);
+app.use("/api/bluetooth-module", bluetoothModuleRouter);
+
 app.use(errorMiddleware);
 
 const port = process.env.PORT || 8080;
@@ -21,14 +25,7 @@ const start = async () => {
     console.log(`Server listens on port ${port}`);
   });
 
-  await db.sequelize
-    .sync()
-    .then(() => {
-      console.log("База данных и таблицы пересозданы!");
-    })
-    .catch((err) => {
-      console.error("Ошибка при синхронизации:", err);
-    });
+  await db.sequelize.sync();
 };
 
 start();
