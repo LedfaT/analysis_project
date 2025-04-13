@@ -29,8 +29,11 @@ class BlutoothModuleController {
       next(e);
     }
   }
-  getAllBlutoothModules(req, res, next) {
+  async getAllBlutoothModules(req, res, next) {
     try {
+      const bluetoothModules =
+        await bluetoothModuleService.getAllBluetoothModules();
+      res.json(bluetoothModules);
     } catch (e) {
       next(e);
     }
