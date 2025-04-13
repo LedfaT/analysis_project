@@ -19,6 +19,10 @@ class bluetoothModuleService {
       cost,
     });
   }
+
+  async getAllBluetoothModules() {
+    return await BluetoothModule.findAll();
+  }
 }
 
 module.exports = new bluetoothModuleService();
