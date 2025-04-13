@@ -1,4 +1,5 @@
 const { BluetoothModule } = require("../Entity");
+const BluetoothModuleOut = require("../models/out/bluetoothModuleOut");
 const ApiError = require("../exeptions/api-error");
 
 class bluetoothModuleService {
@@ -22,6 +23,17 @@ class bluetoothModuleService {
 
   async getAllBluetoothModules() {
     return await BluetoothModule.findAll();
+  }
+
+  async getBluetoothModuleById(BmId) {
+    console.log("heelloasd");
+    const bluetoothModule = await BluetoothModule.findByPk(BmId);
+
+    if (!bluetoothModule) {
+      throw ApiError.BadRequest("There are no bluetooth modules with such id");
+    }
+
+    return new BluetoothModuleOut(bluetoothModule);
   }
 }
 
