@@ -1,4 +1,4 @@
-module.exports = class CoolingSystemOut {
+module.exports = class CoolingSystemListOut {
   id;
   title;
   heat_removal;
