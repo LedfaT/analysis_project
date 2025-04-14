@@ -1,70 +1,75 @@
 const { CoolingSystem } = require("../Entity");
-const BluetoothModuleOut = require("../models/out/bluetoothModule/bluetoothModuleOut");
+const CoolingSystemListOut = require("../models/out/coolingSystem/coolingSystemListOut");
 const ApiError = require("../exeptions/api-error");
 
-class bluetoothModuleService {
-  async create(title, generation, cost) {
-    const bluetoothModule = await BluetoothModule.findOne({
+class CoolingSystemService {
+  async create(title, heat_removal, type_size, cost) {
+    const coolingSystem = await CoolingSystem.findOne({
       where: { title },
     });
 
-    if (bluetoothModule) {
+    if (coolingSystem) {
       throw ApiError.BadRequest(
-        `Bluetooth module with ${title} title already exists`
+        `Cooling system with ${title} title already exists`
       );
     }
 
-    await BluetoothModule.create({
+    await CoolingSystem.create({
       title,
-      generation,
+      heat_removal,
+      type_size,
       cost,
     });
   }
 
-  async getAllBluetoothModules() {
-    return await BluetoothModule.findAll();
+  async getAllCoolingSystems() {
+    return await CoolingSystem.findAll();
   }
 
-  async getBluetoothModuleById(BmId) {
-    const bluetoothModule = await BluetoothModule.findByPk(BmId);
+  async getCoolingSystemById(BmId) {
+    const coolingSystem = await CoolingSystem.findByPk(BmId);
 
-    if (!bluetoothModule) {
+    if (!coolingSystem) {
       throw ApiError.BadRequest("There are no bluetooth modules with such id");
     }
 
-    return new BluetoothModuleOut(bluetoothModule);
+    return new CoolingSystemListOut(coolingSystem);
   }
 
-  async update(BmId, Bm) {
-    const bluetoothModule = await BluetoothModule.findByPk(BmId);
-    if (!bluetoothModule) {
+  async update(coolingId, cooling) {
+    const coolingSystem = await CoolingSystem.findByPk(coolingId);
+    if (!coolingSystem) {
       throw ApiError.BadRequest("Bluetooth module not found");
     }
 
-    const bluetoothModuleTitleCheck = await BluetoothModule.findOne({
-      where: { title: Bm.title },
+    const coolingSystemTitleCheck = await CoolingSystem.findOne({
+      where: { title: cooling.title },
     });
 
-    if (bluetoothModuleTitleCheck) {
+    if (
+      coolingSystemTitleCheck &&
+      coolingSystemTitleCheck.id !== coolingSystem.id
+    ) {
       throw ApiError.BadRequest(
-        `Bluetooth module with title "${Bm.title}" already exists`
+        `Bluetooth module with title "${cooling.title}" already exists`
       );
     }
 
-    bluetoothModule.title = Bm.title;
-    bluetoothModule.generation = Bm.generation;
-    bluetoothModule.cost = Bm.cost;
+    coolingSystem.title = cooling.title;
+    coolingSystem.heat_removal = cooling.heat_removal;
+    coolingSystem.type_size = cooling.type_size;
+    coolingSystem.cost = cooling.cost;
 
-    return bluetoothModule.save();
+    return coolingSystem.save();
   }
 
   async delete(id) {
-    const bluetoothModule = await BluetoothModule.findByPk(id);
-    if (!bluetoothModule) {
+    const coolingSystem = await CoolingSystem.findByPk(id);
+    if (!coolingSystem) {
       throw ApiError.BadRequest("Bluetooth module not found");
     }
-    return await bluetoothModule.destroy();
+    return await coolingSystem.destroy();
   }
 }
 
-module.exports = new bluetoothModuleService();
+module.exports = new CoolingSystemService();

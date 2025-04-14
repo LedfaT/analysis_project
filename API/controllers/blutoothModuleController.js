@@ -1,11 +1,11 @@
 const ApiError = require("../exeptions/api-error");
-const bluetoothModuleService = require("../services/bluetoothModuleService");
+const BluetoothModuleService = require("../services/bluetoothModuleService");
 
 class BlutoothModuleController {
   async createBlutoothModule(req, res, next) {
     try {
       const { title, generation, cost } = req.body;
-      await bluetoothModuleService.create(title, generation, cost);
+      await BluetoothModuleService.create(title, generation, cost);
       res.json({ message: "Bluetooth module created" });
     } catch (e) {
       next(e);
@@ -15,7 +15,7 @@ class BlutoothModuleController {
     try {
       const { id } = req.params;
       const bluetoothModule =
-        await bluetoothModuleService.getBluetoothModuleById(id);
+        await BluetoothModuleService.getBluetoothModuleById(id);
       return res.json(bluetoothModule);
     } catch (e) {
       next(e);
@@ -25,7 +25,7 @@ class BlutoothModuleController {
     try {
       const { id } = req.params;
       const { title, generation, cost } = req.body;
-      await bluetoothModuleService.update(id, {
+      await BluetoothModuleService.update(id, {
         title,
         generation,
         cost,
@@ -38,7 +38,7 @@ class BlutoothModuleController {
   async deleteBlutoothModule(req, res, next) {
     try {
       const { id } = req.params;
-      await bluetoothModuleService.delete(id);
+      await BluetoothModuleService.delete(id);
       res.json({ message: "Bluetooth module deleted successfully" });
     } catch (e) {
       next(e);
@@ -47,7 +47,7 @@ class BlutoothModuleController {
   async getAllBlutoothModules(req, res, next) {
     try {
       const bluetoothModules =
-        await bluetoothModuleService.getAllBluetoothModules();
+        await BluetoothModuleService.getAllBluetoothModules();
       res.json(bluetoothModules);
     } catch (e) {
       next(e);

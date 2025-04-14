@@ -2,7 +2,7 @@ const { BluetoothModule } = require("../Entity");
 const BluetoothModuleOut = require("../models/out/bluetoothModule/bluetoothModuleOut");
 const ApiError = require("../exeptions/api-error");
 
-class bluetoothModuleService {
+class luetoothModuleService {
   async create(title, generation, cost) {
     const bluetoothModule = await BluetoothModule.findOne({
       where: { title },
@@ -45,7 +45,10 @@ class bluetoothModuleService {
       where: { title: Bm.title },
     });
 
-    if (bluetoothModuleTitleCheck) {
+    if (
+      bluetoothModuleTitleCheck &&
+      bluetoothModuleTitleCheck.id !== bluetoothModule.id
+    ) {
       throw ApiError.BadRequest(
         `Bluetooth module with title "${Bm.title}" already exists`
       );
@@ -67,4 +70,4 @@ class bluetoothModuleService {
   }
 }
 
-module.exports = new bluetoothModuleService();
+module.exports = new luetoothModuleService();
