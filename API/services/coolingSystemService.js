@@ -1,4 +1,4 @@
-const { BluetoothModule } = require("../Entity");
+const { CoolingSystem } = require("../Entity");
 const BluetoothModuleOut = require("../models/out/bluetoothModule/bluetoothModuleOut");
 const ApiError = require("../exeptions/api-error");
 
