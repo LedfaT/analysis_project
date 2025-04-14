@@ -26,7 +26,6 @@ class bluetoothModuleService {
   }
 
   async getBluetoothModuleById(BmId) {
-    console.log("heelloasd");
     const bluetoothModule = await BluetoothModule.findByPk(BmId);
 
     if (!bluetoothModule) {
@@ -34,6 +33,29 @@ class bluetoothModuleService {
     }
 
     return new BluetoothModuleOut(bluetoothModule);
+  }
+
+  async update(BmId, Bm) {
+    const bluetoothModule = await BluetoothModule.findByPk(BmId);
+    if (!bluetoothModule) {
+      throw ApiError.BadRequest("Bluetooth module not found");
+    }
+
+    const bluetoothModuleTitleCheck = await BluetoothModule.findOne({
+      where: { title: Bm.title },
+    });
+
+    if (bluetoothModuleTitleCheck) {
+      throw ApiError.BadRequest(
+        `Bluetooth module with title "${Bm.title}" already exists`
+      );
+    }
+
+    bluetoothModule.title = Bm.title;
+    bluetoothModule.generation = Bm.generation;
+    bluetoothModule.cost = Bm.cost;
+
+    return bluetoothModule.save();
   }
 }
 

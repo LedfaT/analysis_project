@@ -13,16 +13,24 @@ class BlutoothModuleController {
   }
   async getBlutoothModule(req, res, next) {
     try {
-      const BmId = req.params.id;
+      const { id } = req.params;
       const bluetoothModule =
-        await bluetoothModuleService.getBluetoothModuleById(BmId);
+        await bluetoothModuleService.getBluetoothModuleById(id);
       return res.json(bluetoothModule);
     } catch (e) {
       next(e);
     }
   }
-  updateBlutoothModule(req, res, next) {
+  async updateBlutoothModule(req, res, next) {
     try {
+      const { id } = req.params;
+      const { title, generation, cost } = req.body;
+      const updatedModule = await bluetoothModuleService.update(id, {
+        title,
+        generation,
+        cost,
+      });
+      res.send("Bluetooth module updated");
     } catch (e) {
       next(e);
     }
