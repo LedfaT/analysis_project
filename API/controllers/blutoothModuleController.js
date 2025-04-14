@@ -6,7 +6,7 @@ class BlutoothModuleController {
     try {
       const { title, generation, cost } = req.body;
       await bluetoothModuleService.create(title, generation, cost);
-      return res.send("bluetooth module created");
+      res.json({ message: "Bluetooth module created" });
     } catch (e) {
       next(e);
     }
@@ -25,18 +25,21 @@ class BlutoothModuleController {
     try {
       const { id } = req.params;
       const { title, generation, cost } = req.body;
-      const updatedModule = await bluetoothModuleService.update(id, {
+      await bluetoothModuleService.update(id, {
         title,
         generation,
         cost,
       });
-      res.send("Bluetooth module updated");
+      res.json({ message: "Bluetooth module updated" });
     } catch (e) {
       next(e);
     }
   }
-  deleteBlutoothModule(req, res, next) {
+  async deleteBlutoothModule(req, res, next) {
     try {
+      const { id } = req.params;
+      await bluetoothModuleService.delete(id);
+      res.json({ message: "Bluetooth module deleted successfully" });
     } catch (e) {
       next(e);
     }

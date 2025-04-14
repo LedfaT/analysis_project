@@ -57,6 +57,14 @@ class bluetoothModuleService {
 
     return bluetoothModule.save();
   }
+
+  async delete(id) {
+    const bluetoothModule = await BluetoothModule.findByPk(id);
+    if (!bluetoothModule) {
+      throw ApiError.BadRequest("Bluetooth module not found");
+    }
+    return await bluetoothModule.destroy();
+  }
 }
 
 module.exports = new bluetoothModuleService();
