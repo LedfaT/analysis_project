@@ -7,12 +7,19 @@ const router = new Router();
 router.post(
   "/",
   body("title").notEmpty(),
+  body("generation").notEmpty(),
   validationMiddleware,
   blutoothModuleController.createBlutoothModule
 );
 router.get("/list", blutoothModuleController.getAllBlutoothModules);
 router.get("/:id", blutoothModuleController.getBlutoothModule);
-router.patch("/:id", blutoothModuleController.updateBlutoothModule);
+router.patch(
+  "/:id",
+  body("title").notEmpty(),
+  body("generation").notEmpty(),
+  validationMiddleware,
+  blutoothModuleController.updateBlutoothModule
+);
 router.delete("/:id", blutoothModuleController.deleteBlutoothModule);
 
 module.exports = router;
