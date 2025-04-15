@@ -10,19 +10,18 @@ class BluetoothModuleService {
 
     if (bluetoothModule) {
       throw ApiError.BadRequest(
-        `Bluetooth module with ${title} title already exists`
+        `Bluetooth module with ${bluetooth.title} title already exists`
       );
     }
 
-    await BluetoothModule.create({
-      title: bluetooth.title,
-      generation: bluetooth.generation,
-      cost: bluetooth.cost,
-    });
+    await BluetoothModule.create({ ...bluetooth });
   }
 
   async getAllBluetoothModules() {
-    return await BluetoothModule.findAll();
+    const blutoothModules = await BluetoothModule.findAll();
+    return blutoothModules.map(
+      (bluetooth) => new BluetoothModuleOut(bluetooth)
+    );
   }
 
   async getBluetoothModuleById(BmId) {
@@ -44,7 +43,6 @@ class BluetoothModuleService {
     const bluetoothModuleTitleCheck = await BluetoothModule.findOne({
       where: { title: Bm.title },
     });
-
     if (
       bluetoothModuleTitleCheck &&
       bluetoothModuleTitleCheck.id !== bluetoothModule.id
@@ -54,10 +52,7 @@ class BluetoothModuleService {
       );
     }
 
-    bluetoothModule.title = Bm.title;
-    bluetoothModule.generation = Bm.generation;
-    bluetoothModule.cost = Bm.cost;
-
+    bluetoothModule.set({ ...Bm });
     return bluetoothModule.save();
   }
 
