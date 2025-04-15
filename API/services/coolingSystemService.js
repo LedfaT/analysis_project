@@ -1,5 +1,5 @@
 const { CoolingSystem } = require("../Entity");
-const CoolingSystemListOut = require("../models/out/coolingSystem/coolingSystemListOut");
+const CoolingSystemOut = require("../models/out/coolingSystem/coolingSystemOut");
 const ApiError = require("../exeptions/api-error");
 
 class CoolingSystemService {
@@ -20,7 +20,8 @@ class CoolingSystemService {
   }
 
   async getAllCoolingSystems() {
-    return await CoolingSystem.findAll();
+    const coolingSystems = await CoolingSystem.findAll();
+    return coolingSystems.map((cooling) => new CoolingSystemOut(cooling));
   }
 
   async getCoolingSystemById(coolingId) {
@@ -30,7 +31,7 @@ class CoolingSystemService {
       throw ApiError.BadRequest("There are no cooling modules with such id");
     }
 
-    return new CoolingSystemListOut(coolingSystem);
+    return new CoolingSystemOut(coolingSystem);
   }
 
   async update(coolingId, cooling) {

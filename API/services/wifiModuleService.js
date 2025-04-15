@@ -3,26 +3,23 @@ const WifiModuleOut = require("../models/out/wifiModule/wifiModuleOut");
 const ApiError = require("../exeptions/api-error");
 
 class wifiModuleService {
-  async create(title, generation, cost) {
+  async create(wifi) {
     const wifiModule = await WifiModule.findOne({
-      where: { title },
+      where: { title: wifi.title },
     });
 
     if (wifiModule) {
       throw ApiError.BadRequest(
-        `Wifi module with ${title} title already exists`
+        `Wifi module with ${wifi.title} title already exists`
       );
     }
 
-    await WifiModule.create({
-      title,
-      generation,
-      cost,
-    });
+    await WifiModule.create({ ...wifi });
   }
 
   async getAllWifiModules() {
-    return await WifiModule.findAll();
+    const wifiModules = await WifiModule.findAll();
+    return wifiModules.map((wifi) => new WifiModule(wifi));
   }
 
   async getWifiModuleById(wifiId) {
@@ -44,16 +41,12 @@ class wifiModuleService {
     const wifiModuleTitleCheck = await wifiModule.findOne({
       where: { title: wifi.title },
     });
-
     if (wifiModuleTitleCheck && wifiModuleTitleCheck.id !== wifiModule.id) {
       throw ApiError.BadRequest(
         `Wifi module with title "${wifi.title}" already exists`
       );
     }
-    wifiModule.title = wifi.title;
-    wifiModule.generation = wifi.generation;
-    wifiModule.cost = wifi.cost;
-
+    wifiModule.set({ ...wifi });
     return wifiModule.save();
   }
 
