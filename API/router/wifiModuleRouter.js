@@ -1,5 +1,5 @@
 const Router = require("express").Router;
-const wifiController = require("../controllers/wifiModule");
+const wifiController = require("../controllers/wifiModuleController");
 const router = new Router();
 
 router.post("/", wifiController.createWifiModule);
