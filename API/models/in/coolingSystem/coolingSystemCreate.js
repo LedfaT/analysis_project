@@ -4,7 +4,6 @@ module.exports = class CoolingSystemCreate {
   cost;
   type_size;
   constructor(CoolingSystem) {
-    this.id = CoolingSystem.id;
     this.cost = CoolingSystem.cost;
     this.heat_removal = CoolingSystem.heat_removal;
     this.title = CoolingSystem.title;
