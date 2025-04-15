@@ -3,22 +3,19 @@ const CoolingSystemListOut = require("../models/out/coolingSystem/coolingSystemL
 const ApiError = require("../exeptions/api-error");
 
 class CoolingSystemService {
-  async create(title, heat_removal, type_size, cost) {
+  async create(cooling) {
     const coolingSystem = await CoolingSystem.findOne({
-      where: { title },
+      where: { title: cooling.title },
     });
 
     if (coolingSystem) {
       throw ApiError.BadRequest(
-        `Cooling system with ${title} title already exists`
+        `Cooling system with ${cooling.title} title already exists`
       );
     }
 
     await CoolingSystem.create({
-      title,
-      heat_removal,
-      type_size,
-      cost,
+      ...cooling,
     });
   }
 
@@ -26,8 +23,8 @@ class CoolingSystemService {
     return await CoolingSystem.findAll();
   }
 
-  async getCoolingSystemById(BmId) {
-    const coolingSystem = await CoolingSystem.findByPk(BmId);
+  async getCoolingSystemById(coolingId) {
+    const coolingSystem = await CoolingSystem.findByPk(coolingId);
 
     if (!coolingSystem) {
       throw ApiError.BadRequest("There are no cooling modules with such id");
@@ -55,11 +52,7 @@ class CoolingSystemService {
       );
     }
 
-    coolingSystem.title = cooling.title;
-    coolingSystem.heat_removal = cooling.heat_removal;
-    coolingSystem.type_size = cooling.type_size;
-    coolingSystem.cost = cooling.cost;
-
+    coolingSystem.set({ ...cooling });
     return coolingSystem.save();
   }
 

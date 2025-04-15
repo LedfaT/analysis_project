@@ -1,11 +1,13 @@
 const ApiError = require("../exeptions/api-error");
 const CoolingSystemService = require("../services/coolingSystemService");
+const CoolingSystemCreate = require("../models/in/coolingSystem/coolingSystemCreate");
+const CoolingSystemUpdate = require("../models/in/coolingSystem/coolingSystemUpdate");
 
 class CoolingSystemController {
   async createCollingSystem(req, res, next) {
     try {
-      const { title, heat_removal, type_size, cost } = req.body;
-      await CoolingSystemService.create(title, heat_removal, type_size, cost);
+      const newCooling = new CoolingSystemCreate(req.body);
+      await CoolingSystemService.create(newCooling);
       res.json({ message: "Colling system created" });
     } catch (e) {
       next(e);
@@ -23,13 +25,8 @@ class CoolingSystemController {
   async updateCollingSystem(req, res, next) {
     try {
       const { id } = req.params;
-      const { title, heat_removal, type_size, cost } = req.body;
-      await CoolingSystemService.update(id, {
-        title,
-        heat_removal,
-        type_size,
-        cost,
-      });
+      const updatedCoolingSystem = new CoolingSystemUpdate(req.body);
+      await CoolingSystemService.update(id, updatedCoolingSystem);
       res.json({ message: "Bluetooth module updated" });
     } catch (e) {
       next(e);
