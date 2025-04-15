@@ -30,7 +30,7 @@ class CoolingSystemService {
     const coolingSystem = await CoolingSystem.findByPk(BmId);
 
     if (!coolingSystem) {
-      throw ApiError.BadRequest("There are no bluetooth modules with such id");
+      throw ApiError.BadRequest("There are no cooling modules with such id");
     }
 
     return new CoolingSystemListOut(coolingSystem);
@@ -39,7 +39,7 @@ class CoolingSystemService {
   async update(coolingId, cooling) {
     const coolingSystem = await CoolingSystem.findByPk(coolingId);
     if (!coolingSystem) {
-      throw ApiError.BadRequest("Bluetooth module not found");
+      throw ApiError.BadRequest("Cooling module not found");
     }
 
     const coolingSystemTitleCheck = await CoolingSystem.findOne({
@@ -51,7 +51,7 @@ class CoolingSystemService {
       coolingSystemTitleCheck.id !== coolingSystem.id
     ) {
       throw ApiError.BadRequest(
-        `Bluetooth module with title "${cooling.title}" already exists`
+        `Cooling module with title "${cooling.title}" already exists`
       );
     }
 
@@ -66,7 +66,7 @@ class CoolingSystemService {
   async delete(id) {
     const coolingSystem = await CoolingSystem.findByPk(id);
     if (!coolingSystem) {
-      throw ApiError.BadRequest("Bluetooth module not found");
+      throw ApiError.BadRequest("Cooling module not found");
     }
     return await coolingSystem.destroy();
   }

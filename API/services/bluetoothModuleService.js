@@ -2,7 +2,7 @@ const { BluetoothModule } = require("../Entity");
 const BluetoothModuleOut = require("../models/out/bluetoothModule/bluetoothModuleOut");
 const ApiError = require("../exeptions/api-error");
 
-class luetoothModuleService {
+class BluetoothModuleService {
   async create(title, generation, cost) {
     const bluetoothModule = await BluetoothModule.findOne({
       where: { title },
@@ -70,4 +70,4 @@ class luetoothModuleService {
   }
 }
 
-module.exports = new luetoothModuleService();
+module.exports = new BluetoothModuleService();
