@@ -1,4 +1,4 @@
-module.exports = class wifiModuleListOut {
+module.exports = class WifiModuleListOut {
   id;
   title;
   generation;
