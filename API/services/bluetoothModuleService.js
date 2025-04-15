@@ -3,9 +3,9 @@ const BluetoothModuleOut = require("../models/out/bluetoothModule/bluetoothModul
 const ApiError = require("../exeptions/api-error");
 
 class BluetoothModuleService {
-  async create(title, generation, cost) {
+  async create(bluetooth) {
     const bluetoothModule = await BluetoothModule.findOne({
-      where: { title },
+      where: { title: bluetooth.title },
     });
 
     if (bluetoothModule) {
@@ -15,9 +15,9 @@ class BluetoothModuleService {
     }
 
     await BluetoothModule.create({
-      title,
-      generation,
-      cost,
+      title: bluetooth.title,
+      generation: bluetooth.generation,
+      cost: bluetooth.cost,
     });
   }
 

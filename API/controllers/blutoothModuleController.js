@@ -1,11 +1,13 @@
 const ApiError = require("../exeptions/api-error");
 const BluetoothModuleService = require("../services/bluetoothModuleService");
+const BluetoothModuleCreate = require("../models/in/bluetoothModule/bluetoothModuleCreate");
+const BluetoothModuleUpdate = require("../models/in/bluetoothModule/bluetoothModuleUpdate");
 
 class BlutoothModuleController {
   async createBlutoothModule(req, res, next) {
     try {
-      const { title, generation, cost } = req.body;
-      await BluetoothModuleService.create(title, generation, cost);
+      const newBluetoothModule = new BluetoothModuleCreate(req.body);
+      await BluetoothModuleService.create(newBluetoothModule);
       res.json({ message: "Bluetooth module created" });
     } catch (e) {
       next(e);
@@ -24,12 +26,8 @@ class BlutoothModuleController {
   async updateBlutoothModule(req, res, next) {
     try {
       const { id } = req.params;
-      const { title, generation, cost } = req.body;
-      await BluetoothModuleService.update(id, {
-        title,
-        generation,
-        cost,
-      });
+      const updatedBluetoothModule = new BluetoothModuleUpdate(req.body);
+      await BluetoothModuleService.update(id, updatedBluetoothModule);
       res.json({ message: "Bluetooth module updated" });
     } catch (e) {
       next(e);
