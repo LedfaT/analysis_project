@@ -1,6 +1,10 @@
 const { CoolingSystem } = require("../Entity");
 const CoolingSystemOut = require("../models/out/coolingSystem/coolingSystemOut");
 const ApiError = require("../exeptions/api-error");
+const components = require("../types/componentTypes");
+
+const TYPE_SIZE = components.coolingSystemTypeSize;
+const reversedTypeSize = components.invertMap(TYPE_SIZE);
 
 class CoolingSystemService {
   async create(cooling) {
@@ -14,6 +18,8 @@ class CoolingSystemService {
       );
     }
 
+    cooling.type_size = TYPE_SIZE.get(cooling.type_size);
+
     await CoolingSystem.create({
       ...cooling,
     });
@@ -21,7 +27,10 @@ class CoolingSystemService {
 
   async getAllCoolingSystems() {
     const coolingSystems = await CoolingSystem.findAll();
-    return coolingSystems.map((cooling) => new CoolingSystemOut(cooling));
+    return coolingSystems.map((cooling) => {
+      cooling.type_size = reversedTypeSize.get(cooling.type_size);
+      return new CoolingSystemOut(cooling);
+    });
   }
 
   async getCoolingSystemById(coolingId) {
@@ -30,6 +39,8 @@ class CoolingSystemService {
     if (!coolingSystem) {
       throw ApiError.BadRequest("There are no cooling modules with such id");
     }
+
+    coolingSystem.type_size = reversedTypeSize.get(coolingSystem.type_size);
 
     return new CoolingSystemOut(coolingSystem);
   }
@@ -52,7 +63,8 @@ class CoolingSystemService {
         `Cooling module with title "${cooling.title}" already exists`
       );
     }
-
+    console.log(coo);
+    cooling.type_size = TYPE_SIZE.get(cooling.type_size);
     coolingSystem.set({ ...cooling });
     return coolingSystem.save();
   }

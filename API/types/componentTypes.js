@@ -61,21 +61,8 @@ class ComponentType {
     ]);
   }
 
-  invertAll() {
-    const invertMap = (map) =>
-      new Map([...map.entries()].map(([key, value]) => [value, key]));
-
-    return {
-      GPUvram: invertMap(this.GPUvram),
-      motherboardTypeSize: invertMap(this.motherboardTypeSize),
-      RAMmemType: invertMap(this.RAMmemType),
-      RAMradiatorType: invertMap(this.RAMradiatorType),
-      SSDRadiatorType: invertMap(this.SSDRadiatorType),
-      waterCoolingtypeSize: invertMap(this.waterCoolingtypeSize),
-      fanCoolingTypeSize: invertMap(this.fanCoolingTypeSize),
-      towerTypeSize: invertMap(this.towerTypeSize),
-      towerFanType: invertMap(this.towerFanType),
-    };
+  invertMap(map) {
+    return new Map([...map.entries()].map(([key, value]) => [value, key]));
   }
 }
 

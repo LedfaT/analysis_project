@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         allowNull: false,
       },
       type_size: {
-        type: Sequelize.STRING,
+        type: Sequelize.SMALLINT,
         allowNull: false,
       },
       heat_removal: {
