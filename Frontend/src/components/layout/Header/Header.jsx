@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from "framer-motion";
 import { headerStyles } from './Header.styles';
 import "./Header.scss";
 import HomeIcon from '@mui/icons-material/Home';
@@ -10,9 +11,8 @@ import CompareIcon from '@mui/icons-material/Compare';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Header = () => {
-  function activeHandler(){
-
-  }
+  
+  
 
   return (
     <header className={`${headerStyles.header}`}>

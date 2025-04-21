@@ -3,13 +3,14 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import { BrowserRouter } from 'react-router-dom';
 import "./test.scss";
-import Header from "./components/Header/Header.jsx";
+import Home from "./pages/Home/Home.jsx";
+
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <BrowserRouter>
-      <Header />
+      <Home />
     </BrowserRouter>
   );
 }
