@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from "framer-motion";
 import { headerStyles } from './Header.styles';
-import "./Header.scss";
 import HomeIcon from '@mui/icons-material/Home';
 import MemoryIcon from '@mui/icons-material/Memory';
 import ComputerIcon from '@mui/icons-material/Computer';
@@ -15,10 +14,10 @@ const Header = () => {
   
 
   return (
-    <header className={`${headerStyles.header}`}>
+    <header className={headerStyles.header}>
       <div className={headerStyles.container}>
         <div className={headerStyles.logoContainer}>
-            <Link to="/" className={`${headerStyles.btnMainPage}`}>
+            <Link to="/" className={headerStyles.btnMainPage}>
               <MemoryIcon sx={{fontSize: 30}} />
               <span className={headerStyles.logoText}>PCBuilder</span>
             </Link>

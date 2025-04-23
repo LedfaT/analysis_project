@@ -1,5 +1,5 @@
 export const headerStyles = {
-  header: "bg-white sticky top-0 z-50 py-4",
+  header: "bg-white/70 sticky top-0 z-50 py-4 backdrop-blur-xl",
   container: "mx-auto px-4 flex justify-between items-center",
   logoContainer: "flex items-center mb-2",
   logoText: "text-xl font-bold text-gray-800 ml-1",
