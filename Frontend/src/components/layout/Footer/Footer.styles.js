@@ -1,5 +1,5 @@
 export const footerStyles = {
-    footer: "bg-footerBg text-footerText py-10 px-6 md:px-20 bg-gray-100",
+    footer: "bg-footerBg text-footerText py-10 px-6 md:px-20 bg-gray-100 mt-10",
     container: "max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8",
     logoContainer: "text-lg font-semibold mb-2 flex items-center gap-2",
     description: "text-sm text-gray-500",
