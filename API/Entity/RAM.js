@@ -16,11 +16,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         allowNull: true,
       },
       memory_type: {
-        type: Sequelize.STRING,
+        type: Sequelize.SMALLINT,
         allowNull: false,
       },
       radiator_type: {
-        type: Sequelize.STRING,
+        type: Sequelize.SMALLINT,
         allowNull: true,
       },
     },
