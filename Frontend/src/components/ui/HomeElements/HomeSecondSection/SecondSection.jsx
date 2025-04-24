@@ -21,30 +21,35 @@ const features = [
     text: "Explore curated PC builds for different budgets and use cases.",
     icon: <ViewInArIcon sx={{ fontSize: 28 }} />,
     bg: "bg-violet-50",
+    link: <Link to={"/builds"}>Explore<ArrowRightAltIcon sx={{ fontSize: 20 }} /></Link>
   },
   {
     title: "Custom Configurator",
     text: "Build your perfect PC from scratch with our easy-to-use configurator.",
     icon: <SettingsIcon sx={{ fontSize: 28 }} />,
     bg: "bg-emerald-50",
+    link: <Link to={"/configurator"}>Explore<ArrowRightAltIcon sx={{ fontSize: 20 }} /></Link>
   },
   {
     title: "Save Your Builds",
     text: "Store and manage your custom PC configurations in your profile.",
     icon: <SaveIcon sx={{ fontSize: 28 }} />,
     bg: "bg-amber-50",
+    link: <Link to={"/profile"}>Explore<ArrowRightAltIcon sx={{ fontSize: 20 }} /></Link>
   },
   {
     title: "Compare Builds",
     text: "Compare multiple builds side by side to find the perfect match.",
     icon: <BarChartIcon sx={{ fontSize: 28 }} />,
     bg: "bg-rose-50",
+    link: <Link to={"/compare"}>Explore<ArrowRightAltIcon sx={{ fontSize: 20 }} /></Link>
   },
   {
     title: "Find Components",
     text: "Search for specific components and view detailed information.",
     icon: <SearchIcon sx={{ fontSize: 28 }} />,
     bg: "bg-cyan-50",
+    link: <Link to={"/components"}>Explore<ArrowRightAltIcon sx={{ fontSize: 20 }} /></Link>
   },
 ];
 
