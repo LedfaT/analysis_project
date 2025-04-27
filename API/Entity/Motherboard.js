@@ -8,19 +8,19 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       chipset: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       type_size: {
-        type: Sequelize.STRING,
+        type: DataTypes.SMALLINT,
         allowNull: false,
       },
       socket: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cost: {
