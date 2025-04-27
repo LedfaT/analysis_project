@@ -8,11 +8,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       generatoin: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cost: {

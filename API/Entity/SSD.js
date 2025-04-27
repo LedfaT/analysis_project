@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         allowNull: false,
       },
       radiator_type: {
-        type: DataTypes.STRING,
+        type: DataTypes.SMALLINT,
         allowNull: true,
       },
       reading_speed: {
