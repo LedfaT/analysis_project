@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const router = require("./router/router");
 const bluetoothModuleRouter = require("./router/bluetoothModuleRouter");
 const coolingSystemRouter = require("./router/coolingSystemRouter");
-
+const wifiModuleRouter = require("./router/wifiModuleRouter");
 const errorMiddleware = require("./middlewares/error-middleware");
 
 const app = express();
@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", router);
 app.use("/api/bluetooth-module", bluetoothModuleRouter);
 app.use("/api/cooling-system", coolingSystemRouter);
+app.use("/api/wifi-module", wifiModuleRouter);
 
 app.use(errorMiddleware);
 

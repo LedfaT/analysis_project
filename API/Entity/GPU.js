@@ -32,7 +32,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         allowNull: false,
       },
       vram_type: {
-        type: Sequelize.STRING,
+        type: Sequelize.SMALLINT,
         allowNull: false,
       },
     },
