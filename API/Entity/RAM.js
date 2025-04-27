@@ -23,6 +23,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.SMALLINT,
         allowNull: true,
       },
+      cost: {
+        type: DataTypes.FLOAT,
+      },
     },
     {
       tableName: "ram",

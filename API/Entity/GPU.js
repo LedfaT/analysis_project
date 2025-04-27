@@ -35,6 +35,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.SMALLINT,
         allowNull: false,
       },
+      cost: {
+        type: DataTypes.FLOAT,
+      },
     },
     {
       tableName: "gpu",

@@ -19,6 +19,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      cost: {
+        type: DataTypes.FLOAT,
+      },
     },
     {
       tableName: "water_cooling_system",
