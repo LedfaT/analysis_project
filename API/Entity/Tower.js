@@ -8,19 +8,19 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       fan_included: {
-        type: Sequelize.BOOLEAN,
+        type: DataTypes.BOOLEAN,
         default: true,
       },
       type_size: {
-        type: Sequelize.STRING,
+        type: DataTypes.SMALLINT,
         allowNull: false,
       },
       fan_type: {
-        type: Sequelize.STRING,
+        type: DataTypes.SMALLINT,
         allowNull: true,
       },
       cost: {
