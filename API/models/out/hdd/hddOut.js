@@ -14,7 +14,7 @@ module.exports = class HddOut {
     this.title = hdd.title;
     this.reading_speed = hdd.reading_speed;
     this.write_speed = hdd.write_speed;
-    this.createdAt = gpu.createdAt;
-    this.updatedAt = gpu.updatedAt;
+    this.createdAt = hdd.createdAt;
+    this.updatedAt = hdd.updatedAt;
   }
 };
