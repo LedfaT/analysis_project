@@ -3,6 +3,10 @@ module.exports = class GpuCreate {
   cores;
   cost;
   threads;
+  vram_quantity;
+  cache;
+  clock;
+  vram_type;
   constructor(gpu) {
     this.cost = gpu.cost;
     this.cores = gpu.cores;

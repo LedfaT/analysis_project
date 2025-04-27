@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cores: {
@@ -16,20 +16,23 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         allowNull: false,
       },
       threads: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       Architecture: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cache: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       clock: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
+      },
+      cost: {
+        type: DataTypes.INTEGER,
       },
     },
     {

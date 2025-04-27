@@ -1,4 +1,4 @@
-module.exports = class GpuUpdate {
+module.exports = class GpuListOut {
   id;
   title;
   cores;
