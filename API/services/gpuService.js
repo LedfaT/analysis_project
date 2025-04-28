@@ -1,71 +1,88 @@
 const { GPU } = require("../Entity");
-const BluetoothModuleOut = require("../models/out/bluetoothModule/bluetoothModuleOut");
+const gpuOut = require("../models/out/gpu/gpuOut");
 const ApiError = require("../exeptions/api-error");
 const components = require("../types/componentTypes");
 
 const GPU_VRAM_TYPE = components.GPUvram;
-const reveseGpuvram = components.invertMap(GPU_VRAM_TYPE);
+const reverseGpuvram = components.invertMap(GPU_VRAM_TYPE);
 
 class GpuService {
-  async create(bluetooth) {
-    const bluetoothModule = await BluetoothModule.findOne({
-      where: { title: bluetooth.title },
+  async create(gpuData) {
+    const existingGpu = await GPU.findOne({
+      where: { title: gpuData.title },
     });
 
-    if (bluetoothModule) {
+    if (existingGpu) {
       throw ApiError.BadRequest(
-        `Bluetooth module with ${bluetooth.title} title already exists`
+        `GPU with title "${gpuData.title}" already exists`
       );
     }
 
-    await BluetoothModule.create({ ...bluetooth });
-  }
-
-  async getAllBluetoothModules() {
-    const blutoothModules = await BluetoothModule.findAll();
-    return blutoothModules.map(
-      (bluetooth) => new BluetoothModuleOut(bluetooth)
-    );
-  }
-
-  async getBluetoothModuleById(BmId) {
-    const bluetoothModule = await BluetoothModule.findByPk(BmId);
-
-    if (!bluetoothModule) {
-      throw ApiError.BadRequest("There are no bluetooth modules with such id");
+    const vram_type = GPU_VRAM_TYPE[gpuData.vram_type];
+    if (!vram_type) {
+      throw ApiError.BadRequest(`Unknown VRAM type: ${gpuData.vram_type}`);
     }
 
-    return new BluetoothModuleOut(bluetoothModule);
-  }
-
-  async update(BmId, Bm) {
-    const bluetoothModule = await BluetoothModule.findByPk(BmId);
-    if (!bluetoothModule) {
-      throw ApiError.BadRequest("Bluetooth module not found");
-    }
-
-    const bluetoothModuleTitleCheck = await BluetoothModule.findOne({
-      where: { title: Bm.title },
+    await GPU.create({
+      ...gpuData,
+      vram_type,
     });
-    if (
-      bluetoothModuleTitleCheck &&
-      bluetoothModuleTitleCheck.id !== bluetoothModule.id
-    ) {
+  }
+
+  async getAllGpus() {
+    const gpus = await GPU.findAll();
+    return gpus.map((gpu) => {
+      const gpuObj = gpu.toJSON();
+      gpuObj.vram_type = reverseGpuvram[gpuObj.vram_type];
+      return new gpuOut(gpuObj);
+    });
+  }
+
+  async getGpuById(gpuId) {
+    const gpu = await GPU.findByPk(gpuId);
+
+    if (!gpu) {
+      throw ApiError.BadRequest("GPU with such ID not found");
+    }
+
+    const gpuObj = gpu.toJSON();
+    gpuObj.vram_type = reverseGpuvram[gpuObj.vram_type];
+    return new gpuOut(gpuObj);
+  }
+
+  async update(gpuId, gpuData) {
+    const gpu = await GPU.findByPk(gpuId);
+    if (!gpu) {
+      throw ApiError.BadRequest("GPU not found");
+    }
+
+    const gpuTitleCheck = await GPU.findOne({
+      where: { title: gpuData.title },
+    });
+    if (gpuTitleCheck && gpuTitleCheck.id !== gpu.id) {
       throw ApiError.BadRequest(
-        `Bluetooth module with title "${Bm.title}" already exists`
+        `GPU with title "${gpuData.title}" already exists`
       );
     }
 
-    bluetoothModule.set({ ...Bm });
-    return bluetoothModule.save();
+    const vram_type = GPU_VRAM_TYPE[gpuData.vram_type];
+    if (!vram_type) {
+      throw ApiError.BadRequest(`Unknown VRAM type: ${gpuData.vram_type}`);
+    }
+
+    gpu.set({
+      ...gpuData,
+      vram_type,
+    });
+    return await gpu.save();
   }
 
-  async delete(id) {
-    const bluetoothModule = await BluetoothModule.findByPk(id);
-    if (!bluetoothModule) {
-      throw ApiError.BadRequest("Bluetooth module not found");
+  async delete(gpuId) {
+    const gpu = await GPU.findByPk(gpuId);
+    if (!gpu) {
+      throw ApiError.BadRequest("GPU not found");
     }
-    return await bluetoothModule.destroy();
+    return await gpu.destroy();
   }
 }
 
