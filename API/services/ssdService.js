@@ -3,7 +3,7 @@ const ssdOut = require("../models/out/ssd/ssdOut");
 const ApiError = require("../exeptions/api-error");
 const components = require("../types/componentTypes");
 
-const SSD_RADIATOR_TYPE = components.SSDRadiator;
+const SSD_RADIATOR_TYPE = components.SSDRadiatorType;
 const reverseSsdRadiator = components.invertMap(SSD_RADIATOR_TYPE);
 
 class SsdService {
@@ -35,9 +35,7 @@ class SsdService {
     const ssds = await SSD.findAll();
     return ssds.map((ssd) => {
       const ssdObj = ssd.toJSON();
-      if (ssdObj.radiator_type) {
-        ssdObj.radiator_type = reverseSsdRadiator[ssdObj.radiator_type];
-      }
+      ssdObj.radiator_type = reverseSsdRadiator[ssdObj.radiator_type];
       return new ssdOut(ssdObj);
     });
   }
@@ -50,9 +48,7 @@ class SsdService {
     }
 
     const ssdObj = ssd.toJSON();
-    if (ssdObj.radiator_type) {
-      ssdObj.radiator_type = reverseSsdRadiator[ssdObj.radiator_type];
-    }
+    ssdObj.radiator_type = reverseSsdRadiator[ssdObj.radiator_type];
     return new ssdOut(ssdObj);
   }
 
