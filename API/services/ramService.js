@@ -1,6 +1,12 @@
 const { RAM } = require("../Entity");
 const ramOut = require("../models/out/ram/ramOut");
 const ApiError = require("../exeptions/api-error");
+const components = require("../types/componentTypes");
+
+const RAM_MEMORY_TYPE = components.RAMmemType;
+const RAM_RADIATOR_TYPE = components.RAMradiatorType;
+const reverseRamMemoryType = components.invertMap(RAM_MEMORY_TYPE);
+const reverseRamRadiatorType = components.invertMap(RAM_RADIATOR_TYPE);
 
 class RamService {
   async create(ramData) {
@@ -12,19 +18,16 @@ class RamService {
       throw ApiError.BadRequest(`RAM "${ramData.title}" already exists`);
     }
 
-    const memory_type = ramMemoryType.get(ramData.memory_type);
+    const memory_type = RAM_MEMORY_TYPE.get(ramData.memory_type);
     if (!memory_type) {
       throw ApiError.BadRequest(`Unknown memory type: ${ramData.memory_type}`);
     }
 
-    let radiator_type = null;
-    if (ramData.radiator_type !== undefined && ramData.radiator_type !== null) {
-      radiator_type = ramRadiatorType.get(ramData.radiator_type);
-      if (!radiator_type) {
-        throw ApiError.BadRequest(
-          `Unknown radiator type: ${ramData.radiator_type}`
-        );
-      }
+    const radiator_type = RAM_RADIATOR_TYPE.get(ramData.radiator_type);
+    if (!radiator_type) {
+      throw ApiError.BadRequest(
+        `Unknown radiator type: ${ramData.radiator_type}`
+      );
     }
 
     await RAM.create({
@@ -39,10 +42,8 @@ class RamService {
     return rams.map((ram) => {
       const obj = ram.toJSON();
       obj.memory_type = reverseRamMemoryType.get(obj.memory_type);
-      obj.radiator_type =
-        obj.radiator_type !== null
-          ? reverseRamRadiatorType.get(obj.radiator_type)
-          : null;
+      obj.radiator_type = reverseRamRadiatorType.get(obj.radiator_type);
+
       return new ramOut(obj);
     });
   }
@@ -55,10 +56,8 @@ class RamService {
 
     const obj = ram.toJSON();
     obj.memory_type = reverseRamMemoryType.get(obj.memory_type);
-    obj.radiator_type =
-      obj.radiator_type !== null
-        ? reverseRamRadiatorType.get(obj.radiator_type)
-        : null;
+    obj.radiator_type = reverseRamRadiatorType.get(obj.radiator_type);
+
     return new ramOut(obj);
   }
 
@@ -77,19 +76,16 @@ class RamService {
       );
     }
 
-    const memory_type = ramMemoryType.get(ramData.memory_type);
+    const memory_type = RAM_MEMORY_TYPE.get(ramData.memory_type);
     if (!memory_type) {
       throw ApiError.BadRequest(`Unknown memory type: ${ramData.memory_type}`);
     }
 
-    let radiator_type = null;
-    if (ramData.radiator_type !== undefined && ramData.radiator_type !== null) {
-      radiator_type = ramRadiatorType.get(ramData.radiator_type);
-      if (!radiator_type) {
-        throw ApiError.BadRequest(
-          `Unknown radiator type: ${ramData.radiator_type}`
-        );
-      }
+    let radiator_type = RAM_RADIATOR_TYPE.get(ramData.radiator_type);
+    if (!radiator_type) {
+      throw ApiError.BadRequest(
+        `Unknown radiator type: ${ramData.radiator_type}`
+      );
     }
 
     ram.set({
