@@ -4,7 +4,7 @@ const RamUpdate = require("../models/in/ram/ramUpdate");
 const ApiError = require("../exeptions/api-error");
 
 class RamController {
-  async create(req, res, next) {
+  async createRam(req, res, next) {
     try {
       const newRam = new RamCreate(req.body);
       await RamService.create(newRam);
@@ -14,7 +14,7 @@ class RamController {
     }
   }
 
-  async getAll(req, res, next) {
+  async getAllRams(req, res, next) {
     try {
       const rams = await RamService.getAll();
       return res.json(rams);
@@ -23,7 +23,7 @@ class RamController {
     }
   }
 
-  async getById(req, res, next) {
+  async getRam(req, res, next) {
     try {
       const { id } = req.params;
       const ram = await RamService.getById(id);
@@ -33,7 +33,7 @@ class RamController {
     }
   }
 
-  async update(req, res, next) {
+  async updateRam(req, res, next) {
     try {
       const { id } = req.params;
       const updatedRam = new RamUpdate(req.body);
@@ -44,7 +44,7 @@ class RamController {
     }
   }
 
-  async delete(req, res, next) {
+  async deleteRam(req, res, next) {
     try {
       const { id } = req.params;
       await RamService.delete(id);
