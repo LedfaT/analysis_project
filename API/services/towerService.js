@@ -19,7 +19,6 @@ class TowerService {
         `Tower with title "${towerData.title}" already exists`
       );
     }
-
     const type_size = TOWER_TYPE_SIZE.get(towerData.type_size);
     if (!type_size) {
       throw ApiError.BadRequest(
@@ -27,8 +26,9 @@ class TowerService {
       );
     }
 
+    let fan_type = null;
     if (towerData.fan_included) {
-      const fan_type = TOWER_FAN_TYPE.get(towerData.fan_type);
+      fan_type = TOWER_FAN_TYPE.get(towerData.fan_type);
       if (!fan_type) {
         throw ApiError.BadRequest(
           `Unknown tower fan type: ${towerData.fan_type}`
@@ -94,8 +94,9 @@ class TowerService {
       );
     }
 
+    let fan_type = null;
     if (towerData.fan_included) {
-      const fan_type = TOWER_FAN_TYPE.get(towerData.fan_type);
+      fan_type = TOWER_FAN_TYPE.get(towerData.fan_type);
       if (!fan_type) {
         throw ApiError.BadRequest(
           `Unknown tower fan type: ${towerData.fan_type}`

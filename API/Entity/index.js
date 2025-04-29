@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const { DataTypes } = require("sequelize");
+const Tower = require("./Tower");
 
 const sequelize = new Sequelize(process.env.DB_URI, {
   logging: false,
@@ -22,7 +23,7 @@ const db = {
   CPU: require("./CPU")(sequelize, Sequelize, DataTypes),
   GNU: require("./GPU")(sequelize, Sequelize, DataTypes),
   HDD: require("./HDD")(sequelize, Sequelize, DataTypes),
-  Case: require("./Tower")(sequelize, Sequelize, DataTypes),
+  Tower: require("./Tower")(sequelize, Sequelize, DataTypes),
   BluetoothModule: require("./BluetoothModule")(
     sequelize,
     Sequelize,
