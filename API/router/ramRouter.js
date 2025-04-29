@@ -2,10 +2,10 @@ const Router = require("express").Router;
 const ramController = require("../controllers/ramController");
 const router = new Router();
 
-router.post("/", ramController.createRAM);
-router.get("/list", ramController.getAllRAMs);
-router.get("/:id", ramController.getRAM);
-router.patch("/:id", ramController.updateRAM);
-router.delete("/:id", ramController.deleteRAM);
+router.post("/", ramController.createRam);
+router.get("/list", ramController.getAllRams);
+router.get("/:id", ramController.getRam);
+router.patch("/:id", ramController.updateRam);
+router.delete("/:id", ramController.deleteRam);
 
 module.exports = router;
