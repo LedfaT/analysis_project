@@ -18,7 +18,7 @@ class SsdService {
       );
     }
 
-    const radiator_type = SSD_RADIATOR_TYPE[ssdData.radiator_type];
+    const radiator_type = SSD_RADIATOR_TYPE.get(ssdData.radiator_type);
     if (!radiator_type) {
       throw ApiError.BadRequest(
         `Unknown radiator type: ${ssdData.radiator_type}`
@@ -35,7 +35,7 @@ class SsdService {
     const ssds = await SSD.findAll();
     return ssds.map((ssd) => {
       const ssdObj = ssd.toJSON();
-      ssdObj.radiator_type = reverseSsdRadiator[ssdObj.radiator_type];
+      ssdObj.radiator_type = reverseSsdRadiator.get(ssdObj.radiator_type);
       return new ssdOut(ssdObj);
     });
   }
@@ -48,7 +48,7 @@ class SsdService {
     }
 
     const ssdObj = ssd.toJSON();
-    ssdObj.radiator_type = reverseSsdRadiator[ssdObj.radiator_type];
+    ssdObj.radiator_type = reverseSsdRadiator.get(ssdObj.radiator_type);
     return new ssdOut(ssdObj);
   }
 
@@ -67,7 +67,7 @@ class SsdService {
       );
     }
 
-    const radiator_type = SSD_RADIATOR_TYPE[ssdData.radiator_type];
+    const radiator_type = SSD_RADIATOR_TYPE.get(ssdData.radiator_type);
     if (!radiator_type) {
       throw ApiError.BadRequest(
         `Unknown radiator type: ${ssdData.radiator_type}`
