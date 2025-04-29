@@ -25,7 +25,8 @@ class RamController {
 
   async getById(req, res, next) {
     try {
-      const ram = await RamService.getById(req.params.id);
+      const ramId = req.params.id;
+      const ram = await RamService.getById(ramId);
       return res.json(ram);
     } catch (e) {
       next(e);
@@ -45,7 +46,8 @@ class RamController {
 
   async delete(req, res, next) {
     try {
-      await RamService.delete(req.params.id);
+      const ramId = req.params.id;
+      await RamService.delete(ramId);
       return res.json({ message: "RAM deleted successfully" });
     } catch (e) {
       next(e);
