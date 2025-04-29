@@ -25,9 +25,9 @@ class MotherboardController {
 
   async getById(req, res, next) {
     try {
-      const motherboardId = req.params.id;
+      const { id } = req.params;
 
-      const motherboard = await MotherboardService.getById(motherboardId);
+      const motherboard = await MotherboardService.getById(id);
       res.json(motherboard);
     } catch (error) {
       next(error);
@@ -36,9 +36,9 @@ class MotherboardController {
 
   async update(req, res, next) {
     try {
-      const motherboardId = req.params.id;
+      const { id } = req.params;
       const updateMotherboard = new MotherboardUpdate(req.body);
-      await MotherboardService.update(motherboardId, updateMotherboard);
+      await MotherboardService.update(id, updateMotherboard);
       res.json({ message: "Motherboard updated successfully" });
     } catch (error) {
       next(error);
@@ -47,8 +47,8 @@ class MotherboardController {
 
   async delete(req, res, next) {
     try {
-      const motherboardId = req.params.id;
-      await MotherboardService.delete(motherboardId);
+      const { id } = req.params;
+      await MotherboardService.delete(id);
       res.json({ message: "Motherboard deleted successfully" });
     } catch (error) {
       next(error);

@@ -25,8 +25,8 @@ class RamController {
 
   async getById(req, res, next) {
     try {
-      const ramId = req.params.id;
-      const ram = await RamService.getById(ramId);
+      const { id } = req.params;
+      const ram = await RamService.getById(id);
       return res.json(ram);
     } catch (e) {
       next(e);
@@ -35,9 +35,9 @@ class RamController {
 
   async update(req, res, next) {
     try {
-      const ramId = req.params.id;
+      const { id } = req.params;
       const updatedRam = new RamUpdate(req.body);
-      await RamService.update(ramId, updatedRam);
+      await RamService.update(id, updatedRam);
       return res.json({ message: "RAM updated successfully" });
     } catch (e) {
       next(e);
@@ -46,8 +46,8 @@ class RamController {
 
   async delete(req, res, next) {
     try {
-      const ramId = req.params.id;
-      await RamService.delete(ramId);
+      const { id } = req.params;
+      await RamService.delete(id);
       return res.json({ message: "RAM deleted successfully" });
     } catch (e) {
       next(e);
