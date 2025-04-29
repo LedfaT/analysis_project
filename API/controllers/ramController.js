@@ -1,58 +1,56 @@
+const RamService = require("../services/ramService");
+const RamCreate = require("../models/in/ram/ramCreate");
+const RamUpdate = require("../models/in/ram/ramUpdate");
 const ApiError = require("../exeptions/api-error");
-const CpuService = require("../services/cpuService");
-const CpuCreate = require("../models/in/cpu/cpuCreate");
-const CpuUpdate = require("../models/in/cpu/cpuUpdate");
 
-class CpuController {
-  async createCpu(req, res, next) {
+class RamController {
+  async create(req, res, next) {
     try {
-      const newCpu = new CpuCreate(req.body);
-      await CpuService.create(newCpu);
-      res.json({ message: "CPU created successfully" });
+      const newRam = new RamCreate(req.body);
+      await RamService.create(newRam);
+      return res.status(201).json({ message: "RAM created successfully" });
     } catch (e) {
       next(e);
     }
   }
 
-  async getCpu(req, res, next) {
+  async getAll(req, res, next) {
     try {
-      const { id } = req.params;
-      const cpu = await CpuService.getCpuById(id);
-      return res.json(cpu);
+      const rams = await RamService.getAll();
+      return res.json(rams);
     } catch (e) {
       next(e);
     }
   }
 
-  async updateCpu(req, res, next) {
+  async getById(req, res, next) {
     try {
-      const { id } = req.params;
-      const updatedCpu = new CpuUpdate(req.body);
-      await CpuService.update(id, updatedCpu);
-      res.json({ message: "CPU updated successfully" });
+      const ram = await RamService.getById(req.params.id);
+      return res.json(ram);
     } catch (e) {
       next(e);
     }
   }
 
-  async deleteCpu(req, res, next) {
+  async update(req, res, next) {
     try {
-      const { id } = req.params;
-      await CpuService.delete(id);
-      res.json({ message: "CPU deleted successfully" });
+      const ramId = req.params.id;
+      const updatedRam = new RamUpdate(req.body);
+      await RamService.update(ramId, updatedRam);
+      return res.json({ message: "RAM updated successfully" });
     } catch (e) {
       next(e);
     }
   }
 
-  async getAllCpus(req, res, next) {
+  async delete(req, res, next) {
     try {
-      const cpus = await CpuService.getAllCpus();
-      res.json(cpus);
+      await RamService.delete(req.params.id);
+      return res.json({ message: "RAM deleted successfully" });
     } catch (e) {
       next(e);
     }
   }
 }
 
-module.exports = new CpuController();
+module.exports = new RamController();
