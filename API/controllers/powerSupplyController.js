@@ -1,4 +1,4 @@
-const PowerSupplyService = require("../service/PowerSupplyService");
+const PowerSupplyService = require("../services/powerSupplyService");
 const PowerSupplyCreate = require("../models/in/powerSupply/powerSupplyCreate");
 const PowerSupplyUpdate = require("../models/in/powerSupply/powerSupplyUpdate");
 const ApiError = require("../exeptions/api-error");

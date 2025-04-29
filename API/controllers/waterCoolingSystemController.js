@@ -1,7 +1,7 @@
 const ApiError = require("../exeptions/api-error");
 const WaterCoolingSystemService = require("../services/waterCoolingSystemService");
-const WaterCoolingCreate = require("../models/in/waterCoolingSystem/waterCoolingCreate");
-const WaterCoolingUpdate = require("../models/in/waterCoolingSystem/waterCoolingUpdate");
+const WaterCoolingCreate = require("../models/in/waterCoolingSystem/waterCoolingSystemCreate");
+const WaterCoolingUpdate = require("../models/in/waterCoolingSystem/waterCoolingSystemUpdate");
 
 class WaterCoolingSystemController {
   async createSystem(req, res, next) {

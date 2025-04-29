@@ -1,4 +1,4 @@
-const MotherboardService = require("../service/motherboardService");
+const MotherboardService = require("../services/motherboardService");
 const MotherboardCreate = require("../models/in/motherboard/motherboardCreate");
 const MotherboardUpdate = require("../models/in/motherboard/motherboardUpdate");
 const ApiError = require("../exeptions/api-error");

@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       description: {
         type: DataTypes.TEXT,
       },
-      generatoin: {
+      generation: {
         type: DataTypes.STRING,
         allowNull: false,
       },

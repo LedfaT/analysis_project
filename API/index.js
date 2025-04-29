@@ -28,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", router);
 app.use("/api/bluetooth-module", bluetoothModuleRouter);
 app.use("/api/cooling-system", coolingSystemRouter);
+app.use("/api/wifi-module", wifiModuleRouter);
 app.use("/api/HDD", hddRouter);
 app.use("/api/SSD", ssdRouter);
 app.use("/api/GPU", gpuRouter);
@@ -37,7 +38,7 @@ app.use("/api/motherboard", motherboardRouter);
 app.use("/api/power-supply", powerSupplyRouter);
 app.use("/api/tower", towerRouter);
 app.use("/api/RAM", ramRouter);
-
+// app.use("/api/computer", computerRouter);
 app.use(errorMiddleware);
 
 const port = process.env.PORT || 8080;
@@ -47,7 +48,7 @@ const start = async () => {
     console.log(`Server listens on port ${port}`);
   });
 
-  await db.sequelize.sync({ force: true });
+  await db.sequelize.sync();
 };
 
 start();
