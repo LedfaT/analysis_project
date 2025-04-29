@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      description: {
+        type: DataTypes.TEXT,
+      },
       fan_included: {
         type: DataTypes.BOOLEAN,
         default: true,
