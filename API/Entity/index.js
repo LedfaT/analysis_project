@@ -31,7 +31,7 @@ const db = {
   ),
   CoolingSystem: require("./CoolingSystem")(sequelize, Sequelize, DataTypes),
   Motherboard: require("./Motherboard")(sequelize, Sequelize, DataTypes),
-  powerSupply: require("./powerSupply")(sequelize, Sequelize, DataTypes),
+  PowerSupply: require("./powerSupply")(sequelize, Sequelize, DataTypes),
   RAM: require("./RAM")(sequelize, Sequelize, DataTypes),
   SSD: require("./SSD")(sequelize, Sequelize, DataTypes),
   WaterCoolingSystem: require("./WaterCoolingSystem")(

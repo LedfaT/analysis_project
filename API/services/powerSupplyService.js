@@ -4,10 +4,10 @@ const ApiError = require("../exeptions/api-error");
 
 class PowerSupplyService {
   async create(data) {
+    console.log("ddddd");
     const existing = await PowerSupply.findOne({
       where: { title: data.title },
     });
-
     if (existing) {
       throw ApiError.BadRequest(
         `Power supply with title "${data.title}" already exists`
