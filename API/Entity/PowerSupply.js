@@ -8,15 +8,18 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
+      description: {
+        type: DataTypes.TEXT,
+      },
       strength: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       sertificate: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: true,
       },
       cost: {

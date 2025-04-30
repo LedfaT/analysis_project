@@ -2,10 +2,10 @@ const Router = require("express").Router;
 const waterCoolController = require("../controllers/waterCoolingSystemController");
 const router = new Router();
 
-router.post("/", waterCoolController.createWaterCoolingSystem);
-router.get("/list", waterCoolController.getAllWaterCoolingSystems);
-router.get("/:id", waterCoolController.getWaterCoolingSystem);
-router.patch("/:id", waterCoolController.updateWaterCoolingSystem);
-router.delete("/:id", waterCoolController.deleteWaterCoolingSystem);
+router.post("/", waterCoolController.createSystem);
+router.get("/list", waterCoolController.getAllSystems);
+router.get("/:id", waterCoolController.getSystem);
+router.patch("/:id", waterCoolController.updateSystem);
+router.delete("/:id", waterCoolController.deleteSystem);
 
 module.exports = router;

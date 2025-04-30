@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      description: {
+        type: DataTypes.TEXT,
+      },
       cores: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -32,8 +35,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         allowNull: false,
       },
       vram_type: {
-        type: Sequelize.STRING,
+        type: Sequelize.SMALLINT,
         allowNull: false,
+      },
+      cost: {
+        type: DataTypes.FLOAT,
       },
     },
     {

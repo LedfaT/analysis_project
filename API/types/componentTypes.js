@@ -30,7 +30,7 @@ class ComponentType {
       ["Fan", 3],
     ]);
 
-    this.waterCoolingtypeSize = new Map([
+    this.waterCoolingTypeSize = new Map([
       ["280mm", 1],
       ["360mm", 2],
       ["240mm", 3],

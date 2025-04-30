@@ -19,7 +19,7 @@ class wifiModuleService {
 
   async getAllWifiModules() {
     const wifiModules = await WifiModule.findAll();
-    return wifiModules.map((wifi) => new WifiModule(wifi));
+    return wifiModules.map((wifi) => new WifiModuleOut(wifi));
   }
 
   async getWifiModuleById(wifiId) {
@@ -38,7 +38,7 @@ class wifiModuleService {
       throw ApiError.BadRequest("Wifi module not found");
     }
 
-    const wifiModuleTitleCheck = await wifiModule.findOne({
+    const wifiModuleTitleCheck = await WifiModule.findOne({
       where: { title: wifi.title },
     });
     if (wifiModuleTitleCheck && wifiModuleTitleCheck.id !== wifiModule.id) {

@@ -8,28 +8,34 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
+      },
+      description: {
+        type: DataTypes.TEXT,
       },
       cores: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       threads: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       Architecture: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cache: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       clock: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
+      },
+      cost: {
+        type: DataTypes.FLOAT,
       },
     },
     {
