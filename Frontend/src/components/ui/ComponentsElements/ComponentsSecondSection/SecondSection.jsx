@@ -3,19 +3,19 @@ import { Button, TextField } from "@mui/material";
 import { secondSectionStyles } from "./SecondSection.styles";
 
 const ComponentsSecondSection = () => {
-  const [selectedComponent, setSelectedComponent] = useState("All Components");
-  const [priceRange, setPriceRange] = useState([0, 2000]);
+  const [selectedComponent, setSelectedComponent] = useState("CPU");
 
   const components = [
-    "All Components",
     "CPU",
     "Motherboard",
-    "Graphics Card",
+    "Graphics Card ",
     "RAM",
-    "Storage",
+    "SSD",
+    "HDD",
     "Case",
     "Power Supply",
-    "CPU Cooler",
+    "Fan Cooling System",
+    "Water Cooling System"
   ];
 
   const handleComponentClick = (component) => {
@@ -23,8 +23,7 @@ const ComponentsSecondSection = () => {
   };
 
   const resetFilters = () => {
-    setSelectedComponent("All Components");
-    setPriceRange([0, 2000]);
+    setSelectedComponent("CPU");
   };
 
   return (

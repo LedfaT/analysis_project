@@ -40,7 +40,7 @@ const ComponentsThirdSection = () => {
       <div className={thirdSectionStyles.gridContainer}>
         {components.map((component, index) => (
           <Card key={index} sx={thirdSectionStyles.card}>
-            <CardContent>
+            <CardContent className={thirdSectionStyles.cardContent}>
               <Typography variant="h6" className={thirdSectionStyles.name}>
                 {component.name}
               </Typography>
