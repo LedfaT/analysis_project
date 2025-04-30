@@ -1,30 +1,30 @@
-module.exports = (sequelize, Sequelize) => {
+module.exports = (sequelize, Sequelize, DataTypes) => {
   const User = sequelize.define(
     "User",
     {
       email: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
       password: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       username: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: true,
       },
       user_role: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: true,
       },
       isActivated: {
-        type: Sequelize.BOOLEAN,
+        type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
       activationLink: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
     },
     {
@@ -38,7 +38,7 @@ module.exports = (sequelize, Sequelize) => {
     });
 
     User.hasOne(models.Computer, {
-      foreignKey: "userId",
+      foreignKey: "user_id",
     });
   };
 

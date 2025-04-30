@@ -13,7 +13,7 @@ class ComputerController {
     }
   }
 
-  async getAllUserComputers(req, res) {
+  async getAllUserComputers(req, res, next) {
     try {
       const { userId } = req.params;
       const computers = await ComputerService.getAllUserComputers(userId);
@@ -24,7 +24,7 @@ class ComputerController {
     }
   }
 
-  async getComputerById(req, res) {
+  async getComputerById(req, res, next) {
     try {
       const { id } = req.params;
       const computer = await ComputerService.getComputerById(id);
@@ -36,7 +36,7 @@ class ComputerController {
     }
   }
 
-  async createComputer(req, res) {
+  async createComputer(req, res, next) {
     try {
       const computerData = req.body;
       await ComputerService.create(computerData);
@@ -47,11 +47,11 @@ class ComputerController {
     }
   }
 
-  async updateComputer(req, res) {
+  async updateComputer(req, res, next) {
     try {
       const { id } = req.params;
       const updateData = req.body; // Получаем данные для обновления
-      const updatedComputer = await ComputerService.update(id, updateData);
+      await ComputerService.update(id, updateData);
       res.json({ message: "Computer updated successfully" });
     } catch (error) {
       console.error(error);
@@ -59,7 +59,7 @@ class ComputerController {
     }
   }
 
-  async deleteComputer(req, res) {
+  async deleteComputer(req, res, next) {
     try {
       const { id } = req.params;
       await ComputerService.delete(id);

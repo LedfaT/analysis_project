@@ -30,7 +30,7 @@ class ComputerService {
     });
 
     if (computers.length === 0) {
-      throw next(ApiError.notFound("No computers found"));
+      throw ApiError.notFound("No computers found");
     }
 
     return computers.map((comp) => {
@@ -59,12 +59,12 @@ class ComputerService {
     });
 
     if (computers.length === 0) {
-      throw next(ApiError.notFound("No computers found"));
+      throw ApiError.notFound("No computers found");
     }
 
     return computers.map((comp) => {
       const compObj = comp.toJSON();
-      return new ComputerOut(compObj);
+      return ComputerOut(compObj);
     });
   }
 

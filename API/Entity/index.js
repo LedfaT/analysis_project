@@ -18,10 +18,10 @@ sequelize
 const db = {
   sequelize,
   Sequelize,
-  User: require("./User")(sequelize, Sequelize),
+  User: require("./User")(sequelize, Sequelize, DataTypes),
   Token: require("./Token")(sequelize, Sequelize),
   CPU: require("./CPU")(sequelize, Sequelize, DataTypes),
-  GNU: require("./GPU")(sequelize, Sequelize, DataTypes),
+  GPU: require("./GPU")(sequelize, Sequelize, DataTypes),
   HDD: require("./HDD")(sequelize, Sequelize, DataTypes),
   Tower: require("./Tower")(sequelize, Sequelize, DataTypes),
   BluetoothModule: require("./BluetoothModule")(
@@ -42,5 +42,11 @@ const db = {
   WifiModule: require("./WifiModule")(sequelize, Sequelize, DataTypes),
   Computer: require("./Computer")(sequelize, Sequelize, DataTypes),
 };
+
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 
 module.exports = db;

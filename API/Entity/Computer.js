@@ -131,51 +131,39 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     Computer.belongsTo(models.User, {
       foreignKey: "user_id",
     });
-
     Computer.belongsTo(models.BluetoothModule, {
       foreignKey: "bluetooth_module_id",
     });
-
     Computer.belongsTo(models.Tower, {
       foreignKey: "tower_id",
     });
-
     Computer.belongsTo(models.CoolingSystem, {
       foreignKey: "cooling_system_id",
     });
-
     Computer.belongsTo(models.CPU, {
       foreignKey: "cpu_id",
     });
-
     Computer.belongsTo(models.GPU, {
       foreignKey: "gpu_id",
     });
-
     Computer.belongsTo(models.HDD, {
       foreignKey: "hdd_id",
     });
-
     Computer.belongsTo(models.Motherboard, {
       foreignKey: "motherboard_id",
     });
-
     Computer.belongsTo(models.PowerSupply, {
       foreignKey: "power_supply_id",
     });
-
     Computer.belongsTo(models.RAM, {
       foreignKey: "ram_id",
     });
-
     Computer.belongsTo(models.SSD, {
       foreignKey: "ssd_id",
     });
-
     Computer.belongsTo(models.WaterCoolingSystem, {
       foreignKey: "water_cooling_system_id",
     });
-
     Computer.belongsTo(models.WifiModule, {
       foreignKey: "wifi_module_id",
     });
