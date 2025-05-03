@@ -3,9 +3,32 @@ export const styles = {
     title: 'text-lg font-semibold',
     subtitle: 'text-sm text-gray-500 mt-1 mb-4',
     partsList: 'space-y-3',
-    partItem: 'border rounded-md p-3 hover:border-black cursor-pointer',
+    partItem: 'relative border rounded-md p-3 hover:border-black cursor-pointer',
+
     footer: 'mt-6 space-y-3',
-    saveButton: 'w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 cursor-pointer',
-    exportButton: 'w-full border py-2 rounded-lg text-sm hover:bg-gray-50 cursor-pointer'
+    saveButton: {
+        backgroundColor: 'black',
+        color: 'white',
+        py: 1,
+        borderRadius: 2,
+        fontSize: '0.875rem',
+        textTransform: 'none',
+        marginBottom: "5px",
+        '&:hover': {
+          backgroundColor: '#1f1f1f',
+        },
+      },
+    
+      exportButton: {
+        border: '1px solid rgba(0, 0, 0, 0.23)',
+        color: 'black',
+        py: 1,
+        borderRadius: 2,
+        fontSize: '0.875rem',
+        textTransform: 'none',
+        '&:hover': {
+          backgroundColor: '#f9f9f9',
+        },
+      },
 };
   
