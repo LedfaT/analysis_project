@@ -18,7 +18,7 @@ class GpuService {
       );
     }
 
-    const vram_type = GPU_VRAM_TYPE[gpuData.vram_type];
+    const vram_type = GPU_VRAM_TYPE.get(gpuData.vram_type);
     if (!vram_type) {
       throw ApiError.BadRequest(`Unknown VRAM type: ${gpuData.vram_type}`);
     }
@@ -33,7 +33,7 @@ class GpuService {
     const gpus = await GPU.findAll();
     return gpus.map((gpu) => {
       const gpuObj = gpu.toJSON();
-      gpuObj.vram_type = reverseGpuvram[gpuObj.vram_type];
+      gpuObj.vram_type = reverseGpuvram.get(gpuObj.vram_type);
       return new gpuOut(gpuObj);
     });
   }
@@ -46,7 +46,7 @@ class GpuService {
     }
 
     const gpuObj = gpu.toJSON();
-    gpuObj.vram_type = reverseGpuvram[gpuObj.vram_type];
+    gpuObj.vram_type = reverseGpuvram.get(gpuObj.vram_type);
     return new gpuOut(gpuObj);
   }
 
@@ -65,7 +65,7 @@ class GpuService {
       );
     }
 
-    const vram_type = GPU_VRAM_TYPE[gpuData.vram_type];
+    const vram_type = GPU_VRAM_TYPE.get(gpuData.vram_type);
     if (!vram_type) {
       throw ApiError.BadRequest(`Unknown VRAM type: ${gpuData.vram_type}`);
     }

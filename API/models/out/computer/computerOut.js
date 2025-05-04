@@ -1,3 +1,16 @@
+const BluetoothModuleListOut = require("../bluetoothModule/bluetoothModuleListOut");
+const CoolingSystemListOut = require("../coolingSystem/coolingSystemListOut");
+const CpuListOut = require("../cpu/cpuListOut");
+const GpuListOut = require("../gpu/gpuListOut");
+const HddListOut = require("../hdd/hddListOut");
+const MotherboardListOut = require("../motherboard/motherboardListOut");
+const PowerSupplyListOut = require("../powerSupply/powerSupplyListOut");
+const RamListOut = require("../ram/ramListOut");
+const SsdListOut = require("../ssd/ssdListOut");
+const TowerListOut = require("../tower/towerListOut");
+const WaterCoolingSystemListOut = require("../waterCoolingSystem/waterCoolingSystemListOut");
+const WifiModuleListOut = require("../wifiModule/wifiModuleListOut");
+
 module.exports = class ComputerOut {
   id;
   description;
@@ -23,17 +36,20 @@ module.exports = class ComputerOut {
     this.isPublished = computer.isPublished;
     this.cost = computer.cost;
     this.user = computer.User || null;
-    this.bluetooth_module = computer.BluetoothModule || null;
-    this.tower = computer.Tower || null;
-    this.cooling_system = computer.CoolingSystem || null;
-    this.cpu = computer.CPU || null;
-    this.gpu = computer.GPU || null;
-    this.hdd = computer.HDD || null;
-    this.motherboard = computer.Motherboard || null;
-    this.power_supply = computer.PowerSupply || null;
-    this.ram = computer.RAM || null;
-    this.ssd = computer.SSD || null;
-    this.water_cooling_system = computer.WaterCoolingSystem || null;
-    this.wifi_module = computer.WifiModule || null;
+    this.bluetooth_module =
+      new BluetoothModuleListOut(computer.BluetoothModule) || null;
+    this.tower = new TowerListOut(computer.Tower) || null;
+    this.cooling_system =
+      new CoolingSystemListOut(computer.CoolingSystem) || null;
+    this.cpu = new CpuListOut(computer.CPU) || null;
+    this.gpu = new GpuListOut(computer.GPU) || null;
+    this.hdd = new HddListOut(computer.HDD) || null;
+    this.motherboard = new MotherboardListOut(computer.Motherboard) || null;
+    this.power_supply = new PowerSupplyListOut(computer.PowerSupply) || null;
+    this.ram = new RamListOut(computer.RAM) || null;
+    this.ssd = new SsdListOut(computer.SSD) || null;
+    this.water_cooling_system =
+      new WaterCoolingSystemListOut(computer.WaterCoolingSystem) || null;
+    this.wifi_module = new WifiModuleListOut(computer.WifiModule) || null;
   }
 };

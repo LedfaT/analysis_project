@@ -64,7 +64,7 @@ class ComputerService {
 
     return computers.map((comp) => {
       const compObj = comp.toJSON();
-      return ComputerOut(compObj);
+      return new ComputerOut(compObj);
     });
   }
 

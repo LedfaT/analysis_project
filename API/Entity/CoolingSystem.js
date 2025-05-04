@@ -8,18 +8,18 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       description: {
         type: DataTypes.TEXT,
       },
       type_size: {
-        type: Sequelize.SMALLINT,
+        type: DataTypes.SMALLINT,
         allowNull: false,
       },
       heat_removal: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cost: {

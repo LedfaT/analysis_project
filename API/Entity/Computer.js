@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
       },
       user_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "User",
@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       bluetooth_module_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "bluetooth_module",
@@ -34,7 +34,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       tower_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "tower",
@@ -42,7 +42,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       cooling_system_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "cooling_system",
@@ -50,7 +50,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       cpu_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "cpu",
@@ -58,7 +58,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       gpu_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "gpu",
@@ -66,7 +66,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       hdd_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "hdd",
@@ -74,7 +74,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       motherboard_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "motherboard",
@@ -82,7 +82,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       power_supply_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "power_supply",
@@ -90,7 +90,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       ram_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "ram",
@@ -98,7 +98,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       ssd_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "ssd",
@@ -106,7 +106,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       water_cooling_system_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "water_cooling_system",
@@ -114,7 +114,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
       },
       wifi_module_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "wifi_module",
