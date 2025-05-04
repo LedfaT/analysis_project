@@ -2,6 +2,8 @@ const { Computer } = require("../Entity");
 const ComputerOut = require("../models/out/computer/computerOut");
 const ApiError = require("../exeptions/api-error");
 
+const AutoMapperService = require("./autoMapperService");
+
 class ComputerService {
   async create(computerData) {
     await Computer.create({ ...computerData });
@@ -35,7 +37,8 @@ class ComputerService {
 
     return computers.map((comp) => {
       const compObj = comp.toJSON();
-      return new ComputerOut(compObj);
+      const computerOut = new ComputerOut(compObj);
+      return AutoMapperService.computers(computerOut);
     });
   }
 
@@ -64,7 +67,8 @@ class ComputerService {
 
     return computers.map((comp) => {
       const compObj = comp.toJSON();
-      return new ComputerOut(compObj);
+      const computerOut = new ComputerOut(compObj);
+      return AutoMapperService.computers(computerOut);
     });
   }
 
@@ -90,8 +94,8 @@ class ComputerService {
     if (!computer) {
       throw ApiError.BadRequest("Computer not found");
     }
-
-    return new ComputerOut(computer.toJSON());
+    const computerOut = new ComputerOut(computer.toJSON());
+    return AutoMapperService.computers(computerOut);
   }
 
   async update(id, data) {

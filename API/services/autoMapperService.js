@@ -22,16 +22,40 @@ const reversedTypeSizeMotherBoard = components.invertMap(TYPE_SIZE_MOTHERBOARD);
 const reverseRamMemoryType = components.invertMap(RAM_MEMORY_TYPE);
 const reverseRamRadiatorType = components.invertMap(RAM_RADIATOR_TYPE);
 module.exports = class AutoMapperService {
-  static computers(computers) {
-    const newComputers = computers.forEach((computer) => {
-      computer.tower = reverseTowerTypeSize(computer.tower.type_size);
+  static computers(computer) {
+    const newComputer = computer;
 
-      computer.tower = reverseTowerFanType(computer.tower.fan_type);
+    newComputer.tower.type_size = reverseTowerTypeSize.get(
+      computer.tower.type_size
+    );
 
-      computer.tower = reverseTowerTypeSize(computer.tower.type_size);
-      computer.tower = reverseTowerTypeSize(computer.tower.type_size);
-    });
+    newComputer.tower.fan_type = reverseTowerFanType.get(
+      computer.tower.fan_type
+    );
 
-    return newComputers;
+    newComputer.ssd = reverseSsdRadiator.get(computer.ssd.radiator_type);
+
+    newComputer.cooling_system.type_size = reversedTypeSizeCooling.get(
+      computer.cooling_system.type_size
+    );
+
+    newComputer.water_cooling_system.type_size =
+      reverseWaterCoolingTypeSize.get(computer.water_cooling_system.type_size);
+
+    newComputer.gpu.vram_type = reverseGpuvram.get(computer.gpu.vram_type);
+
+    newComputer.motherboard.type_size = reversedTypeSizeMotherBoard.get(
+      computer.motherboard.type_size
+    );
+
+    newComputer.ram.memory_type = reverseRamMemoryType.get(
+      computer.ram.memory_type
+    );
+
+    newComputer.ram.radiator_type = reverseRamRadiatorType.get(
+      computer.ram.radiator_type
+    );
+
+    return newComputer;
   }
 };

@@ -4,11 +4,13 @@ const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
+require("dotenv").config();
 const env = process.env.NODE_ENV || "development";
 
 const db = {};
 
-const sequelize = new Sequelize(process.env.DB_URI, {
+const url = process.env.DB_URI;
+const sequelize = new Sequelize(url, {
   logging: false,
 });
 
