@@ -1,4 +1,5 @@
-import React, { useState, Link, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ArrowRightAlt from '@mui/icons-material/ArrowRightAlt';
 import {firstSectionStyles} from './FirstSection.styles';
@@ -17,6 +18,7 @@ const HomeFirstSection = () =>{
                         Take control of your next PC build experience.
                     </p>
                     <div className={firstSectionStyles.buttonGroup}>
+                        <Link to={"/configurator"}>
                         <Button 
                             variant="contained" 
                             size="large"
@@ -25,6 +27,8 @@ const HomeFirstSection = () =>{
                         >
                             Start Building
                         </Button>
+                        </Link>
+                        <Link to={"/builds"}>
                         <Button 
                             variant="outlined" 
                             size="large"
@@ -32,6 +36,7 @@ const HomeFirstSection = () =>{
                         >
                             View Recommended Builds
                         </Button>
+                        </Link>
                     </div>
                 </div>
 
