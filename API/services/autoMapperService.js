@@ -1,56 +1,61 @@
 const components = require("../types/componentTypes");
-const BluetoothModuleListOut = require("../models/out/bluetoothModule/bluetoothModuleListOut");
-const CoolingSystemListOut = require("../models/out/coolingSystem/coolingSystemListOut");
-const CpuListOut = require("../models/out/cpu/cpuListOut");
-const GpuListOut = require("../models/out/gpu/gpuListOut");
-const HddListOut = require("../models/out/hdd/hddListOut");
-const MotherboardListOut = require("../models/out/motherboard/motherboardListOut");
-const PowerSupplyListOut = require("../models/out/powerSupply/powerSupplyListOut");
-const RamListOut = require("../models/out/ram/ramListOut");
-const SsdListOut = require("../models/out/ssd/ssdListOut");
-const TowerListOut = require("../models/out/tower/towerListOut");
-const WaterCoolingSystemListOut = require("../models/out/waterCoolingSystem/waterCoolingSystemListOut");
-const WifiModuleListOut = require("../models/out/wifiModule/wifiModuleListOut");
-const SsdListOut = require("../models/out/ssd/ssdListOut");
 
-const TYPE_SIZE = components.coolingSystemTypeSize;
+const TYPE_SIZE_COOLING = components.coolingSystemTypeSize;
 const GPU_VRAM_TYPE = components.GPUvram;
+const TYPE_SIZE_MOTHERBOARD = components.motherboardTypeSize;
 const RAM_MEMORY_TYPE = components.RAMmemType;
 const RAM_RADIATOR_TYPE = components.RAMradiatorType;
-const TYPE_SIZE_MOTHERBOARD = components.motherboardTypeSize;
 const SSD_RADIATOR_TYPE = components.SSDRadiatorType;
 const TOWER_TYPE_SIZE = components.towerTypeSize;
 const TOWER_FAN_TYPE = components.towerFanType;
 const WATER_COOLING_TYPE_SIZE = components.waterCoolingTypeSize;
-const reverseGpuvram = components.invertMap(GPU_VRAM_TYPE);
-const reversedTypeSizeMotherboard = components.invertMap(TYPE_SIZE_MOTHERBOARD);
-const reversedTypeSize = components.invertMap(TYPE_SIZE);
-const reverseRamMemoryType = components.invertMap(RAM_MEMORY_TYPE);
-const reverseRamRadiatorType = components.invertMap(RAM_RADIATOR_TYPE);
-const reverseSsdRadiator = components.invertMap(SSD_RADIATOR_TYPE);
-const reverseTowerTypeSize = components.invertMap(TOWER_TYPE_SIZE);
-const reverseTowerFanType = components.invertMap(TOWER_FAN_TYPE);
+
 const reverseWaterCoolingTypeSize = components.invertMap(
   WATER_COOLING_TYPE_SIZE
 );
+const reverseTowerTypeSize = components.invertMap(TOWER_TYPE_SIZE);
+const reverseTowerFanType = components.invertMap(TOWER_FAN_TYPE);
+const reverseSsdRadiator = components.invertMap(SSD_RADIATOR_TYPE);
+const reversedTypeSizeCooling = components.invertMap(TYPE_SIZE_COOLING);
+const reverseGpuvram = components.invertMap(GPU_VRAM_TYPE);
+const reversedTypeSizeMotherBoard = components.invertMap(TYPE_SIZE_MOTHERBOARD);
+const reverseRamMemoryType = components.invertMap(RAM_MEMORY_TYPE);
+const reverseRamRadiatorType = components.invertMap(RAM_RADIATOR_TYPE);
 module.exports = class AutoMapperService {
-  static computerMap(computers) {
-    computers.forEach((computer) => {
-      computer.bluetooth_module = new BluetoothModuleListOut(
-        computer.bluetooth_module
-      );
+  static computers(computer) {
+    const newComputer = computer;
 
-      computer.tower = new TowerListOut(computer.tower);
+    newComputer.tower.type_size = reverseTowerTypeSize.get(
+      computer.tower.type_size
+    );
 
-      computer.cooling_system = new CoolingSystemListOut(
-        computer.cooling_system
-      );
+    newComputer.tower.fan_type = reverseTowerFanType.get(
+      computer.tower.fan_type
+    );
 
-      computer.cpu = new CpuListOut(computer.cpu);
+    newComputer.ssd = reverseSsdRadiator.get(computer.ssd.radiator_type);
 
-      computer.gpu - new GpuListOut(computer.gpu);
+    newComputer.cooling_system.type_size = reversedTypeSizeCooling.get(
+      computer.cooling_system.type_size
+    );
 
-      // computer.hdd =
-    });
+    newComputer.water_cooling_system.type_size =
+      reverseWaterCoolingTypeSize.get(computer.water_cooling_system.type_size);
+
+    newComputer.gpu.vram_type = reverseGpuvram.get(computer.gpu.vram_type);
+
+    newComputer.motherboard.type_size = reversedTypeSizeMotherBoard.get(
+      computer.motherboard.type_size
+    );
+
+    newComputer.ram.memory_type = reverseRamMemoryType.get(
+      computer.ram.memory_type
+    );
+
+    newComputer.ram.radiator_type = reverseRamRadiatorType.get(
+      computer.ram.radiator_type
+    );
+
+    return newComputer;
   }
 };

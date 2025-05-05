@@ -6,6 +6,7 @@ module.exports = class TowerCreate {
   fan_type;
   constructor(tower) {
     this.cost = tower.cost;
+    this.description = tower.description;
     this.fan_included = tower.fan_included;
     this.title = tower.title;
     this.type_size = tower.type_size;

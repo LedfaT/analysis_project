@@ -4,6 +4,7 @@ module.exports = class WifiModuleCreate {
   cost;
   constructor(wifi) {
     this.cost = wifi.cost;
+    this.description = wifi.description;
     this.generation = wifi.generation;
     this.title = wifi.title;
   }

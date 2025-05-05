@@ -9,6 +9,7 @@ module.exports = class BluetoothModuleOut {
     this.id = bluetooth.id;
     this.cost = bluetooth.cost;
     this.generation = bluetooth.generation;
+    this.description = bluetooth.description;
     this.title = bluetooth.title;
     this.createdAt = bluetooth.createdAt;
     this.updatedAt = bluetooth.updatedAt;

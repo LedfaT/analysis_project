@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       description: {
@@ -19,23 +19,23 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         allowNull: false,
       },
       threads: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       vram_quantity: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cache: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       clock: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       vram_type: {
-        type: Sequelize.SMALLINT,
+        type: DataTypes.SMALLINT,
         allowNull: false,
       },
       cost: {

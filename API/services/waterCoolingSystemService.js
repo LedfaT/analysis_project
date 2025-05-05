@@ -20,7 +20,7 @@ class WaterCoolingSystemService {
       );
     }
 
-    const type_size = WATER_COOLING_TYPE_SIZE[waterCoolingData.type_size];
+    const type_size = WATER_COOLING_TYPE_SIZE.get(waterCoolingData.type_size);
     if (!type_size) {
       throw ApiError.BadRequest(
         `Unknown type size: ${waterCoolingData.type_size}`
@@ -37,7 +37,9 @@ class WaterCoolingSystemService {
     const systems = await WaterCoolingSystem.findAll();
     return systems.map((system) => {
       const systemObj = system.toJSON();
-      systemObj.type_size = reverseWaterCoolingTypeSize[systemObj.type_size];
+      systemObj.type_size = reverseWaterCoolingTypeSize.get(
+        systemObj.type_size
+      );
       return new waterCoolingOut(systemObj);
     });
   }
@@ -50,7 +52,7 @@ class WaterCoolingSystemService {
     }
 
     const systemObj = system.toJSON();
-    systemObj.type_size = reverseWaterCoolingTypeSize[systemObj.type_size];
+    systemObj.type_size = reverseWaterCoolingTypeSize.get(systemObj.type_size);
     return new waterCoolingOut(systemObj);
   }
 
@@ -69,7 +71,7 @@ class WaterCoolingSystemService {
       );
     }
 
-    const type_size = WATER_COOLING_TYPE_SIZE[waterCoolingData.type_size];
+    const type_size = WATER_COOLING_TYPE_SIZE.get(waterCoolingData.type_size);
     if (!type_size) {
       throw ApiError.BadRequest(
         `Unknown type size: ${waterCoolingData.type_size}`

@@ -12,6 +12,7 @@ module.exports = class PowerSupplyOut {
     this.cost = powerSupply.cost;
     this.strength = powerSupply.strength;
     this.title = powerSupply.title;
+    this.description = powerSupply.description;
     this.sertificate = powerSupply.sertificate;
     this.cost = powerSupply.cost;
     this.createdAt = powerSupply.createdAt;

@@ -12,6 +12,7 @@ module.exports = class RamOut {
     this.cost = ram.cost;
     this.memory_quantity = ram.memory_quantity;
     this.title = ram.title;
+    this.description = ram.description;
     this.memory_type = ram.memory_type;
     this.radiator_type = ram.radiator_type;
     this.createdAt = ram.createdAt;
