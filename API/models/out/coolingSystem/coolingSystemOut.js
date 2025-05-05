@@ -9,6 +9,7 @@ module.exports = class CoolingSystemOut {
   constructor(CoolingSystem) {
     this.id = CoolingSystem.id;
     this.cost = CoolingSystem.cost;
+    this.description = CoolingSystem.description;
     this.heat_removal = CoolingSystem.heat_removal;
     this.title = CoolingSystem.title;
     this.type_size = CoolingSystem.type_size;

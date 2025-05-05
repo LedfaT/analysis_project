@@ -5,6 +5,7 @@ module.exports = class WifiModuleUpdate {
   constructor(wifi) {
     this.cost = wifi.cost;
     this.generation = wifi.generation;
+    this.description = wifi.description;
     this.title = wifi.title;
   }
 };

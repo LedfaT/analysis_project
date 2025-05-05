@@ -6,6 +6,7 @@ module.exports = class CoolingSystemUpdate {
   constructor(CoolingSystem) {
     this.cost = CoolingSystem.cost;
     this.heat_removal = CoolingSystem.heat_removal;
+    this.description = CoolingSystem.description;
     this.title = CoolingSystem.title;
     this.type_size = CoolingSystem.type_size;
   }

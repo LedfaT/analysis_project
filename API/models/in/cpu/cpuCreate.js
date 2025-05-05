@@ -11,6 +11,7 @@ module.exports = class CpuCreate {
     this.cores = cpu.cores;
     this.title = cpu.title;
     this.threads = cpu.threads;
+    this.description = cpu.description;
     this.Architecture = cpu.Architecture;
     this.cache = cpu.cache;
     this.clock = cpu.clock;

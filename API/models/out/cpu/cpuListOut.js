@@ -14,6 +14,7 @@ module.exports = class CpuListOut {
     this.cost = cpu.cost;
     this.cores = cpu.cores;
     this.title = cpu.title;
+    this.description = cpu.description;
     this.threads = cpu.threads;
     this.Architecture = cpu.Architecture;
     this.cache = cpu.cache;

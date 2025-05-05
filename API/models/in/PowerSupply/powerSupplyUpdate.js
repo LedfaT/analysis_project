@@ -7,6 +7,7 @@ module.exports = class PowerSupplyUpdate {
   constructor(powerSupply) {
     this.cost = powerSupply.cost;
     this.strength = powerSupply.strength;
+    this.description = powerSupply.description;
     this.title = powerSupply.title;
     this.sertificate = powerSupply.sertificate;
     this.cost = powerSupply.cost;

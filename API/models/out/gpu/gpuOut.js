@@ -16,6 +16,7 @@ module.exports = class GpuOut {
     this.cores = gpu.cores;
     this.title = gpu.title;
     this.threads = gpu.threads;
+    this.description = gpu.description;
     this.vram_quantity = gpu.vram_quantity;
     this.cache = gpu.cache;
     this.clock = gpu.clock;

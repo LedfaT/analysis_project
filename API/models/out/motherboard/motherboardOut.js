@@ -13,6 +13,7 @@ module.exports = class motherboardOut {
     this.chipset = motherboard.chipset;
     this.title = motherboard.title;
     this.type_size = motherboard.type_size;
+    this.description = motherboard.description;
     this.socket = motherboard.socket;
     this.createdAt = motherboard.createdAt;
     this.updatedAt = motherboard.updatedAt;
