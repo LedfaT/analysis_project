@@ -1,17 +1,6 @@
 import AuthService from "@services/AuthService";
 
 export default class Store {
-  user = {};
-  isAuth = false;
-
-  setAuth(bool) {
-    this.isAuth = bool;
-  }
-
-  setUser(user) {
-    this.user = user;
-  }
-
   async login(email, password) {
     try {
       const res = await AuthService.login(email, password);
