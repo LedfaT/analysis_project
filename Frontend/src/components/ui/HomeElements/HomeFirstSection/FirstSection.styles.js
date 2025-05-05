@@ -38,7 +38,7 @@ export const firstSectionStyles = {
     
     buildCard: "bg-white shadow-lg rounded-lg w-full overflow-hidden ml-8 h-[350px] bg-cover relative",
     cardContent: "p-6 absolute bottom-0 left-0 right-0",
-    cardSubtitle: "font-bold text-white mb-1 text-sm bg-gray-600 rounded-[20px] w-[120px] h-[23px] text-center",
+    cardSubtitle: "font-bold text-white mb-1 text-sm bg-gray-600/60 rounded-[20px] w-[120px] h-[23px] text-center",
     cardTitle: "text-xl font-bold text-white mb-2",
     cardPrice: "text-white font-semibold",
     bgimage: {

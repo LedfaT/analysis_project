@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Header from "../../components/layout/Header/Header.jsx";
 import Footer from "../../components/layout/Footer/Footer.jsx"
 import { homePageStyles } from './Home.styles';
-import HomeFirstSection from '../../components/ui/HomeFirstSection/FirstSection.jsx';
-import HomeSecondSection from '../../components/ui/HomeSecondSection/SecondSection.jsx';
-import HomeThirdSection from '../../components/ui/HomeThirdSection/ThirdSection.jsx';
+import HomeFirstSection from '../../components/ui/HomeElements/HomeFirstSection/FirstSection.jsx';
+import HomeSecondSection from '../../components/ui/HomeElements/HomeSecondSection/SecondSection.jsx';
+import HomeThirdSection from '../../components/ui/HomeElements/HomeThirdSection/ThirdSection.jsx';
 
 const Home = () => {
     return (

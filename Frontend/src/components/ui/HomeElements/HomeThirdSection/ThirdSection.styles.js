@@ -11,7 +11,7 @@ export const thirdSectionStyles = {
       color: 'black', 
       fontWeight: 500,
       padding: '7px 24px',
-      borderRadius: '8px',
+      borderRadius: '10px',
       transition: 'all 0.3s ease',
       '&:hover': {
         backgroundColor: 'gray', 
@@ -23,7 +23,7 @@ export const thirdSectionStyles = {
       color: '#ffffff',
       fontWeight: 500,
       padding: '7px 24px',
-      borderRadius: '8px',
+      borderRadius: '10px',
       borderColor: 'gray',
       transition: 'all 0.3s ease',
       '&:hover': {
