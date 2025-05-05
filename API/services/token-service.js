@@ -27,7 +27,6 @@ class TokenService {
   validateRefreshToken(token) {
     try {
       const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
-      console.log(userData);
       return userData;
     } catch (e) {
       return null;
@@ -36,6 +35,7 @@ class TokenService {
 
   async saveToken(userId, refreshToken) {
     const tokenData = await Token.findOne({ where: { userId } });
+
     if (tokenData) {
       tokenData.refreshToken = refreshToken;
       return tokenData.save();

@@ -5,12 +5,12 @@ const mailService = require("./mailService");
 const tokenService = require("./token-service");
 const UserDto = require("../models/in/userIn");
 const ApiError = require("../exeptions/api-error");
-const { where } = require("sequelize");
 
 class UserService {
   async _generateUserPayload(user) {
     const userDto = new UserDto(user);
     const tokens = tokenService.generateToken({ ...userDto });
+    console.log(userDto);
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return {
@@ -19,16 +19,17 @@ class UserService {
     };
   }
 
-  async registration(email, password) {
+  async registration({ email, password, username, user_role }) {
     const candidate = await User.findOne({ where: { email } });
     if (candidate) {
       throw ApiError.BadRequest(`User with email ${email} already exists`);
     }
-
     const hashPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid.v4();
     const newUser = await User.create({
       email,
+      username,
+      user_role,
       password: hashPassword,
       activationLink,
     });
