@@ -21,7 +21,7 @@ const Components = () => {
   const [selectedComponent, setSelectedComponent] = useState("CPU");
   const [fetchedComponents, setFetchedComponents] = useState([]);
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(5);
   const [search, setSearch] = useState("");
 
@@ -30,12 +30,24 @@ const Components = () => {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setPage(1);
+    setSearch("");
     fetchComponents(selectedComponent);
   }, [selectedComponent]);
 
   useEffect(() => {
     fetchComponents(selectedComponent);
   }, [page]);
+
+  useEffect(() => {
+    let timeout;
+
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      setPage(1);
+      fetchComponents(selectedComponent);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [search]);
 
   const components = [
     "CPU",
@@ -59,49 +71,58 @@ const Components = () => {
       let res;
       switch (component) {
         case "CPU":
-          res = await cpuService.getAllCpus(page, limit);
+          res = await cpuService.getAllCpus(page, limit, search);
           break;
 
         case "Motherboard":
-          res = await motherboardService.getAllMotherboards(page, limit);
+          res = await motherboardService.getAllMotherboards(
+            page,
+            limit,
+            search
+          );
           break;
 
         case "Graphics Card":
-          res = await gpuService.getAllGpus(page, limit);
+          res = await gpuService.getAllGpus(page, limit, search);
           break;
 
         case "RAM":
-          res = await ramService.getAllRams(page, limit);
+          res = await ramService.getAllRams(page, limit, search);
           break;
 
         case "SSD":
-          res = await ssdService.getAllSsds(page, limit);
+          res = await ssdService.getAllSsds(page, limit, search);
           break;
 
         case "HDD":
-          res = await hddService.getAllHdds(page, limit);
+          res = await hddService.getAllHdds(page, limit, search);
           break;
 
         case "Tower":
-          res = await towerService.getAllTowers(page, limit);
+          res = await towerService.getAllTowers(page, limit, search);
           break;
 
         case "Power Supply":
-          res = await powerSupplyService.getAllSupplies(page, limit);
+          res = await powerSupplyService.getAllSupplies(page, limit, search);
           break;
 
         case "Fan Cooling System":
-          res = await coolingSystem.getAllCollingSystems(page, limit);
+          res = await coolingSystem.getAllCollingSystems(page, limit, search);
           break;
 
         case "Water Cooling System":
-          res = await waterCoolingSystemService.getAllSystems(page, limit);
+          res = await waterCoolingSystemService.getAllSystems(
+            page,
+            limit,
+            search
+          );
           break;
 
         case "Bluetooth module":
           res = await bluetoothModuleService.getAllBluetoothModules(
             page,
-            limit
+            limit,
+            search
           );
           break;
 
@@ -138,6 +159,7 @@ const Components = () => {
           totalPages={totalPages}
           loading={isLoading}
           comp={fetchedComponents}
+          setSearch={setSearch}
         />
       </div>
     </div>

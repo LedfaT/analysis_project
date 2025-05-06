@@ -9,6 +9,7 @@ const ComponentsThirdSection = ({
   page,
   setPage,
   totalPages,
+  setSearch,
 }) => {
   const onNextPage = () => {
     setPage((prev) => prev + 1);
@@ -28,6 +29,7 @@ const ComponentsThirdSection = ({
             variant="outlined"
             placeholder="Search components..."
             size="small"
+            onChange={(e) => setSearch(e.target.value)}
           />
           <div className={thirdSectionStyles.paginationWrapper}>
             <Button
@@ -40,13 +42,13 @@ const ComponentsThirdSection = ({
               previos
             </Button>
             <p>
-              {page}/{totalPages}
+              {totalPages !== 0 ? page : 0}/{totalPages}
             </p>
             <Button
               sx={thirdSectionStyles.buttonSecondary}
               variant="contained"
               size="small"
-              disabled={page === totalPages}
+              disabled={page === totalPages || totalPages <= 1}
               onClick={onNextPage}
             >
               next
