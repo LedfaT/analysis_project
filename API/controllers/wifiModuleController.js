@@ -42,7 +42,7 @@ class WifiModuleController {
   }
   async getAllWifiModules(req, res, next) {
     try {
-      const wifiModules = await WifiModuleService.getAllWifiModules();
+      const wifiModules = await WifiModuleService.getAllWifiModules(req.query);
       res.json(wifiModules);
     } catch (e) {
       next(e);

@@ -1,6 +1,7 @@
 const { HDD } = require("../Entity");
 const hddOut = require("../models/out/hdd/hddOut");
 const ApiError = require("../exeptions/api-error");
+const { Op } = require("sequelize");
 
 class HddService {
   async create(hddData) {
@@ -17,9 +18,36 @@ class HddService {
     await HDD.create(hddData);
   }
 
-  async getAllHdds() {
-    const hdds = await HDD.findAll();
-    return hdds.map((hdd) => new hddOut(hdd.toJSON()));
+  async getAllHdds({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await HDD.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
+    });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((hdd) => {
+        const hddObj = hdd.toJSON();
+        return new hddOut(hddObj);
+      }),
+    };
   }
 
   async getHddById(hddId) {

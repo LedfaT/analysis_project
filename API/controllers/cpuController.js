@@ -47,7 +47,7 @@ class CpuController {
 
   async getAllCpus(req, res, next) {
     try {
-      const cpus = await CpuService.getAllCpus();
+      const cpus = await CpuService.getAllCpus(req.query);
       res.json(cpus);
     } catch (e) {
       next(e);

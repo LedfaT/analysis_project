@@ -2,6 +2,7 @@ const { GPU } = require("../Entity");
 const gpuOut = require("../models/out/gpu/gpuOut");
 const ApiError = require("../exeptions/api-error");
 const components = require("../types/componentTypes");
+const { Op } = require("sequelize");
 
 const GPU_VRAM_TYPE = components.GPUvram;
 const reverseGpuvram = components.invertMap(GPU_VRAM_TYPE);
@@ -29,13 +30,37 @@ class GpuService {
     });
   }
 
-  async getAllGpus() {
-    const gpus = await GPU.findAll();
-    return gpus.map((gpu) => {
-      const gpuObj = gpu.toJSON();
-      gpuObj.vram_type = reverseGpuvram.get(gpuObj.vram_type);
-      return new gpuOut(gpuObj);
+  async getAllGpus({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await GPU.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
     });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((gpu) => {
+        const gpuObj = gpu.toJSON();
+        gpuObj.vram_type = reverseGpuvram.get(gpuObj.vram_type);
+        return new gpuOut(gpuObj);
+      }),
+    };
   }
 
   async getGpuById(gpuId) {

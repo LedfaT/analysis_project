@@ -1,10 +1,10 @@
 const { PowerSupply } = require("../Entity");
 const PowerSupplyOut = require("../models/out/powerSupply/powerSupplyOut");
 const ApiError = require("../exeptions/api-error");
+const { Op } = require("sequelize");
 
 class PowerSupplyService {
   async create(data) {
-    console.log("ddddd");
     const existing = await PowerSupply.findOne({
       where: { title: data.title },
     });
@@ -17,9 +17,37 @@ class PowerSupplyService {
     await PowerSupply.create({ ...data });
   }
 
-  async getAll() {
-    const supplies = await PowerSupply.findAll();
-    return supplies.map((supply) => new PowerSupplyOut(supply.toJSON()));
+  async getAll({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await PowerSupply.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
+    });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((powerSupply) => {
+        const powerSupplyObj = powerSupply.toJSON();
+
+        return new PowerSupplyOut(powerSupplyObj);
+      }),
+    };
   }
 
   async getById(id) {

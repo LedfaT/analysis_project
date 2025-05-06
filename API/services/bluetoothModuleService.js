@@ -1,6 +1,7 @@
 const { BluetoothModule } = require("../Entity");
 const BluetoothModuleOut = require("../models/out/bluetoothModule/bluetoothModuleOut");
 const ApiError = require("../exeptions/api-error");
+const { Op } = require("sequelize");
 
 class BluetoothModuleService {
   async create(bluetooth) {
@@ -17,11 +18,33 @@ class BluetoothModuleService {
     await BluetoothModule.create({ ...bluetooth });
   }
 
-  async getAllBluetoothModules() {
-    const blutoothModules = await BluetoothModule.findAll();
-    return blutoothModules.map(
-      (bluetooth) => new BluetoothModuleOut(bluetooth)
-    );
+  async getAllBluetoothModules({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await BluetoothModule.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
+    });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((bluetooth) => new BluetoothModuleOut(bluetooth)),
+    };
   }
 
   async getBluetoothModuleById(BmId) {

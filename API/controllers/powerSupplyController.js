@@ -16,7 +16,7 @@ class PowerSupplyController {
 
   async getAll(req, res, next) {
     try {
-      const result = await PowerSupplyService.getAll();
+      const result = await PowerSupplyService.getAll(req.query);
       res.json(result);
     } catch (error) {
       next(error);

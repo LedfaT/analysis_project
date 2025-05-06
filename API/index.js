@@ -53,7 +53,7 @@ const start = async () => {
     console.log(`Server listens on port ${port}`);
   });
 
-  await db.sequelize.sync({ force: true });
+  await db.sequelize.sync();
 };
 
 start();

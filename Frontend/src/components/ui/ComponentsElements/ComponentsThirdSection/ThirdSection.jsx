@@ -1,79 +1,69 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  Button,
-  Typography,
-  TextField,
-} from "@mui/material";
+import { TextField, CircularProgress, Button } from "@mui/material";
 import { thirdSectionStyles } from "./ThirdSection.styles";
-import StarIcon from "@mui/icons-material/Star";
+import ComponentCard from "./ComponentCard";
 
-const components = [
-  {
-    name: "Intel Core i9-13900K",
-    title: "CPU",
-    price: 589.99,
-    rating: 4.8,
-    description: "High-performance desktop processor with 24 cores...",
-  },
-];
+const ComponentsThirdSection = ({
+  comp,
+  loading,
+  page,
+  setPage,
+  totalPages,
+  setSearch,
+}) => {
+  const onNextPage = () => {
+    setPage((prev) => prev + 1);
+  };
 
-const ComponentsThirdSection = ({ comp }) => {
+  const onPrevPage = () => {
+    setPage((prev) => prev - 1);
+  };
+
   return (
     <div className={thirdSectionStyles.container}>
       <div className={thirdSectionStyles.wrapper}>
-        <TextField
-          sx={thirdSectionStyles.searchBar}
-          fullWidth
-          variant="outlined"
-          placeholder="Search components..."
-          size="small"
-        />
-
-        <div className={thirdSectionStyles.gridContainer}>
-          {comp.map((component, index) => (
-            <Card key={index} sx={thirdSectionStyles.card}>
-              <CardContent className={thirdSectionStyles.cardContent}>
-                <Typography variant="h6" className={thirdSectionStyles.name}>
-                  {component?.title}
-                </Typography>
-                <Typography className={thirdSectionStyles.title}>
-                  {component?.title}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  className={thirdSectionStyles?.price}
-                >
-                  ${component.cost.toFixed(2)}
-                </Typography>
-                <StarIcon className="text-yellow-500" />
-                <Typography
-                  variant="body2"
-                  className={thirdSectionStyles?.description}
-                >
-                  {component.description}
-                </Typography>
-                <div className={thirdSectionStyles.buttonGroup}>
-                  <Button
-                    sx={thirdSectionStyles.buttonPrimary}
-                    variant="outlined"
-                    size="small"
-                  >
-                    Details
-                  </Button>
-                  <Button
-                    sx={thirdSectionStyles.buttonSecondary}
-                    variant="contained"
-                    size="small"
-                  >
-                    Add to Build
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        <div className={thirdSectionStyles.searchWrapper}>
+          <TextField
+            sx={thirdSectionStyles.searchBar}
+            fullWidth
+            variant="outlined"
+            placeholder="Search components..."
+            size="small"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <div className={thirdSectionStyles.paginationWrapper}>
+            <Button
+              sx={thirdSectionStyles.buttonSecondary}
+              variant="contained"
+              size="small"
+              disabled={page === 1}
+              onClick={onPrevPage}
+            >
+              previos
+            </Button>
+            <p>
+              {totalPages !== 0 ? page : 0}/{totalPages}
+            </p>
+            <Button
+              sx={thirdSectionStyles.buttonSecondary}
+              variant="contained"
+              size="small"
+              disabled={page === totalPages || totalPages <= 1}
+              onClick={onNextPage}
+            >
+              next
+            </Button>
+          </div>
         </div>
+        {loading ? (
+          <CircularProgress sx={thirdSectionStyles.preloader} />
+        ) : (
+          <div className={thirdSectionStyles.gridContainer}>
+            {comp.map((component, i) => (
+              <ComponentCard key={i} component={component} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

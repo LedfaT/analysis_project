@@ -2,6 +2,7 @@ const { Tower } = require("../Entity");
 const towerOut = require("../models/out/tower/towerOut");
 const ApiError = require("../exeptions/api-error");
 const components = require("../types/componentTypes");
+const { Op } = require("sequelize");
 
 const TOWER_TYPE_SIZE = components.towerTypeSize;
 const TOWER_FAN_TYPE = components.towerFanType;
@@ -43,17 +44,41 @@ class TowerService {
     });
   }
 
-  async getAllTowers() {
-    const towers = await Tower.findAll();
-    return towers.map((tower) => {
-      const towerObj = tower.toJSON();
-      towerObj.type_size = reverseTowerTypeSize.get(towerObj.type_size);
-      towerObj.fan_type =
-        towerObj.fan_type !== null
-          ? reverseTowerFanType.get(towerObj.fan_type)
-          : null;
-      return new towerOut(towerObj);
+  async getAllTowers({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await Tower.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
     });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((tower) => {
+        const towerObj = tower.toJSON();
+        towerObj.type_size = reverseTowerTypeSize.get(towerObj.type_size);
+        towerObj.fan_type =
+          towerObj.fan_type !== null
+            ? reverseTowerFanType.get(towerObj.fan_type)
+            : null;
+        return new towerOut(towerObj);
+      }),
+    };
   }
 
   async getTowerById(towerId) {

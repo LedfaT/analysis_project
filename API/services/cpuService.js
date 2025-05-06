@@ -1,6 +1,7 @@
 const { CPU } = require("../Entity");
 const cpuOut = require("../models/out/cpu/cpuOut");
 const ApiError = require("../exeptions/api-error");
+const { Op } = require("sequelize");
 
 class CpuService {
   async create(cpuData) {
@@ -17,12 +18,36 @@ class CpuService {
     await CPU.create({ ...cpuData });
   }
 
-  async getAllCpus() {
-    const cpus = await CPU.findAll();
-    return cpus.map((cpu) => {
-      const cpuObj = cpu.toJSON();
-      return new cpuOut(cpuObj);
+  async getAllCpus({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await CPU.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
     });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((cpu) => {
+        const cpuObj = cpu.toJSON();
+        return new cpuOut(cpuObj);
+      }),
+    };
   }
 
   async getCpuById(cpuId) {
