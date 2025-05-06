@@ -23,14 +23,14 @@ const errorMiddleware = require("./middlewares/error-middleware");
 const app = express();
 app.use(
   cors({
-    // origin: [process.env.CLIENT_URL],
-    // credentials: true,
+    origin: process.env.CLIENT_URL,
+    credentials: true,
   })
 );
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api/user", router);
+app.use("/api/auth", router);
 app.use("/api/bluetooth-module", bluetoothModuleRouter);
 app.use("/api/cooling-system", coolingSystemRouter);
 app.use("/api/wifi-module", wifiModuleRouter);

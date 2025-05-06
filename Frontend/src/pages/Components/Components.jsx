@@ -21,7 +21,7 @@ const Components = () => {
   const [selectedComponent, setSelectedComponent] = useState("CPU");
   const [fetchedComponents, setFetchedComponents] = useState([]);
 
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [search, setSearch] = useState("");
 

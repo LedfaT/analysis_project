@@ -1,4 +1,6 @@
 import AuthService from "@services/AuthService";
+import axios from "axios";
+import { API_URL } from "../http";
 
 export default class Store {
   async login(email, password) {
@@ -21,7 +23,9 @@ export default class Store {
       const userData = res.data;
       userData.isAuth = true;
 
-      localStorage.setItem("userData", userData);
+      localStorage.setItem("userData", JSON.stringify(userData));
+
+      return res;
     } catch (e) {
       console.log(e);
     }
@@ -34,6 +38,14 @@ export default class Store {
       localStorage.removeItem("userData");
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async checkAuth() {
+    try {
+      const res = await axios.get(`${API_URL}/refresh`);
+    } catch (e) {
+      console.log(e.response?.data?.message);
     }
   }
 }

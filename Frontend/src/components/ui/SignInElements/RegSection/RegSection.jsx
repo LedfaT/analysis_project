@@ -1,7 +1,37 @@
+import { useContext, useState } from "react";
 import { styles } from "./RegSection.styles";
 import { Button, TextField, Box, Typography } from "@mui/material";
+import { Context } from "@/main";
+import { useNavigate } from "react-router-dom";
 
-const RegSection = () => {
+const RegSection = ({ setActiveForm }) => {
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const { store } = useContext(Context);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const onChangeForm = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const submitForm = async function () {
+    setLoading(true);
+    try {
+      await store.registration(form);
+      navigate("/profile");
+    } catch (e) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Box sx={styles.section}>
       <Box>
@@ -13,28 +43,23 @@ const RegSection = () => {
         </Typography>
       </Box>
 
-      <Box sx={styles.row}>
-        <TextField
-          label="First Name"
-          placeholder="John"
-          fullWidth
-          variant="outlined"
-          sx={styles.textField}
-        />
-        <TextField
-          label="Last Name"
-          placeholder="Doe"
-          fullWidth
-          variant="outlined"
-          sx={styles.textField}
-        />
-      </Box>
+      <TextField
+        label="Username"
+        placeholder="John"
+        fullWidth
+        variant="outlined"
+        name="username"
+        sx={styles.textField}
+        onChange={onChangeForm}
+      />
 
       <TextField
         label="Email"
         placeholder="example@email.com"
         fullWidth
         variant="outlined"
+        name="email"
+        onChange={onChangeForm}
         sx={styles.textField}
       />
       <TextField
@@ -42,6 +67,8 @@ const RegSection = () => {
         type="password"
         fullWidth
         variant="outlined"
+        name="password"
+        onChange={onChangeForm}
         sx={styles.textField}
       />
       <TextField
@@ -52,13 +79,23 @@ const RegSection = () => {
         sx={styles.textField}
       />
 
-      <Button variant="contained" sx={styles.button}>
+      <Button
+        loading={loading}
+        disabled={loading}
+        onClick={submitForm}
+        variant="contained"
+        sx={styles.button}
+      >
         Create Account
       </Button>
 
       <Typography sx={styles.footerText}>
         Already have an account?{" "}
-        <Box component="span" sx={styles.link}>
+        <Box
+          onClick={() => setActiveForm("signin")}
+          component="span"
+          sx={styles.link}
+        >
           Sign in
         </Box>
       </Typography>

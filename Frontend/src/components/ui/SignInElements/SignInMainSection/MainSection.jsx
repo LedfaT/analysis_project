@@ -21,24 +21,29 @@ const MainSection = () => {
 
       <div className={styles.buttons}>
         <Button
-            variant="text"
-            onClick={() => setActiveForm("signin")}
-            sx={{ ...styles.switchButtons, ...(activeForm === "signin" && styles.activeButton) }}
-            >
-            Sign In
+          variant="text"
+          onClick={() => setActiveForm("signin")}
+          sx={{
+            ...styles.switchButtons,
+            ...(activeForm === "signin" && styles.activeButton),
+          }}
+        >
+          Sign In
         </Button>
         <Button
-            variant="text"
-            onClick={() => setActiveForm("signup")}
-            sx={{ ...styles.switchButtons, ...(activeForm === "signup" && styles.activeButton) }}
-            >
-            Sign Up
+          variant="text"
+          onClick={() => setActiveForm("signup")}
+          sx={{
+            ...styles.switchButtons,
+            ...(activeForm === "signup" && styles.activeButton),
+          }}
+        >
+          Sign Up
         </Button>
-
       </div>
 
       {activeForm === "signin" && <AuthSection />}
-      {activeForm === "signup" && <RegSection />}
+      {activeForm === "signup" && <RegSection setActiveForm={setActiveForm} />}
     </section>
   );
 };

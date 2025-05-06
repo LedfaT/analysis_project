@@ -26,6 +26,8 @@ class UserService {
     }
     const hashPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid.v4();
+
+    if (!user_role) user_role = "USER";
     const newUser = await User.create({
       email,
       username,

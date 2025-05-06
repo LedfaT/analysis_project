@@ -7,14 +7,14 @@ import Store from "./store/store.js";
 
 const store = new Store();
 
-export const context = createContext({
+export const Context = createContext({
   store,
 });
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <context.Provider value={{ store }}>
+    <Context.Provider value={{ store }}>
       <App />
-    </context.Provider>
+    </Context.Provider>
   </StrictMode>
 );
