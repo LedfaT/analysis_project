@@ -26,13 +26,39 @@ class MotherboardService {
     await Motherboard.create({ ...data });
   }
 
-  async getAll() {
-    const motherboards = await Motherboard.findAll();
-    return motherboards.map((motherboard) => {
-      const obj = motherboard.toJSON();
-      obj.type_size = reversedTypeSize.get(obj.type_size);
-      return new MotherboardOut(obj);
+  async getAll({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await Motherboard.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
     });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((motherboard) => {
+        const motherboardObj = motherboard.toJSON();
+        motherboardObj.type_size = reversedTypeSize.get(
+          motherboardObj.type_size
+        );
+        return new MotherboardOut(motherboardObj);
+      }),
+    };
   }
 
   async getById(id) {

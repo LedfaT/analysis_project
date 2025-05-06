@@ -2,6 +2,7 @@ const { RAM } = require("../Entity");
 const ramOut = require("../models/out/ram/ramOut");
 const ApiError = require("../exeptions/api-error");
 const components = require("../types/componentTypes");
+const { Op } = require("sequelize");
 
 const RAM_MEMORY_TYPE = components.RAMmemType;
 const RAM_RADIATOR_TYPE = components.RAMradiatorType;
@@ -37,15 +38,38 @@ class RamService {
     });
   }
 
-  async getAll() {
-    const rams = await RAM.findAll();
-    return rams.map((ram) => {
-      const obj = ram.toJSON();
-      obj.memory_type = reverseRamMemoryType.get(obj.memory_type);
-      obj.radiator_type = reverseRamRadiatorType.get(obj.radiator_type);
+  async getAll({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
 
-      return new ramOut(obj);
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await RAM.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
     });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((ram) => {
+        const ramObj = ram.toJSON();
+        ramObj.memory_type = reverseRamMemoryType.get(ramObj.memory_type);
+        ramObj.radiator_type = reverseRamRadiatorType.get(ramObj.radiator_type);
+        return new ramOut(ramObj);
+      }),
+    };
   }
 
   async getById(id) {

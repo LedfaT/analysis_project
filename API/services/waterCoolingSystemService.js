@@ -2,6 +2,7 @@ const { WaterCoolingSystem } = require("../Entity");
 const waterCoolingOut = require("../models/out/waterCoolingSystem/waterCoolingSystemOut");
 const ApiError = require("../exeptions/api-error");
 const components = require("../types/componentTypes");
+const { Op } = require("sequelize");
 
 const WATER_COOLING_TYPE_SIZE = components.waterCoolingTypeSize;
 const reverseWaterCoolingTypeSize = components.invertMap(
@@ -33,15 +34,39 @@ class WaterCoolingSystemService {
     });
   }
 
-  async getAllSystems() {
-    const systems = await WaterCoolingSystem.findAll();
-    return systems.map((system) => {
-      const systemObj = system.toJSON();
-      systemObj.type_size = reverseWaterCoolingTypeSize.get(
-        systemObj.type_size
-      );
-      return new waterCoolingOut(systemObj);
+  async getAllSystems({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await WaterCoolingSystem.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
     });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((system) => {
+        const systemObj = system.toJSON();
+        systemObj.type_size = reverseWaterCoolingTypeSize.get(
+          systemObj.type_size
+        );
+        return new waterCoolingOut(systemObj);
+      }),
+    };
   }
 
   async getSystemById(systemId) {
