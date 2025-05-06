@@ -17,11 +17,30 @@ class BluetoothModuleService {
     await BluetoothModule.create({ ...bluetooth });
   }
 
-  async getAllBluetoothModules() {
-    const blutoothModules = await BluetoothModule.findAll();
-    return blutoothModules.map(
-      (bluetooth) => new BluetoothModuleOut(bluetooth)
-    );
+  async getAllBluetoothModules({ page, limit, search }) {
+    const newPage = parseInt(page) || 1;
+    const newLimit = parseInt(page) || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    const where = search
+      ? {
+          name: {
+            [Op.iLike]: `%${search}%`,
+          },
+        }
+      : {};
+
+    const { count, rows } = await BluetoothModule.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
+    });
+
+    const totalPages = Math.ceil(total / 12);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((bluetooth) => new BluetoothModuleOut(bluetooth)),
+    };
   }
 
   async getBluetoothModuleById(BmId) {

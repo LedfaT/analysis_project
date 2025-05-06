@@ -10,7 +10,7 @@ import towerService from "@services/towerService";
 import powerSupplyService from "@services/powerSupplyService";
 import coolingSystem from "@services/coolingSystem";
 import waterCoolingSystemService from "@services/waterCoolingSystemService";
-import bluetoothModuleService from "@services/waterCoolingSystemService";
+import bluetoothModuleService from "@services/bluetoothModuleService";
 import wifiModule from "@services/wifiModule";
 
 import ComponentsSecondSection from "../../components/ui/ComponentsElements/ComponentsSecondSection/SecondSection";
@@ -96,8 +96,12 @@ const Components = () => {
       }
 
       if (res.status === 200) {
-        setFetchedComponents(res.data);
-        console.log(res.data);
+        if (!res.data.data) {
+          setFetchedComponents(res.data);
+          return;
+        }
+
+        setFetchedComponents(res.data.data);
       }
     } catch (e) {
       console.log(e);
