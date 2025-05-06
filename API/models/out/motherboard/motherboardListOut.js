@@ -7,11 +7,14 @@ module.exports = class motherboardListOut {
   socket;
   createdAt;
   updatedAt;
+  description;
+  image;
   constructor(motherboard) {
     this.id = motherboard.id;
     this.cost = motherboard.cost;
     this.chipset = motherboard.chipset;
     this.title = motherboard.title;
+    this.image = motherboard.image;
     this.description = motherboard.description;
     this.type_size = motherboard.type_size;
     this.socket = motherboard.socket;

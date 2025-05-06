@@ -7,10 +7,13 @@ module.exports = class HddOut {
   write_speed;
   createdAt;
   updatedAt;
+  description;
+  image;
   constructor(hdd) {
     this.id = hdd.id;
     this.cost = hdd.cost;
     this.memory_quantity = hdd.memory_quantity;
+    this.image = hdd.image;
     this.title = hdd.title;
     this.description = hdd.description;
     this.reading_speed = hdd.reading_speed;

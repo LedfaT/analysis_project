@@ -14,8 +14,10 @@ module.exports = class ComputerUpdate {
   ssd_id;
   water_cooling_system_id;
   wifi_module_id;
-
+  image;
+  description;
   constructor(data) {
+    this.image = data.image;
     this.description = data.description;
     this.isPublished = data.isPublished;
     this.cost = data.cost;
