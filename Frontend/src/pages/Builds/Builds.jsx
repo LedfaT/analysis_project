@@ -6,17 +6,15 @@ import BuildsSecondSection from "../../components/ui/BuildsElements/BuildsSecond
 import BuildsThirdSection from "../../components/ui/BuildsElements/BuildsThirdSection/ThirdSection";
 
 const Builds = () => {
-    return(
-        <div className={buildsPageStyles.buildsPage}>
-            <Header />
-            <BuildsFirstSection />
-            <div className="flex mr-20 ml-20">
-                <BuildsSecondSection />
-                <BuildsThirdSection />
-            </div>
-            <Footer />
-        </div>
-    );
+  return (
+    <div className={buildsPageStyles.buildsPage}>
+      <BuildsFirstSection />
+      <div className="flex mr-20 ml-20">
+        <BuildsSecondSection />
+        <BuildsThirdSection />
+      </div>
+    </div>
+  );
 };
 
 export default Builds;

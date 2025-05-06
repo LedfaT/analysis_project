@@ -8,11 +8,14 @@ module.exports = class SsdListOut {
   write_speed;
   createdAt;
   updatedAt;
+  description;
+  image;
   constructor(ssd) {
     this.id = ssd.id;
     this.cost = ssd.cost;
     this.memory_quantity = ssd.memory_quantity;
     this.title = ssd.title;
+    this.image = ssd.image;
     this.description = ssd.description;
     this.reading_speed = ssd.reading_speed;
     this.radiator_type = ssd.radiator_type;

@@ -5,14 +5,12 @@ import ProfileFirstSection from "../../components/ui/ProfileElements/FirstSectio
 import ProfileSecondSection from "../../components/ui/ProfileElements/SecondSection/SecondSection";
 
 const Profile = () => {
-    return(
-        <div className={profilePageStyles.profilePage}>
-            <Header />
-            <ProfileFirstSection />
-            <ProfileSecondSection />
-            <Footer />
-        </div>
-    );
+  return (
+    <div className={profilePageStyles.profilePage}>
+      <ProfileFirstSection />
+      <ProfileSecondSection />
+    </div>
+  );
 };
 
 export default Profile;

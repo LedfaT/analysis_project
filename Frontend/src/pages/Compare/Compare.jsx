@@ -4,13 +4,11 @@ import Footer from "../../components/layout/Footer/Footer";
 import CompareFirstSection from "../../components/ui/CompareElements/CompareFirstSection/FirstSection";
 
 const Compare = () => {
-    return(
-        <div className={styles.comparePage}>
-            <Header />
-            <CompareFirstSection />
-            <Footer />
-        </div>
-    );
+  return (
+    <div className={styles.comparePage}>
+      <CompareFirstSection />
+    </div>
+  );
 };
 
 export default Compare;

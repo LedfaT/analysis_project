@@ -29,10 +29,13 @@ module.exports = class ComputerOut {
   ssd;
   water_cooling_system;
   wifi_module;
+  description;
+  image;
 
   constructor(computer) {
     this.id = computer.id;
     this.description = computer.description;
+    this.image = computer.image;
     this.isPublished = computer.isPublished;
     this.cost = computer.cost;
     this.user = computer.User || null;

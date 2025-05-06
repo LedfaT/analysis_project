@@ -7,10 +7,13 @@ module.exports = class GpuUpdate {
   cache;
   clock;
   vram_type;
+  image;
+  description;
   constructor(gpu) {
     this.cost = gpu.cost;
     this.cores = gpu.cores;
     this.title = gpu.title;
+    this.image = gpu.image;
     this.description = gpu.description;
     this.threads = gpu.threads;
     this.vram_quantity = gpu.vram_quantity;

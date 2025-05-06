@@ -10,6 +10,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       description: {
         type: DataTypes.TEXT,
       },
+      image: {
+        type: DataTypes.TEXT,
+      },
       isPublished: {
         type: DataTypes.BOOLEAN,
         default: false,
