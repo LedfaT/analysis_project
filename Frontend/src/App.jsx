@@ -5,7 +5,6 @@ import Home from "./pages/Home/Home.jsx";
 import Components from "./pages/Components/Components.jsx";
 import Builds from "./pages/Builds/Builds.jsx";
 import Configurator from "./pages/Configurator/Configurator.jsx";
-import Compare from "./pages/Compare/Compare.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import SignIn from "./pages/SignIn/SignIn.jsx";
 import MainLayout from "./components/layout/MainLyaout.jsx";
@@ -48,14 +47,7 @@ function App() {
             </MainLayout>
           }
         />
-        <Route
-          path="/compare"
-          element={
-            <MainLayout>
-              <Compare />
-            </MainLayout>
-          }
-        />
+
         <Route
           path="/profile"
           element={

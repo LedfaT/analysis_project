@@ -42,7 +42,7 @@ const features = [
     text: "Compare multiple builds side by side to find the perfect match.",
     icon: <BarChartIcon sx={{ fontSize: 28 }} />,
     bg: "bg-rose-50",
-    link: <Link to={"/compare"}>Explore<ArrowRightAltIcon sx={{ fontSize: 20 }} /></Link>
+    link: <Link to={"/builds"}>Explore<ArrowRightAltIcon sx={{ fontSize: 20 }} /></Link>
   },
   {
     title: "Find Components",
