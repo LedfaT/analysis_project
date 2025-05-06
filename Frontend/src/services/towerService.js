@@ -5,8 +5,10 @@ export default class TowerService {
     return $api.post("/api/tower", payload);
   }
 
-  static async getAllTowers(page, limit) {
-    return $api.get(`/api/tower/list?page=${page}&limit=${limit}`);
+  static async getAllTowers(page, limit, search = "") {
+    return $api.get(
+      `/api/tower/list?page=${page}&limit=${limit}&search=${search}`
+    );
   }
 
   static async getTowerById(id) {

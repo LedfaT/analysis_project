@@ -5,8 +5,10 @@ export default class PowerSupplyService {
     return $api.post("/api/power-supply", payload);
   }
 
-  static async getAllSupplies(page, limit) {
-    return $api.get(`/api/power-supply/list?page=${page}&limit=${limit}`);
+  static async getAllSupplies(page, limit, search = "") {
+    return $api.get(
+      `/api/power-supply/list?page=${page}&limit=${limit}&search=${search}`
+    );
   }
 
   static async getById(id) {

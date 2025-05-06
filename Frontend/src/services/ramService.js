@@ -5,8 +5,10 @@ export default class RamService {
     return $api.post("/api/RAM", payload);
   }
 
-  static async getAllRams(page, limit) {
-    return $api.get(`/api/RAM/list?page=${page}&limit=${limit}`);
+  static async getAllRams(page, limit, search = "") {
+    return $api.get(
+      `/api/RAM/list?page=${page}&limit=${limit}&search=${search}`
+    );
   }
 
   static async getRamById(id) {

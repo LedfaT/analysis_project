@@ -5,8 +5,10 @@ export default class BluetoothModuleService {
     return $api.post("/api/bluetooth-module", payload);
   }
 
-  static async getAllBluetoothModules(page, limit) {
-    return $api.get(`/api/bluetooth-module/list?page=${page}&limit=${limit}`);
+  static async getAllBluetoothModules(page, limit, search = "") {
+    return $api.get(
+      `/api/bluetooth-module/list?page=${page}&limit=${limit}&search=${search}`
+    );
   }
 
   static async getBluetoothModule(id) {

@@ -3,8 +3,12 @@ export const thirdSectionStyles = {
     "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
   container: "w-full",
   wrapper: "w-full ml-4 mt-1",
+
+  searchWrapper: "flex items-center mb-3 gap-10",
+  paginationWrapper: "flex items-center justify-between gap-3",
+
   searchBar: {
-    marginBottom: "10px",
+    marginBottom: "",
     "& .MuiOutlinedInput-root": {
       borderRadius: "12px",
     },

@@ -5,8 +5,10 @@ export default class WifiModuleService {
     return $api.post("/api/wifi-module", payload);
   }
 
-  static async getAllWifiModules(page, limit) {
-    return $api.get(`/api/wifi-module/list?page=${page}&limit=${limit}`);
+  static async getAllWifiModules(page, limit, search = "") {
+    return $api.get(
+      `/api/wifi-module/list?page=${page}&limit=${limit}&search=${search}`
+    );
   }
 
   static async getWifiModuleById(id) {

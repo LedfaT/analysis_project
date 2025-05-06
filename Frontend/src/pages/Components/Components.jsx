@@ -21,10 +21,22 @@ const Components = () => {
   const [selectedComponent, setSelectedComponent] = useState("CPU");
   const [fetchedComponents, setFetchedComponents] = useState([]);
 
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [search, setSearch] = useState("");
+
+  const [totalPages, setTotalPages] = useState(null);
+
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    setPage(1);
     fetchComponents(selectedComponent);
   }, [selectedComponent]);
+
+  useEffect(() => {
+    fetchComponents(selectedComponent);
+  }, [page]);
+
   const components = [
     "CPU",
     "Motherboard",
@@ -47,47 +59,50 @@ const Components = () => {
       let res;
       switch (component) {
         case "CPU":
-          res = await cpuService.getAllCpus();
+          res = await cpuService.getAllCpus(page, limit);
           break;
 
         case "Motherboard":
-          res = await motherboardService.getAllMotherboards();
+          res = await motherboardService.getAllMotherboards(page, limit);
           break;
 
         case "Graphics Card":
-          res = await gpuService.getAllGpus();
+          res = await gpuService.getAllGpus(page, limit);
           break;
 
         case "RAM":
-          res = await ramService.getAllRams();
+          res = await ramService.getAllRams(page, limit);
           break;
 
         case "SSD":
-          res = await ssdService.getAllSsds();
+          res = await ssdService.getAllSsds(page, limit);
           break;
 
         case "HDD":
-          res = await hddService.getAllHdds();
+          res = await hddService.getAllHdds(page, limit);
           break;
 
         case "Tower":
-          res = await towerService.getAllTowers();
+          res = await towerService.getAllTowers(page, limit);
           break;
 
         case "Power Supply":
-          res = await powerSupplyService.getAllSupplies();
+          res = await powerSupplyService.getAllSupplies(page, limit);
           break;
 
         case "Fan Cooling System":
-          res = await coolingSystem.getAllCollingSystems();
+          res = await coolingSystem.getAllCollingSystems(page, limit);
           break;
 
         case "Water Cooling System":
-          res = await waterCoolingSystemService.getAllSystems();
+          res = await waterCoolingSystemService.getAllSystems(page, limit);
           break;
 
         case "Bluetooth module":
-          res = await bluetoothModuleService.getAllBluetoothModules();
+          res = await bluetoothModuleService.getAllBluetoothModules(
+            page,
+            limit
+          );
           break;
 
         case "Wifi module":
@@ -96,12 +111,9 @@ const Components = () => {
       }
 
       if (res.status === 200) {
-        if (!res.data.data) {
-          setFetchedComponents(res.data);
-          return;
-        }
-
         setFetchedComponents(res.data.data);
+
+        setTotalPages(res.data.meta.totalPages);
       }
     } catch (e) {
       console.log(e);
@@ -120,7 +132,13 @@ const Components = () => {
           components={components}
         />
 
-        <ComponentsThirdSection loading={isLoading} comp={fetchedComponents} />
+        <ComponentsThirdSection
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+          loading={isLoading}
+          comp={fetchedComponents}
+        />
       </div>
     </div>
   );
