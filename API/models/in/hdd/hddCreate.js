@@ -4,6 +4,8 @@ module.exports = class HddCreate {
   cost;
   reading_speed;
   write_speed;
+  image;
+  description;
   constructor(hdd) {
     this.cost = hdd.cost;
     this.memory_quantity = hdd.memory_quantity;
