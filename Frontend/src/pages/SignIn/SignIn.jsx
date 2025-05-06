@@ -3,12 +3,7 @@ import Header from "../../components/layout/Header/Header";
 import Footer from "../../components/layout/Footer/Footer";
 
 const SignIn = () => {
-    return(
-        <div className={signInPageStyles.signInPage}>
-            <Header />
-            <Footer />
-        </div>
-    );
+  return <div className={signInPageStyles.signInPage}></div>;
 };
 
 export default SignIn;

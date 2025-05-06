@@ -14,6 +14,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       description: {
         type: DataTypes.TEXT,
       },
+      image: {
+        type: DataTypes.TEXT,
+      },
       strength: {
         type: DataTypes.INTEGER,
         allowNull: false,

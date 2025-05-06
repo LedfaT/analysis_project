@@ -7,22 +7,20 @@ import ConfiguratorThirdSection from "../../components/ui/ConfiguratorElements/C
 import ConfiguratorFourthSection from "../../components/ui/ConfiguratorElements/ConfiguratorFourthSection/FourthSection";
 
 const Configurator = () => {
-    return (
-        <div className={configuratorPageStyles.configuratorPage}>
-            <Header />
-            <ConfiguratorFirstSection />
-            <div className={configuratorPageStyles.mainGrid}>
-                <div className={configuratorPageStyles.leftColumn}>
-                    <ConfiguratorSecondSection />
-                    <ConfiguratorFourthSection />
-                </div>
-                <div className={configuratorPageStyles.rightColumn}>
-                    <ConfiguratorThirdSection />
-                </div>
-            </div>
-            <Footer />
+  return (
+    <div className={configuratorPageStyles.configuratorPage}>
+      <ConfiguratorFirstSection />
+      <div className={configuratorPageStyles.mainGrid}>
+        <div className={configuratorPageStyles.leftColumn}>
+          <ConfiguratorSecondSection />
+          <ConfiguratorFourthSection />
         </div>
-    );
+        <div className={configuratorPageStyles.rightColumn}>
+          <ConfiguratorThirdSection />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Configurator;

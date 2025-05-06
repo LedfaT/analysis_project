@@ -21,7 +21,12 @@ const computerRouter = require("./router/computerRouter");
 const errorMiddleware = require("./middlewares/error-middleware");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    // origin: [process.env.CLIENT_URL],
+    // credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,7 +53,7 @@ const start = async () => {
     console.log(`Server listens on port ${port}`);
   });
 
-  await db.sequelize.sync();
+  await db.sequelize.sync({ force: true });
 };
 
 start();

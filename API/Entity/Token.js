@@ -3,7 +3,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     "Token",
     {
       refreshToken: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       userId: {
