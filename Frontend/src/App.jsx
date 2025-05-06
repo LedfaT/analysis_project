@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./test.scss";
 import Home from "./pages/Home/Home.jsx";
 import Components from "./pages/Components/Components.jsx";
@@ -8,6 +8,7 @@ import Configurator from "./pages/Configurator/Configurator.jsx";
 import Compare from "./pages/Compare/Compare.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import SignIn from "./pages/SignIn/SignIn.jsx";
+import MainLayout from "./components/layout/MainLyaout.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,13 +16,62 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/components" element={<Components />} />
-        <Route path="/builds" element={<Builds />} />
-        <Route path="/configurator" element={<Configurator />} />
-        <Route path="/compare" element={<Compare />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/components"
+          element={
+            <MainLayout>
+              <Components />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/builds"
+          element={
+            <MainLayout>
+              <Builds />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/configurator"
+          element={
+            <MainLayout>
+              <Configurator />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/compare"
+          element={
+            <MainLayout>
+              <Compare />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <MainLayout>
+              <Profile />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <MainLayout>
+              <SignIn />
+            </MainLayout>
+          }
+        />
       </Routes>
     </Router>
   );

@@ -6,17 +6,15 @@ import ComponentsThirdSection from "../../components/ui/ComponentsElements/Compo
 import ComponentsFirstSection from "../../components/ui/ComponentsElements/ComponentsFirstSection/FirstSection";
 
 const Components = () => {
-    return(
-        <div className={componentsPageStyles.componentsPage}>
-            <Header />
-            <ComponentsFirstSection />
-            <div className="flex mr-20 ml-20">
-                <ComponentsSecondSection />
-                <ComponentsThirdSection />
-            </div>
-            <Footer />
-        </div>
-    );
+  return (
+    <div className={componentsPageStyles.componentsPage}>
+      <ComponentsFirstSection />
+      <div className="flex mr-20 ml-20">
+        <ComponentsSecondSection />
+        <ComponentsThirdSection />
+      </div>
+    </div>
+  );
 };
 
 export default Components;
