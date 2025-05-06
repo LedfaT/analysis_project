@@ -6,7 +6,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import MemoryIcon from '@mui/icons-material/Memory';
 import ComputerIcon from '@mui/icons-material/Computer';
 import SettingsIcon from '@mui/icons-material/Settings';
-import CompareIcon from '@mui/icons-material/Compare';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Header = () => {
@@ -28,7 +27,6 @@ const Header = () => {
           <Link to="/components" className={headerStyles.navLink}><MemoryIcon sx={{fontSize: 20}} />Components</Link>
           <Link to="/builds" className={headerStyles.navLink}><ComputerIcon sx={{fontSize: 20}} />Builds</Link>
           <Link to="/configurator" className={headerStyles.navLink}><SettingsIcon sx={{fontSize: 20}} />Configurator</Link>
-          <Link to="/compare" className={headerStyles.navLink}><CompareIcon sx={{fontSize: 20}} />Compare</Link>
           <Link to="/profile" className={headerStyles.navLink}><AccountCircleIcon sx={{fontSize: 20}} />Profile</Link>
         </nav>
         
