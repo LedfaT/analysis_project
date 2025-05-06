@@ -2,6 +2,7 @@ const { CoolingSystem } = require("../Entity");
 const CoolingSystemOut = require("../models/out/coolingSystem/coolingSystemOut");
 const ApiError = require("../exeptions/api-error");
 const components = require("../types/componentTypes");
+const { Op } = require("sequelize");
 
 const TYPE_SIZE = components.coolingSystemTypeSize;
 const reversedTypeSize = components.invertMap(TYPE_SIZE);
@@ -25,12 +26,36 @@ class CoolingSystemService {
     });
   }
 
-  async getAllCoolingSystems() {
-    const coolingSystems = await CoolingSystem.findAll();
-    return coolingSystems.map((cooling) => {
-      cooling.type_size = reversedTypeSize.get(cooling.type_size);
-      return new CoolingSystemOut(cooling);
+  async getAllCoolingSystems({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await CoolingSystem.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
     });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((cooling) => {
+        cooling.type_size = reversedTypeSize.get(cooling.type_size);
+        return new CoolingSystemOut(cooling);
+      }),
+    };
   }
 
   async getCoolingSystemById(coolingId) {

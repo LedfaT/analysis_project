@@ -47,7 +47,7 @@ class HddController {
 
   async getAllHdds(req, res, next) {
     try {
-      const hdds = await HddService.getAllHdds();
+      const hdds = await HddService.getAllHdds(req.query);
       res.json(hdds);
     } catch (e) {
       next(e);

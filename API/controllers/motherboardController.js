@@ -16,7 +16,7 @@ class MotherboardController {
 
   async getAll(req, res, next) {
     try {
-      const motherboards = await MotherboardService.getAll();
+      const motherboards = await MotherboardService.getAll(req.query);
       res.json(motherboards);
     } catch (error) {
       next(error);
