@@ -5,8 +5,10 @@ export default class HddService {
     return $api.post("/api/HDD", payload);
   }
 
-  static async getAllHdds() {
-    return $api.get("/api/HDD/list");
+  static async getAllHdds(page, limit, search = "") {
+    return $api.get(
+      `/api/HDD/list?page=${page}&limit=${limit}&search=${search}`
+    );
   }
 
   static async getHddById(id) {

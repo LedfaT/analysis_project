@@ -10,12 +10,15 @@ module.exports = class GpuOut {
   vram_type;
   createdAt;
   updatedAt;
+  description;
+  image;
   constructor(gpu) {
     this.id = gpu.id;
     this.cost = gpu.cost;
     this.cores = gpu.cores;
     this.title = gpu.title;
     this.threads = gpu.threads;
+    this.image = gpu.image;
     this.description = gpu.description;
     this.vram_quantity = gpu.vram_quantity;
     this.cache = gpu.cache;

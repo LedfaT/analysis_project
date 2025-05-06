@@ -43,7 +43,9 @@ class CoolingSystemController {
   }
   async getAllCollingSystemes(req, res, next) {
     try {
-      const coolingSystem = await CoolingSystemService.getAllCoolingSystems();
+      const coolingSystem = await CoolingSystemService.getAllCoolingSystems(
+        req.query
+      );
       res.json(coolingSystem);
     } catch (e) {
       next(e);

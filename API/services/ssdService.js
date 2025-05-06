@@ -2,6 +2,7 @@ const { SSD } = require("../Entity");
 const ssdOut = require("../models/out/ssd/ssdOut");
 const ApiError = require("../exeptions/api-error");
 const components = require("../types/componentTypes");
+const { Op } = require("sequelize");
 
 const SSD_RADIATOR_TYPE = components.SSDRadiatorType;
 const reverseSsdRadiator = components.invertMap(SSD_RADIATOR_TYPE);
@@ -31,13 +32,37 @@ class SsdService {
     });
   }
 
-  async getAllSsds() {
-    const ssds = await SSD.findAll();
-    return ssds.map((ssd) => {
-      const ssdObj = ssd.toJSON();
-      ssdObj.radiator_type = reverseSsdRadiator.get(ssdObj.radiator_type);
-      return new ssdOut(ssdObj);
+  async getAllSsds({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await SSD.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
     });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((ssd) => {
+        const ssdObj = ssd.toJSON();
+        ssdObj.radiator_type = reverseSsdRadiator.get(ssdObj.radiator_type);
+        return new ssdOut(ssdObj);
+      }),
+    };
   }
 
   async getSsdById(ssdId) {

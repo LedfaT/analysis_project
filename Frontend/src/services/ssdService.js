@@ -5,8 +5,10 @@ export default class SsdService {
     return $api.post("/api/SSD", payload);
   }
 
-  static async getAllSsds() {
-    return $api.get("/api/SSD/list");
+  static async getAllSsds(page, limit, search = "") {
+    return $api.get(
+      `/api/SSD/list?page=${page}&limit=${limit}&search=${search}`
+    );
   }
 
   static async getSsdById(id) {
