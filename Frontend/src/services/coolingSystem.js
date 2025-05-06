@@ -5,8 +5,8 @@ export default class CollingSystemService {
     return $api.post("/api/cooling-system", payload);
   }
 
-  static async getAllCollingSystems() {
-    return $api.get("/api/cooling-system/list");
+  static async getAllCollingSystems(page, limit) {
+    return $api.get(`/api/cooling-system/list?page=${page}&limit=${limit}`);
   }
 
   static async getCollingSystemById(id) {

@@ -5,8 +5,10 @@ export default class WaterCoolingSystemService {
     return $api.post("/api/water-cooling-system", payload);
   }
 
-  static async getAllSystems() {
-    return $api.get("/api/water-cooling-system/list");
+  static async getAllSystems(page, limit) {
+    return $api.get(
+      `/api/water-cooling-system/list?page=${page}&limit=${limit}`
+    );
   }
 
   static async getSystemById(id) {

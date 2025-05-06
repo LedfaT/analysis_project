@@ -5,8 +5,8 @@ export default class MotherboardService {
     return $api.post("/api/motherboard", payload);
   }
 
-  static async getAllMotherboards() {
-    return $api.get("/api/motherboard/list");
+  static async getAllMotherboards(page, limit) {
+    return $api.get(`/api/motherboard/list?page=${page}&limit=${limit}`);
   }
 
   static async getMotherboardById(id) {

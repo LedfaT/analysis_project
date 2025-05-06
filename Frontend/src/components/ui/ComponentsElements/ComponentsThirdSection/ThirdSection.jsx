@@ -1,9 +1,9 @@
 import React from "react";
-import { TextField, CircularProgress } from "@mui/material";
+import { TextField, CircularProgress, Button } from "@mui/material";
 import { thirdSectionStyles } from "./ThirdSection.styles";
 import ComponentCard from "./ComponentCard";
 
-const ComponentsThirdSection = ({ comp, loading }) => {
+const ComponentsThirdSection = ({ comp, loading, setPage }) => {
   return (
     <div className={thirdSectionStyles.container}>
       <div className={thirdSectionStyles.wrapper}>
@@ -14,7 +14,21 @@ const ComponentsThirdSection = ({ comp, loading }) => {
           placeholder="Search components..."
           size="small"
         />
+        <Button
+          sx={thirdSectionStyles.buttonSecondary}
+          variant="contained"
+          size="small"
+        >
+          next
+        </Button>
 
+        <Button
+          sx={thirdSectionStyles.buttonSecondary}
+          variant="contained"
+          size="small"
+        >
+          privios
+        </Button>
         {loading ? (
           <CircularProgress sx={thirdSectionStyles.preloader} />
         ) : (

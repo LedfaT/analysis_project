@@ -5,8 +5,8 @@ export default class CpuService {
     return $api.post("/api/CPU", payload);
   }
 
-  static async getAllCpus() {
-    return $api.get("/api/CPU/list");
+  static async getAllCpus(page, limit) {
+    return $api.get(`/api/CPU/list?page=${page}&limit=${limit}`);
   }
 
   static async getCpuById(id) {
