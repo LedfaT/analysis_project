@@ -1,25 +1,9 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  Button,
-  Typography,
-  TextField,
-} from "@mui/material";
+import { TextField, CircularProgress } from "@mui/material";
 import { thirdSectionStyles } from "./ThirdSection.styles";
-import StarIcon from "@mui/icons-material/Star";
+import ComponentCard from "./ComponentCard";
 
-const components = [
-  {
-    name: "Intel Core i9-13900K",
-    title: "CPU",
-    price: 589.99,
-    rating: 4.8,
-    description: "High-performance desktop processor with 24 cores...",
-  },
-];
-
-const ComponentsThirdSection = ({ comp }) => {
+const ComponentsThirdSection = ({ comp, loading }) => {
   return (
     <div className={thirdSectionStyles.container}>
       <div className={thirdSectionStyles.wrapper}>
@@ -31,49 +15,15 @@ const ComponentsThirdSection = ({ comp }) => {
           size="small"
         />
 
-        <div className={thirdSectionStyles.gridContainer}>
-          {comp.map((component, index) => (
-            <Card key={index} sx={thirdSectionStyles.card}>
-              <CardContent className={thirdSectionStyles.cardContent}>
-                <Typography variant="h6" className={thirdSectionStyles.name}>
-                  {component?.title}
-                </Typography>
-                <Typography className={thirdSectionStyles.title}>
-                  {component?.title}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  className={thirdSectionStyles?.price}
-                >
-                  ${component.cost.toFixed(2)}
-                </Typography>
-                <StarIcon className="text-yellow-500" />
-                <Typography
-                  variant="body2"
-                  className={thirdSectionStyles?.description}
-                >
-                  {component.description}
-                </Typography>
-                <div className={thirdSectionStyles.buttonGroup}>
-                  <Button
-                    sx={thirdSectionStyles.buttonPrimary}
-                    variant="outlined"
-                    size="small"
-                  >
-                    Details
-                  </Button>
-                  <Button
-                    sx={thirdSectionStyles.buttonSecondary}
-                    variant="contained"
-                    size="small"
-                  >
-                    Add to Build
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {loading ? (
+          <CircularProgress sx={thirdSectionStyles.preloader} />
+        ) : (
+          <div className={thirdSectionStyles.gridContainer}>
+            {comp.map((component, i) => (
+              <ComponentCard key={i} component={component} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
