@@ -1,10 +1,17 @@
 import { profilePageStyles } from "./Profile.styles";
-import Header from "../../components/layout/Header/Header";
-import Footer from "../../components/layout/Footer/Footer";
+import { useNavigate } from "react-router-dom";
+
 import ProfileFirstSection from "../../components/ui/ProfileElements/FirstSection/FirstSection";
 import ProfileSecondSection from "../../components/ui/ProfileElements/SecondSection/SecondSection";
-
+import { useContext, useEffect } from "react";
+import { Context } from "@/main";
 const Profile = () => {
+  const { store } = useContext(Context);
+  const auth = store.getData().isAuth;
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!auth) navigate("/signin");
+  });
   return (
     <div className={profilePageStyles.profilePage}>
       <ProfileFirstSection />

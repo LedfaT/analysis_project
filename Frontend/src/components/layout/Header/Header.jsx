@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
+import { Context } from "@/main";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { headerStyles } from "./Header.styles";
@@ -10,7 +12,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Button } from "@mui/material";
 
 const Header = () => {
-  const auth = JSON.parse(localStorage.getItem("userData"))?.isAuth;
+  const { store } = useContext(Context);
+  const auth = store.getData?.isAuth;
 
   return (
     <header className={headerStyles.header}>
@@ -39,7 +42,10 @@ const Header = () => {
             <SettingsIcon sx={{ fontSize: 20 }} />
             Configurator
           </Link>
-          <Link to="/profile" className={headerStyles.navLink}>
+          <Link
+            to={auth ? "/profile" : "/signin"}
+            className={headerStyles.navLink}
+          >
             <AccountCircleIcon sx={{ fontSize: 20 }} />
             Profile
           </Link>

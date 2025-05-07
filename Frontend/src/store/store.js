@@ -3,6 +3,14 @@ import axios from "axios";
 import { API_URL } from "../http";
 
 export default class Store {
+  getData() {
+    return JSON.parse(localStorage.getItem("userData"));
+  }
+
+  setData(data) {
+    return localStorage.setItem("userData", JSON.stringify(data));
+  }
+
   async login(email, password) {
     try {
       const res = await AuthService.login(email, password);
@@ -10,7 +18,7 @@ export default class Store {
       const userData = res.data;
       userData.isAuth = true;
 
-      localStorage.setItem("userData", userData);
+      this.setData(userData);
     } catch (e) {
       console.log(e);
     }
@@ -23,7 +31,7 @@ export default class Store {
       const userData = res.data;
       userData.isAuth = true;
 
-      localStorage.setItem("userData", JSON.stringify(userData));
+      this.setData(userData);
 
       return res;
     } catch (e) {
