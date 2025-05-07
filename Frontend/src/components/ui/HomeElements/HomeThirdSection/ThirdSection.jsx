@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import { ArrowRightAlt } from '@mui/icons-material';
 import { thirdSectionStyles } from './ThirdSection.styles';
 import Button from '@mui/material/Button';
@@ -16,19 +17,22 @@ const HomeThirdSection = () => {
         </p>
         
         <div className={thirdSectionStyles.buttonsContainer}>
-        <Button 
+        <Link to={"/configurator"}> <Button 
                 variant="contained" 
                 size="medium"
                 endIcon={<ArrowRightAlt />}
                 sx={thirdSectionStyles.primaryButton}>
                 Start Building
         </Button>
+        </Link> 
+        <Link to={"/profile"}>
         <Button 
                 variant="outlined" 
                 size="medium"
                 sx={thirdSectionStyles.secondaryButton}>
                 Create Account
         </Button>
+        </Link>
         </div>
       </div>
     </section>
