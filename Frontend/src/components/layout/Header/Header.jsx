@@ -13,7 +13,11 @@ import { Button } from "@mui/material";
 
 const Header = () => {
   const { store } = useContext(Context);
-  const auth = store.getData?.isAuth;
+  const auth = store.getData().isAuth;
+
+  useEffect(() => {
+    console.log(auth);
+  });
 
   return (
     <header className={headerStyles.header}>

@@ -4,6 +4,7 @@ import { API_URL } from "../http";
 
 export default class Store {
   getData() {
+    console.log(JSON.parse(localStorage.getItem("userData")));
     return JSON.parse(localStorage.getItem("userData"));
   }
 
