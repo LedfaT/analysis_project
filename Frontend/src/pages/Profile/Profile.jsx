@@ -1,8 +1,8 @@
 import { profilePageStyles } from "./Profile.styles";
 import { useNavigate } from "react-router-dom";
 
-import ProfileFirstSection from "../../components/ui/ProfileElements/FirstSection/FirstSection";
-import ProfileSecondSection from "../../components/ui/ProfileElements/SecondSection/SecondSection";
+import ProfileFirstSection from "@/components/ui/ProfileElements/ProfileFirstSection/FirstSection";
+import ProfileSecondSection from "@/components/ui/ProfileElements/ProfileSecondSection/SecondSection";
 import { useContext, useEffect } from "react";
 import { Context } from "@/main";
 const Profile = () => {
