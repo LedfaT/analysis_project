@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { styles } from "./RegSection.styles";
 import { Button, TextField, Box, Typography } from "@mui/material";
-import { Context } from "@/main";
+import { Context } from "@/contextProvider";
 import { useNavigate } from "react-router-dom";
 
 const RegSection = ({ setActiveForm }) => {

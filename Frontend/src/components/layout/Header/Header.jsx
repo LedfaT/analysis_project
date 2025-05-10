@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useContext } from "react";
-import { Context } from "@/main";
+import { Context } from "@/contextProvider";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { headerStyles } from "./Header.styles";
@@ -13,7 +13,7 @@ import { Button } from "@mui/material";
 
 const Header = () => {
   const { store } = useContext(Context);
-  const auth = store.getData().isAuth;
+  const auth = store.getData()?.isAuth;
 
   useEffect(() => {
     console.log(auth);
