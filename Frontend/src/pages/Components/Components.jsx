@@ -14,8 +14,8 @@ import bluetoothModuleService from "@services/bluetoothModuleService";
 import wifiModule from "@services/wifiModule";
 
 import ComponentsSecondSection from "../../components/ui/ComponentsElements/ComponentsSecondSection/SecondSection";
-import ComponentsThirdSection from "../../components/ui/ComponentsElements/ComponentsThirdSection/ThirdSection";
 import ComponentsFirstSection from "../../components/ui/ComponentsElements/ComponentsFirstSection/FirstSection";
+import ComponentsThirdSection from "../../components/ui/ComponentsElements/ComponentsThirdSection/ThirdSection";
 
 const Components = () => {
   const [selectedComponent, setSelectedComponent] = useState("CPU");
