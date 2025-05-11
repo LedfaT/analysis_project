@@ -127,7 +127,7 @@ const Components = () => {
           break;
 
         case "Wifi module":
-          res = await wifiModule.getAllWifiModules();
+          res = await wifiModule.getAllWifiModules(page, limit, search);
           break;
       }
 
