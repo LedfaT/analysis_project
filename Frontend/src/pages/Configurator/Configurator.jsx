@@ -108,7 +108,7 @@ const Configurator = () => {
           );
           break;
 
-        case "Bluetooth module":
+        case "Bluetooth":
           res = await bluetoothModuleService.getAllBluetoothModules(
             page,
             limit,
@@ -116,7 +116,7 @@ const Configurator = () => {
           );
           break;
 
-        case "Wifi module":
+        case "Wifi":
           res = await wifiModule.getAllWifiModules(page, limit, search);
           break;
       }
@@ -157,7 +157,7 @@ const Configurator = () => {
 
   const calculateTotalPrice = () => {
     return Object.values(build).reduce(
-      (total, component) => total + component.price,
+      (total, component) => total + component.cost,
       0
     );
   };

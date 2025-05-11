@@ -3,7 +3,7 @@ const computerController = require("../controllers/computerController");
 const router = new Router();
 const authMiddleware = require("../middlewares/auth-middleware");
 
-router.post("/", computerController.createComputer);
+router.post("/", authMiddleware, computerController.createComputer);
 router.get("/list", computerController.getAllComputers);
 router.get(
   "/user-computers/list",
