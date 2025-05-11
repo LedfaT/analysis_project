@@ -1,10 +1,27 @@
 import { Button } from "@mui/material";
 import { styles } from "./AccountSection.styles";
 import EditIcon from "@mui/icons-material/Edit";
+import { useContext, useMemo } from "react";
+import months from "@/data/months";
+import { Context } from "@/contextProvider";
 import SettingsIcon from "@mui/icons-material/Settings";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const AccountSection = () => {
+  const { store } = useContext(Context);
+  const user = store.getData().user;
+
+  const parsedDate = useMemo(() => {
+    const newDate = new Date(user.createdAt);
+
+    console.log(newDate.getMonth());
+    const day = newDate.getDate();
+    const month = months[newDate.getMonth()];
+    const year = newDate.getFullYear();
+
+    return `${month} ${day}, ${year}`;
+  }, []);
+
   return (
     <section className={styles.section}>
       <div className={styles.card}>
@@ -24,18 +41,18 @@ const AccountSection = () => {
           </div>
 
           <div className={styles.infoItem}>
-            <div className={styles.label}>Name</div>
-            <div className={styles.value}>John Doe</div>
+            <div className={styles.label}>Username</div>
+            <div className={styles.value}>{user.username}</div>
           </div>
 
           <div className={styles.infoItem}>
             <div className={styles.label}>Email</div>
-            <div className={styles.value}>john.doe@example.com</div>
+            <div className={styles.value}>{user.email}</div>
           </div>
 
           <div className={styles.infoItem}>
             <div className={styles.label}>Member Since</div>
-            <div className={styles.value}>January 15, 2023</div>
+            <div className={styles.value}>{parsedDate}</div>
           </div>
 
           <div className={styles.infoItem}>

@@ -16,11 +16,10 @@ const Header = () => {
   const auth = store.getData()?.isAuth;
   const navigate = useNavigate();
 
-  const handleLogout = function () {
+  const handleLogout = async function () {
     try {
-      store.logout();
+      const res = await store.logout();
       navigate("/");
-      window.location.reload();
     } catch (e) {}
   };
 
