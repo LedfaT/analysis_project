@@ -1,6 +1,7 @@
+import React from "react";
 import { Card, CardContent, Button, Typography } from "@mui/material";
-import { thirdSectionStyles } from "./ThirdSection.styles";
 import StarIcon from "@mui/icons-material/Star";
+import { thirdSectionStyles } from "./ThirdSection.styles";
 
 const ComponentCard = ({ component, addToBuild, showDetails, category }) => {
   return (
@@ -24,7 +25,7 @@ const ComponentCard = ({ component, addToBuild, showDetails, category }) => {
             sx={thirdSectionStyles.buttonPrimary}
             variant="outlined"
             size="small"
-            onClick={showDetails}
+            onClick={showDetails} 
           >
             Details
           </Button>
