@@ -5,8 +5,10 @@ export default class GpuService {
     return $api.post("/api/GPU", payload);
   }
 
-  static async getAllGpus() {
-    return $api.get("/api/GPU/list");
+  static async getAllGpus(page, limit, search = "") {
+    return $api.get(
+      `/api/GPU/list?page=${page}&limit=${limit}&search=${search}`
+    );
   }
 
   static async getGpuById(id) {

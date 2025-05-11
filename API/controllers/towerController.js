@@ -47,7 +47,7 @@ class TowerController {
 
   async getAllTowers(req, res, next) {
     try {
-      const towers = await TowerService.getAllTowers();
+      const towers = await TowerService.getAllTowers(req.query);
       res.json(towers);
     } catch (e) {
       next(e);

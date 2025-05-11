@@ -47,7 +47,7 @@ class WaterCoolingSystemController {
 
   async getAllSystems(req, res, next) {
     try {
-      const systems = await WaterCoolingSystemService.getAllSystems();
+      const systems = await WaterCoolingSystemService.getAllSystems(req.query);
       res.json(systems);
     } catch (e) {
       next(e);

@@ -1,16 +1,28 @@
 import AuthService from "@services/AuthService";
+import axios from "axios";
+import { API_URL } from "../http";
 
 export default class Store {
-  async login(email, password) {
+  getData() {
+    return JSON.parse(localStorage.getItem("userData"));
+  }
+
+  setData(data) {
+    return localStorage.setItem("userData", JSON.stringify(data));
+  }
+
+  async login({ email, password }) {
     try {
       const res = await AuthService.login(email, password);
 
       const userData = res.data;
       userData.isAuth = true;
 
-      localStorage.setItem("userData", userData);
+      this.setData(userData);
+      return res;
     } catch (e) {
-      console.log(e);
+      throw e;
+    } finally {
     }
   }
 
@@ -21,7 +33,9 @@ export default class Store {
       const userData = res.data;
       userData.isAuth = true;
 
-      localStorage.setItem("userData", userData);
+      this.setData(userData);
+
+      return res;
     } catch (e) {
       console.log(e);
     }
@@ -30,10 +44,18 @@ export default class Store {
   async logout() {
     try {
       const res = await AuthService.logout();
-
       localStorage.removeItem("userData");
+      return res;
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async checkAuth() {
+    try {
+      const res = await axios.get(`${API_URL}/refresh`);
+    } catch (e) {
+      console.log(e.response?.data?.message);
     }
   }
 }

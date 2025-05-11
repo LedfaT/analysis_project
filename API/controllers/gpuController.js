@@ -47,7 +47,7 @@ class GpuController {
 
   async getAllGpus(req, res, next) {
     try {
-      const gpus = await GpuService.getAllGpus();
+      const gpus = await GpuService.getAllGpus(req.query);
       res.json(gpus);
     } catch (e) {
       next(e);

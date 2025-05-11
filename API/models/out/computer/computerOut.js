@@ -10,6 +10,7 @@ const SsdListOut = require("../ssd/ssdListOut");
 const TowerListOut = require("../tower/towerListOut");
 const WaterCoolingSystemListOut = require("../waterCoolingSystem/waterCoolingSystemListOut");
 const WifiModuleListOut = require("../wifiModule/wifiModuleListOut");
+const userDto = require("../../in/userIn");
 
 module.exports = class ComputerOut {
   id;
@@ -38,7 +39,7 @@ module.exports = class ComputerOut {
     this.image = computer.image;
     this.isPublished = computer.isPublished;
     this.cost = computer.cost;
-    this.user = computer.User || null;
+    this.user = new userDto(computer.User) || null;
     this.bluetooth_module =
       new BluetoothModuleListOut(computer.BluetoothModule) || null;
     this.tower = new TowerListOut(computer.Tower) || null;

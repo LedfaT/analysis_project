@@ -15,10 +15,22 @@ class ComputerController {
 
   async getAllUserComputers(req, res, next) {
     try {
-      const { userId } = req.params;
+      const { userId } = req.user;
       const computers = await ComputerService.getAllUserComputers(userId);
 
       return res.json(computers);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getAllUserComputersCount(req, res, next) {
+    try {
+      const { id } = req.user;
+
+      const computers = await ComputerService.userComputersCount(id);
+
+      return res.json(computers.length);
     } catch (error) {
       next(error);
     }

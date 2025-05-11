@@ -47,7 +47,7 @@ class SsdController {
 
   async getAllSsds(req, res, next) {
     try {
-      const ssds = await SsdService.getAllSsds();
+      const ssds = await SsdService.getAllSsds(req.query);
       res.json(ssds);
     } catch (e) {
       next(e);

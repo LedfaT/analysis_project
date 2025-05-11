@@ -16,7 +16,7 @@ class RamController {
 
   async getAllRams(req, res, next) {
     try {
-      const rams = await RamService.getAll();
+      const rams = await RamService.getAll(req.query);
       return res.json(rams);
     } catch (e) {
       next(e);

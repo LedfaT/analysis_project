@@ -1,18 +1,32 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  TextField,
+} from "@mui/material";
 import { secondSectionStyles } from "./SecondSection.styles";
+import { thirdSectionStyles } from "./ThirdSection.styles";
+import componentsData from "../../../../data/componentsData";
+import StarIcon from "@mui/icons-material/Star";
 
 const ComponentsSecondSection = ({
   selectedComponent,
   setSelectedComponent,
   components,
 }) => {
+  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
+  const [priceFilterEnabled, setPriceFilterEnabled] = useState(false);
+
   const handleComponentClick = (component) => {
     setSelectedComponent(component);
   };
 
   const resetFilters = () => {
     setSelectedComponent("CPU");
+    setPriceRange({ min: "", max: "" });
+    setPriceFilterEnabled(false);
   };
 
   return (
@@ -55,6 +69,10 @@ const ComponentsSecondSection = ({
           label="From"
           variant="outlined"
           size="small"
+          value={priceRange.min}
+          onChange={(e) =>
+            setPriceRange({ ...priceRange, min: e.target.value })
+          }
         />
         <TextField
           sx={secondSectionStyles.input}
@@ -62,11 +80,16 @@ const ComponentsSecondSection = ({
           label="To"
           variant="outlined"
           size="small"
+          value={priceRange.max}
+          onChange={(e) =>
+            setPriceRange({ ...priceRange, max: e.target.value })
+          }
         />
         <Button
           variant="outlined"
           fullWidth
           sx={secondSectionStyles.enableButton}
+          onClick={() => setPriceFilterEnabled(true)}
         >
           Enable
         </Button>

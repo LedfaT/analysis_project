@@ -17,9 +17,37 @@ class wifiModuleService {
     await WifiModule.create({ ...wifi });
   }
 
-  async getAllWifiModules() {
-    const wifiModules = await WifiModule.findAll();
-    return wifiModules.map((wifi) => new WifiModuleOut(wifi));
+  async getAllWifiModules({ page, limit, search, cost }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+
+    // if (cost) {
+    //   where.cost;
+    // }
+
+    const { count, rows } = await WifiModule.findAndCountAll({
+      where,
+      offset,
+      limit: newLimit,
+    });
+
+    const totalPages = Math.ceil(count / newLimit);
+    return {
+      meta: { count, totalPages },
+      data: rows.map((wifi) => {
+        const wifiObj = wifi.toJSON();
+
+        return new WifiModuleOut(wifiObj);
+      }),
+    };
   }
 
   async getWifiModuleById(wifiId) {
