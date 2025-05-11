@@ -1,14 +1,25 @@
 // src/components/layout/SaveBuildDialog/SaveBuildDialog.js
-import React, { useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Typography, List, ListItem, ListItemText } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 
 const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
-  const [buildName, setBuildName] = useState('');
+  const [buildName, setBuildName] = useState("");
 
   const handleSave = () => {
     if (buildName.trim()) {
       onSave(buildName);
-      setBuildName(''); // Очистити після збереження
+      setBuildName(""); // Очистити після збереження
     }
   };
 
@@ -28,13 +39,15 @@ const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
           value={buildName}
           onChange={(e) => setBuildName(e.target.value)}
         />
-        <Typography variant="subtitle1" className="mt-4">Components:</Typography>
+        <Typography variant="subtitle1" className="mt-4">
+          Components:
+        </Typography>
         <List dense>
           {componentsList.map(([category, component]) => (
             <ListItem key={category}>
               <ListItemText
                 primary={`${category}: ${component.name}`}
-                secondary={`$${component.price.toFixed(2)}`}
+                secondary={`$${component.cost?.toFixed(2)}`}
               />
             </ListItem>
           ))}
@@ -45,7 +58,9 @@ const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button variant="contained" onClick={handleSave}>Accept</Button>
+        <Button variant="contained" onClick={handleSave}>
+          Accept
+        </Button>
       </DialogActions>
     </Dialog>
   );
