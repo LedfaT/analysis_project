@@ -1,7 +1,7 @@
 export const styles = {
     container: 'bg-gray-100 p-2 rounded-lg',
     contentRow: 'flex items-center justify-between gap-4',
-    tabs: 'flex gap-2 overflow-x-auto flex-grow',
+    tabs: 'flex flex-wrap gap-2 overflow-x-auto flex-grow',
     searchContainer: 'flex items-center bg-white px-3 py-1.5 rounded-full shadow-sm flex-shrink-0',
     searchInput: 'ml-2 outline-none text-sm w-40 placeholder:text-sm placeholder:text-gray-400'
   };

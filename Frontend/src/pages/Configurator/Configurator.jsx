@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { configuratorPageStyles } from "./Configurator.styles";
-import Header from "../../components/layout/Header/Header";
-import Footer from "../../components/layout/Footer/Footer";
 import ConfiguratorFirstSection from "../../components/ui/ConfiguratorElements/ConfiguratorFirstSection/FirstSection";
 import ConfiguratorSecondSection from "../../components/ui/ConfiguratorElements/ConfiguratorSecondSection/SecondSection";
 import ConfiguratorThirdSection from "../../components/ui/ConfiguratorElements/ConfiguratorThirdSection/ThirdSection";
@@ -46,7 +44,6 @@ const Configurator = () => {
 
     return (
         <div className={configuratorPageStyles.configuratorPage}>
-            <Header />
             <ConfiguratorFirstSection />
             <div className={configuratorPageStyles.mainGrid}>
                 <div className={configuratorPageStyles.leftColumn}>
@@ -72,8 +69,6 @@ const Configurator = () => {
                 currentPart={build[pendingCategory]}
                 newPart={pendingPart}
             />
-
-            <Footer />
         </div>
     );
 };

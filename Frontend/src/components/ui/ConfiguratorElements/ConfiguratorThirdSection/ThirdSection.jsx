@@ -12,7 +12,7 @@ import DialogActions from '@mui/material/DialogActions';
 
 const partsOrder = [
   'CPU', 'Motherboard', 'GPU', 'RAM',
-  'SSD', 'HDD', 'Case', 'Power Supply', 'FCS', 'WCS'
+  'SSD', 'HDD', 'Case', 'Power Supply', 'FCS', 'WCS', "Bluetooth", "Wifi"
 ];
 
 const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {

@@ -2,7 +2,7 @@ import { Card, CardContent, Button, Typography } from "@mui/material";
 import { thirdSectionStyles } from "./ThirdSection.styles";
 import StarIcon from "@mui/icons-material/Star";
 
-const ComponentCard = ({ component }) => {
+const ComponentCard = ({ component, onAddToBuild }) => {
   return (
     <Card sx={thirdSectionStyles.card}>
       <CardContent className={thirdSectionStyles.cardContent}>
@@ -31,6 +31,7 @@ const ComponentCard = ({ component }) => {
             sx={thirdSectionStyles.buttonSecondary}
             variant="contained"
             size="small"
+            onClick={() => onAddToBuild(component)}
           >
             Add to Build
           </Button>

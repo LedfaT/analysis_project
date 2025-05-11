@@ -18,11 +18,25 @@ import ComponentsFirstSection from "../../components/ui/ComponentsElements/Compo
 import ComponentsThirdSection from "../../components/ui/ComponentsElements/ComponentsThirdSection/ThirdSection";
 
 const Components = () => {
+  
+  const handleAddToBuild = (component, category) => {
+    if (build[category]) {
+      setPendingPart(component);
+      setPendingCategory(category);
+      setDialogOpen(true);
+    } else {
+      setBuild(prev => ({
+        ...prev,
+        [category]: component
+      }));
+    }
+  };
+
   const [selectedComponent, setSelectedComponent] = useState("CPU");
   const [fetchedComponents, setFetchedComponents] = useState([]);
 
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(12);
   const [search, setSearch] = useState("");
 
   const [totalPages, setTotalPages] = useState(null);
@@ -160,6 +174,7 @@ const Components = () => {
           loading={isLoading}
           comp={fetchedComponents}
           setSearch={setSearch}
+          onAddToBuild={handleAddToBuild}
         />
       </div>
     </div>
