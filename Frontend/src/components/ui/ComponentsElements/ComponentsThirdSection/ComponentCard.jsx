@@ -33,7 +33,6 @@ const ComponentCard = ({ component, addToBuild, showDetails, category }) => {
             variant="contained"
             size="small"
             onClick={() => {
-              // console.log(caterogy);
               return addToBuild(component, category);
             }}
           >

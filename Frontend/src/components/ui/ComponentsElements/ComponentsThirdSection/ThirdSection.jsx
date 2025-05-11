@@ -4,6 +4,7 @@ import { thirdSectionStyles } from "./ThirdSection.styles";
 import ComponentCard from "./ComponentCard";
 
 const ComponentsThirdSection = ({
+  onAddToBuild,
   comp,
   loading,
   page,
@@ -18,6 +19,7 @@ const ComponentsThirdSection = ({
   const onPrevPage = () => {
     setPage((prev) => prev - 1);
   };
+
 
   return (
     <div className={thirdSectionStyles.container}>
@@ -60,7 +62,8 @@ const ComponentsThirdSection = ({
         ) : (
           <div className={thirdSectionStyles.gridContainer}>
             {comp.map((component, i) => (
-              <ComponentCard key={i} component={component} />
+              <ComponentCard key={i} component={component} onAddToBuild={onAddToBuild} />
+
             ))}
           </div>
         )}

@@ -17,8 +17,8 @@ const ConfirmationDialog = ({ open, onClose, onConfirm, currentPart, newPart }) 
       <DialogTitle>Confirm Replacement</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to replace <strong>{currentPart?.name}</strong> ({currentPart?.price}$) 
-          with <strong>{newPart?.name}</strong> ({newPart?.price}$)?
+          Are you sure you want to replace <strong>{currentPart?.title}</strong> ({currentPart?.cost}$) 
+          with <strong>{newPart?.title}</strong> ({newPart?.cost}$)?
         </DialogContentText>
       </DialogContent>
       <DialogActions>

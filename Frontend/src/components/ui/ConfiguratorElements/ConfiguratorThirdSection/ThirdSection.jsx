@@ -10,16 +10,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 
 const partsOrder = [
-  "CPU",
-  "Motherboard",
-  "GPU",
-  "RAM",
-  "SSD",
-  "HDD",
-  "Case",
-  "Power Supply",
-  "FCS",
-  "WCS",
+  'CPU', 'Motherboard', 'GPU', 'RAM',
+  'SSD', 'HDD', 'Case', 'Power Supply', 'FCS', 'WCS', "Bluetooth", "Wifi"
 ];
 
 const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
@@ -27,7 +19,7 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
 
   const handleSaveClick = () => {
-    if (selectedCount === 8) {
+    if (selectedCount === 1) {
       setSaveDialogOpen(true);
     } else {
       alert("Please select all 8 required components before saving.");
@@ -81,12 +73,12 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
           {selectedCount} of 10 components selected{" "}
           <span
             className={`ml-1 px-2 rounded-full ${
-              selectedCount === 8
+              selectedCount === 1
                 ? "bg-green-200 text-green-800"
                 : "bg-gray-200"
             }`}
           >
-            {selectedCount === 8 ? "Complete" : "Incomplete"}
+            {selectedCount === 1 ? "Complete" : "Incomplete"}
           </span>
         </div>
 

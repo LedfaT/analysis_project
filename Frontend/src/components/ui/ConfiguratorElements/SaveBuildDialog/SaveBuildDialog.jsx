@@ -11,6 +11,8 @@ import {
   List,
   ListItem,
   ListItemText,
+  FormControlLabel,
+  Checkbox
 } from "@mui/material";
 
 const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
@@ -46,7 +48,7 @@ const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
           {componentsList.map(([category, component]) => (
             <ListItem key={category}>
               <ListItemText
-                primary={`${category}: ${component.name}`}
+                primary={`${category}: ${component.title}`}
                 secondary={`$${component.cost?.toFixed(2)}`}
               />
             </ListItem>
@@ -57,6 +59,7 @@ const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
         </Typography>
       </DialogContent>
       <DialogActions>
+        <FormControlLabel control={<Checkbox defaultChecked />} label="Do you want to Public Export?" />
         <Button onClick={onClose}>Cancel</Button>
         <Button variant="contained" onClick={handleSave}>
           Accept
