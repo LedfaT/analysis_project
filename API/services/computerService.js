@@ -42,6 +42,16 @@ class ComputerService {
     });
   }
 
+  async userComputersCount(userId) {
+    const computers = await Computer.findAll({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    return computers;
+  }
+
   async getAllComputers() {
     const computers = await Computer.findAll({
       include: [

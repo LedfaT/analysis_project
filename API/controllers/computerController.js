@@ -24,6 +24,18 @@ class ComputerController {
     }
   }
 
+  async getAllUserComputersCount(req, res, next) {
+    try {
+      const { id } = req.user;
+
+      const computers = await ComputerService.userComputersCount(id);
+
+      return res.json(computers.length);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getComputerById(req, res, next) {
     try {
       const { id } = req.params;

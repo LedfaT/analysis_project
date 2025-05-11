@@ -10,6 +10,11 @@ router.get(
   authMiddleware,
   computerController.getAllUserComputers
 );
+router.get(
+  "/user-computers/count",
+  authMiddleware,
+  computerController.getAllUserComputersCount
+);
 router.get("/:id", computerController.getComputerById);
 router.patch("/:id", computerController.updateComputer);
 router.delete("/:id", computerController.deleteComputer);

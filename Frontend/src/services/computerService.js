@@ -1,25 +1,31 @@
 import $api from "../http";
 
-export default class SsdService {
-  static async createSsd(payload) {
-    return $api.post("/api/SSD", payload);
+export default class ComputerService {
+  static async createComputer(payload) {
+    return $api.post("/api/computer", payload);
   }
 
-  static async getAllSsds(page, limit, search = "") {
-    return $api.get(
-      `/api/SSD/list?page=${page}&limit=${limit}&search=${search}`
-    );
+  static async getAllComputers() {
+    return $api.get("/api/computer/list");
   }
 
-  static async getSsdById(id) {
-    return $api.get(`/api/SSD/${id}`);
+  static async getAllUserComputers() {
+    return $api.get("/api/computer/user-computers/list");
   }
 
-  static async updateSsd(id, payload) {
-    return $api.patch(`/api/SSD/${id}`, payload);
+  static async getAllUserComputersCount() {
+    return $api.get("/api/computer/user-computers/count");
   }
 
-  static async deleteSsd(id) {
-    return $api.delete(`/api/SSD/${id}`);
+  static async getComputerById(id) {
+    return $api.get(`/api/computer/${id}`);
+  }
+
+  static async updateComputer(id, payload) {
+    return $api.patch(`/api/computer/${id}`, payload);
+  }
+
+  static async deleteComputer(id) {
+    return $api.delete(`/api/computer/${id}`);
   }
 }

@@ -10,8 +10,11 @@ const Profile = () => {
   const auth = store.getData().isAuth;
   const navigate = useNavigate();
   useEffect(() => {
-    if (!auth) navigate("/signin");
-  });
+    if (!auth) {
+      navigate("/signin");
+      return;
+    }
+  }, []);
   return (
     <div className={profilePageStyles.profilePage}>
       <ProfileFirstSection />

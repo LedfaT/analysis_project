@@ -1,13 +1,15 @@
 import { Button } from "@mui/material";
 import { styles } from "./AccountSection.styles";
 import EditIcon from "@mui/icons-material/Edit";
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useEffect, useState } from "react";
 import months from "@/data/months";
 import { Context } from "@/contextProvider";
+import computerService from "@services/computerService";
 import SettingsIcon from "@mui/icons-material/Settings";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const AccountSection = () => {
+  const [count, setCount] = useState(0);
   const { store } = useContext(Context);
   const user = store.getData().user;
 
@@ -20,6 +22,20 @@ const AccountSection = () => {
     const year = newDate.getFullYear();
 
     return `${month} ${day}, ${year}`;
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await computerService.getAllUserComputersCount();
+        setCount(res.data);
+        console.log(res);
+      } catch (e) {
+        console.error("Error fetching computer count", e);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -57,7 +73,7 @@ const AccountSection = () => {
 
           <div className={styles.infoItem}>
             <div className={styles.label}>Builds Created</div>
-            <div className={styles.value}>3</div>
+            <div className={styles.value}>{count}</div>
           </div>
         </div>
 
