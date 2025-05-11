@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 
 const categories = [
   'CPU', 'Motherboard', 'GPU', 'RAM',
-  'SSD', 'HDD', 'Case', 'Power Supply', "FCS", "WCS"
+  'SSD', 'HDD', 'Case', 'Power Supply', "FCS", "WCS", "Bluetooth", "Wifi"
 ];
 
 const ConfiguratorSecondSection = ({ setActiveCategory }) => {
