@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, CircularProgress, Button } from "@mui/material";
 import { thirdSectionStyles } from "./ThirdSection.styles";
 import ComponentCard from "./ComponentCard";
+import ComponentDetailsDialog from "../../../layout/ComponentDetailsDialog/ComponentDetailsDialog";
 
 const ComponentsThirdSection = ({
+  activeCategory,
   onAddToBuild,
   comp,
   loading,
@@ -18,6 +20,19 @@ const ComponentsThirdSection = ({
 
   const onPrevPage = () => {
     setPage((prev) => prev - 1);
+  };
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [selectedComponent, setSelectedComponent] = useState(null);
+
+  // Відкриває діалог з деталями
+  const handleDetailsClick = (component) => {
+    setSelectedComponent({ ...component, category: activeCategory });
+    setDetailsOpen(true);
+  };
+
+  // Закриває діалог з деталями
+  const handleCloseDetails = () => {
+    setDetailsOpen(false);
   };
 
 
@@ -62,12 +77,17 @@ const ComponentsThirdSection = ({
         ) : (
           <div className={thirdSectionStyles.gridContainer}>
             {comp.map((component, i) => (
-              <ComponentCard key={i} component={component} onAddToBuild={onAddToBuild} />
+              <ComponentCard key={i} component={component} onAddToBuild={onAddToBuild} showDetails={() => handleDetailsClick(component)}/>
 
             ))}
           </div>
         )}
       </div>
+      <ComponentDetailsDialog
+        open={detailsOpen} // Відкривається діалог
+        onClose={handleCloseDetails} // Закривається діалог
+        component={selectedComponent} // Передаємо вибраний компонент
+      />
     </div>
   );
 };

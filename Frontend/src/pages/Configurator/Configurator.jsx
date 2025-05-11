@@ -27,12 +27,12 @@ const Configurator = () => {
 
   const [fetchedComponents, setFetchedComponents] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(12);
   const [search, setSearch] = useState("");
 
   const [totalPages, setTotalPages] = useState(null);
-
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     setPage(1);
     setSearch("");
@@ -45,7 +45,6 @@ const Configurator = () => {
 
   useEffect(() => {
     let timeout;
-
     clearTimeout(timeout);
     timeout = setTimeout(function () {
       setPage(1);
@@ -56,74 +55,48 @@ const Configurator = () => {
 
   const fetchComponents = async function (component) {
     setIsLoading(true);
-
     try {
       let res;
       switch (component) {
         case "CPU":
           res = await cpuService.getAllCpus(page, limit, search);
           break;
-
         case "Motherboard":
-          res = await motherboardService.getAllMotherboards(
-            page,
-            limit,
-            search
-          );
+          res = await motherboardService.getAllMotherboards(page, limit, search);
           break;
-
         case "GPU":
           res = await gpuService.getAllGpus(page, limit, search);
           break;
-
         case "RAM":
           res = await ramService.getAllRams(page, limit, search);
           break;
-
         case "SSD":
           res = await ssdService.getAllSsds(page, limit, search);
           break;
-
         case "HDD":
           res = await hddService.getAllHdds(page, limit, search);
           break;
-
         case "Case":
           res = await towerService.getAllTowers(page, limit, search);
           break;
-
         case "Power Supply":
           res = await powerSupplyService.getAllSupplies(page, limit, search);
           break;
-
         case "FCS":
           res = await coolingSystem.getAllCollingSystems(page, limit, search);
           break;
-
         case "WCS":
-          res = await waterCoolingSystemService.getAllSystems(
-            page,
-            limit,
-            search
-          );
+          res = await waterCoolingSystemService.getAllSystems(page, limit, search);
           break;
-
         case "Bluetooth module":
-          res = await bluetoothModuleService.getAllBluetoothModules(
-            page,
-            limit,
-            search
-          );
+          res = await bluetoothModuleService.getAllBluetoothModules(page, limit, search);
           break;
-
         case "Wifi module":
           res = await wifiModule.getAllWifiModules(page, limit, search);
           break;
       }
-
       if (res.status === 200) {
         setFetchedComponents(res.data.data);
-        console.log(res.data.data);
         setTotalPages(res.data.meta.totalPages);
       }
     } catch (e) {
@@ -155,10 +128,7 @@ const Configurator = () => {
   };
 
   const calculateTotalPrice = () => {
-    return Object.values(build).reduce(
-      (total, component) => total + component.price,
-      0
-    );
+    return Object.values(build).reduce((total, component) => total + component.price, 0);
   };
 
   const selectedCount = Object.keys(build).length;
@@ -183,7 +153,6 @@ const Configurator = () => {
           />
         </div>
       </div>
-
       <ConfirmationDialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}

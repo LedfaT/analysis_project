@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, Typography } from "@mui/material";
 import { styles } from "./FourthSection.styles";
-import StarIcon from "@mui/icons-material/Star";
-import ComponentDetailsDialog from "../../../layout/ComponentDetailsDialog/ComponentDetailsDialog";
 import ComponentCard from "@/components/ui/ComponentsElements/ComponentsThirdSection/ComponentCard";
+import ComponentDetailsDialog from "../../../layout/ComponentDetailsDialog/ComponentDetailsDialog";
 
 const ConfiguratorFourthSection = ({
   activeCategory,
@@ -13,11 +11,13 @@ const ConfiguratorFourthSection = ({
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
+  // Відкриває діалог з деталями
   const handleDetailsClick = (component) => {
     setSelectedComponent({ ...component, category: activeCategory });
     setDetailsOpen(true);
   };
 
+  // Закриває діалог з деталями
   const handleCloseDetails = () => {
     setDetailsOpen(false);
   };
@@ -30,7 +30,7 @@ const ConfiguratorFourthSection = ({
             <ComponentCard
               key={index}
               addToBuild={onAddToBuild}
-              showDetails={handleDetailsClick}
+              showDetails={() => handleDetailsClick(component)}
               component={component}
             />
           ))}
@@ -38,9 +38,9 @@ const ConfiguratorFourthSection = ({
       </div>
 
       <ComponentDetailsDialog
-        open={detailsOpen}
-        onClose={handleCloseDetails}
-        component={selectedComponent}
+        open={detailsOpen} // Відкривається діалог
+        onClose={handleCloseDetails} // Закривається діалог
+        component={selectedComponent} // Передаємо вибраний компонент
       />
     </div>
   );
