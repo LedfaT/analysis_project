@@ -71,9 +71,65 @@ class ComputerService {
       ],
     });
 
-    if (computers.length === 0) {
-      throw ApiError.notFound("No computers found");
-    }
+    return computers.map((comp) => {
+      const compObj = comp.toJSON();
+      const computerOut = new ComputerOut(compObj);
+      return AutoMapperService.computers(computerOut);
+    });
+  }
+
+  async adminPublicComputersList() {
+    const computers = await Computer.findAll({
+      where: {
+        isPublished: true,
+        user_role: "ADMIN",
+      },
+      include: [
+        "User",
+        "BluetoothModule",
+        "Tower",
+        "CoolingSystem",
+        "CPU",
+        "GPU",
+        "HDD",
+        "Motherboard",
+        "PowerSupply",
+        "RAM",
+        "SSD",
+        "WaterCoolingSystem",
+        "WifiModule",
+      ],
+    });
+
+    return computers.map((comp) => {
+      const compObj = comp.toJSON();
+      const computerOut = new ComputerOut(compObj);
+      return AutoMapperService.computers(computerOut);
+    });
+  }
+
+  async getUserPublicComputers() {
+    const computers = await Computer.findAll({
+      where: {
+        isPublished: true,
+        user_role: "USER",
+      },
+      include: [
+        "User",
+        "BluetoothModule",
+        "Tower",
+        "CoolingSystem",
+        "CPU",
+        "GPU",
+        "HDD",
+        "Motherboard",
+        "PowerSupply",
+        "RAM",
+        "SSD",
+        "WaterCoolingSystem",
+        "WifiModule",
+      ],
+    });
 
     return computers.map((comp) => {
       const compObj = comp.toJSON();

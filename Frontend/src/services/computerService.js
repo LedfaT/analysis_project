@@ -17,6 +17,14 @@ export default class ComputerService {
     return $api.get("/api/computer/user-computers/count");
   }
 
+  static async getAdminPublicComputersList() {
+    return $api.get("/api/computer/admins-public/list");
+  }
+
+  static async getUserPublicComputersList() {
+    return $api.get("/api/computer/users-public/list");
+  }
+
   static async getComputerById(id) {
     return $api.get(`/api/computer/${id}`);
   }

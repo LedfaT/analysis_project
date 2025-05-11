@@ -29,21 +29,24 @@ const Configurator = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [search, setSearch] = useState("");
-
   const [totalPages, setTotalPages] = useState(null);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [block, setBlock] = useState(false);
+
   useEffect(() => {
+    if (!block) return;
     setPage(1);
     setSearch("");
     fetchComponents(activeCategory);
   }, [activeCategory]);
 
   useEffect(() => {
+    if (!block) return;
     fetchComponents(activeCategory);
   }, [page]);
 
   useEffect(() => {
+    setBlock(true);
     let timeout;
 
     clearTimeout(timeout);
@@ -169,7 +172,13 @@ const Configurator = () => {
       <ConfiguratorFirstSection />
       <div className={configuratorPageStyles.mainGrid}>
         <div className={configuratorPageStyles.leftColumn}>
-          <ConfiguratorSecondSection setActiveCategory={setActiveCategory} />
+          <ConfiguratorSecondSection
+            page={page}
+            totalPages={totalPages}
+            setPage={setPage}
+            setSearch={setSearch}
+            setActiveCategory={setActiveCategory}
+          />
           <ConfiguratorFourthSection
             activeCategory={activeCategory}
             onAddToBuild={handleAddToBuild}

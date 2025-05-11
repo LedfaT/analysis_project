@@ -36,6 +36,26 @@ class ComputerController {
     }
   }
 
+  async getAdminPublicComputers(req, res, next) {
+    try {
+      const computers = await ComputerService.adminPublicCompuresList();
+
+      return res.json(computers);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getUserPublicComputers(req, res, next) {
+    try {
+      const computers = await ComputerService.userPublicCompuresList();
+
+      return res.json(computers);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getComputerById(req, res, next) {
     try {
       const { id } = req.params;
