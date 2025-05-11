@@ -35,6 +35,7 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
   };
 
   const handleSaveBuild = (buildName) => {
+    console.log(buildName);
     const buildData = {
       name: buildName,
       components: build,
@@ -57,7 +58,9 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
           <div key={idx} className={styles.partItem}>
             <div className="text-sm font-medium">{part}</div>
             <div className="text-xs text-gray-500">
-              {build[part] ? build[part].tit : `Select a ${part.toLowerCase()}`}
+              {build[part]
+                ? build[part].title
+                : `Select a ${part.toLowerCase()}`}
             </div>
             {build[part] && (
               <div className="text-xs text-green-600">

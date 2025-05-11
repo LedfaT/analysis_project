@@ -32,6 +32,7 @@ const ConfiguratorFourthSection = ({
               addToBuild={onAddToBuild}
               showDetails={handleDetailsClick}
               component={component}
+              category={activeCategory}
             />
           ))}
         </div>

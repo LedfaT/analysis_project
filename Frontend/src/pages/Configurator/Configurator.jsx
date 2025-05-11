@@ -135,6 +135,7 @@ const Configurator = () => {
 
   const handleAddToBuild = (component, category) => {
     if (build[category]) {
+      console.log(build);
       setPendingPart(component);
       setPendingCategory(category);
       setDialogOpen(true);
