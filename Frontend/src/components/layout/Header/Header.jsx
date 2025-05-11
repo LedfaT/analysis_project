@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { Context } from "@/contextProvider";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { headerStyles } from "./Header.styles";
 import HomeIcon from "@mui/icons-material/Home";
@@ -14,10 +14,15 @@ import { Button } from "@mui/material";
 const Header = () => {
   const { store } = useContext(Context);
   const auth = store.getData()?.isAuth;
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(auth);
-  });
+  const handleLogout = function () {
+    try {
+      store.logout();
+      navigate("/");
+      window.location.reload();
+    } catch (e) {}
+  };
 
   return (
     <header className={headerStyles.header}>
@@ -61,6 +66,7 @@ const Header = () => {
               variant="contained"
               sx={{ backgroundColor: "black" }}
               className={headerStyles.authButton}
+              onClick={handleLogout}
             >
               <AccountCircleIcon sx={{ fontSize: 20 }} className="mr-1" />
               logout

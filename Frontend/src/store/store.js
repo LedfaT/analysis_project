@@ -4,7 +4,6 @@ import { API_URL } from "../http";
 
 export default class Store {
   getData() {
-    console.log(JSON.parse(localStorage.getItem("userData")));
     return JSON.parse(localStorage.getItem("userData"));
   }
 
@@ -12,7 +11,7 @@ export default class Store {
     return localStorage.setItem("userData", JSON.stringify(data));
   }
 
-  async login(email, password) {
+  async login({ email, password }) {
     try {
       const res = await AuthService.login(email, password);
 
@@ -20,8 +19,10 @@ export default class Store {
       userData.isAuth = true;
 
       this.setData(userData);
+      return res;
     } catch (e) {
-      console.log(e);
+      throw e;
+    } finally {
     }
   }
 
@@ -43,8 +44,8 @@ export default class Store {
   async logout() {
     try {
       const res = await AuthService.logout();
-
       localStorage.removeItem("userData");
+      return res;
     } catch (e) {
       console.log(e);
     }
