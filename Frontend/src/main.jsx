@@ -1,20 +1,15 @@
-import { createContext, StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
-import "./app.css";
+// src/index.js або src/main.js
 
-import Store from "./store/store.js";
-
-const store = new Store();
-
-export const Context = createContext({
-  store,
-});
+import React, { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import ContextProvider from './contextProvider'; // Імпортуємо наш контекст провайдер
+import './app.css';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Context.Provider value={{ store }}>
+    <ContextProvider>
       <App />
-    </Context.Provider>
+    </ContextProvider>
   </StrictMode>
 );

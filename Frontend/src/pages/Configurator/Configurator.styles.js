@@ -1,6 +1,7 @@
 export const configuratorPageStyles = {
     configuratorPage: "bg-gray-50 min-h-screen flex flex-col",
-    mainGrid: "ml-[5%] grid grid-cols-1 lg:grid-cols-3 gap-4 mr-[5%]",
-    leftColumn: "lg:col-span-2 flex flex-col gap-4",
-    rightColumn: "lg:col-span-1",
-};
+    mainGrid: "ml-[5%] mr-[5%] flex gap-[16px]",
+    leftColumn: "flex flex-col gap-4 flex-grow",
+    rightColumn: "flex-shrink-0", 
+  };
+  

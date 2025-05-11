@@ -3,8 +3,8 @@ import { firstSectionStyles } from "./FirstSection.styles";
 const ConfiguratorFirstSection = () => {
     return(
         <div className={firstSectionStyles.container}>
-            <h1 className={firstSectionStyles.title}>PC Components</h1>
-            <h2 className={firstSectionStyles.subtext}>Browse and search for computer components to build your perfect PC</h2>
+            <h1 className={firstSectionStyles.title}>PC Configurator</h1>
+            <h2 className={firstSectionStyles.subtext}>Build your custom PC by selecting components from each category</h2>
         </div>
     );
 };

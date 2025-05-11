@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ProfileFirstSection from "@/components/ui/ProfileElements/ProfileFirstSection/FirstSection";
 import ProfileSecondSection from "@/components/ui/ProfileElements/ProfileSecondSection/SecondSection";
 import { useContext, useEffect } from "react";
-import { Context } from "@/main";
+import { Context } from "@/contextProvider";
 const Profile = () => {
   const { store } = useContext(Context);
   const auth = store.getData().isAuth;
