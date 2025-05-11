@@ -50,7 +50,8 @@ class ComputerController {
 
   async createComputer(req, res, next) {
     try {
-      const computerData = req.body;
+      const computerData = { ...req.body, user_id: req.user.id };
+
       await ComputerService.create(computerData);
       res.json({ message: "Computer created successfully" });
     } catch (error) {
@@ -62,7 +63,7 @@ class ComputerController {
   async updateComputer(req, res, next) {
     try {
       const { id } = req.params;
-      const updateData = req.body; // Получаем данные для обновления
+      const updateData = req.body;
       await ComputerService.update(id, updateData);
       res.json({ message: "Computer updated successfully" });
     } catch (error) {

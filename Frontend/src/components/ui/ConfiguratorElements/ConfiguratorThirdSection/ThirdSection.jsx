@@ -10,8 +10,18 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 
 const partsOrder = [
-  'CPU', 'Motherboard', 'GPU', 'RAM',
-  'SSD', 'HDD', 'Case', 'Power Supply', 'FCS', 'WCS', "Bluetooth", "Wifi"
+  "CPU",
+  "Motherboard",
+  "GPU",
+  "RAM",
+  "SSD",
+  "HDD",
+  "Case",
+  "Power Supply",
+  "FCS",
+  "WCS",
+  "Bluetooth",
+  "Wifi",
 ];
 
 const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
@@ -19,7 +29,7 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
 
   const handleSaveClick = () => {
-    if (selectedCount === 1) {
+    if (selectedCount === partsOrder.length) {
       setSaveDialogOpen(true);
     } else {
       alert("Please select all 8 required components before saving.");
@@ -27,6 +37,7 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
   };
 
   const handleSaveBuild = (buildName) => {
+    console.log(buildName);
     const buildData = {
       name: buildName,
       components: build,
@@ -49,7 +60,9 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
           <div key={idx} className={styles.partItem}>
             <div className="text-sm font-medium">{part}</div>
             <div className="text-xs text-gray-500">
-              {build[part] ? build[part].title : `Select a ${part.toLowerCase()}`}
+              {build[part]
+                ? build[part].title
+                : `Select a ${part.toLowerCase()}`}
             </div>
             {build[part] && (
               <div className="text-xs text-green-600">
@@ -67,15 +80,15 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
           <span className="font-bold">${totalPrice.toFixed(2)}</span>
         </div>
         <div className="text-xs text-gray-500 mt-1">
-          {selectedCount} of 10 components selected{" "}
+          {selectedCount} of {partsOrder.length} components selected{" "}
           <span
             className={`ml-1 px-2 rounded-full ${
-              selectedCount === 1
+              selectedCount === partsOrder.length
                 ? "bg-green-200 text-green-800"
                 : "bg-gray-200"
             }`}
           >
-            {selectedCount === 1 ? "Complete" : "Incomplete"}
+            {selectedCount === partsOrder.length ? "Complete" : "Incomplete"}
           </span>
         </div>
 

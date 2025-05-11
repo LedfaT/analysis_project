@@ -12,20 +12,53 @@ import {
   ListItem,
   ListItemText,
   FormControlLabel,
-  Checkbox
+  Checkbox,
 } from "@mui/material";
 
-const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
-  const [buildName, setBuildName] = useState("");
+import computerService from "@/services/computerService";
 
-  const handleSave = () => {
-    if (buildName.trim()) {
-      onSave(buildName);
-      setBuildName(""); // Очистити після збереження
+const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
+  const [form, setForm] = useState({ isPublished: true });
+  const onChangeForm = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const parseBuild = function () {
+    console.log(totalPrice);
+    return {
+      bluetooth_module_id: build.Bluetooth.id,
+      tower_id: build.Case.id,
+      cooling_system_id: build.FCS.id,
+      cpu_id: build.CPU.id,
+      gpu_id: build.GPU.id,
+      hdd_id: build.HDD.id,
+      motherboard_id: build.Motherboard.id,
+      power_supply_id: build["Power Supply"].id,
+      ram_id: build.RAM.id,
+      ssd_id: build.SSD.id,
+      water_cooling_system_id: build.WCS.id,
+      wifi_module_id: build.Wifi.id,
+    };
+  };
+
+  const handleSave = async () => {
+    try {
+      const fullForm = { ...form, ...parseBuild(), cost: totalPrice };
+      const res = await computerService.createComputer(fullForm);
+      if (res.status === 200) {
+        console.log(form);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
-  const componentsList = Object.entries(build).filter(([_, comp]) => comp);
+  const componentsList = Object.entries(build).filter(([_, comp]) => {
+    return comp;
+  });
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
@@ -34,12 +67,27 @@ const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
         <TextField
           autoFocus
           margin="dense"
-          label="Build Name"
+          label="Build description"
+          name="description"
+          type="text"
+          fullWidth
+          multiline
+          rows={4}
+          variant="outlined"
+          value={form.description}
+          onChange={onChangeForm}
+        />
+
+        <TextField
+          autoFocus
+          margin="dense"
+          label="Image link"
+          name="image"
           type="text"
           fullWidth
           variant="outlined"
-          value={buildName}
-          onChange={(e) => setBuildName(e.target.value)}
+          value={form.image}
+          onChange={onChangeForm}
         />
         <Typography variant="subtitle1" className="mt-4">
           Components:
@@ -59,7 +107,21 @@ const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
         </Typography>
       </DialogContent>
       <DialogActions>
-        <FormControlLabel control={<Checkbox defaultChecked />} label="Do you want to Public Export?" />
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="isPublished"
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.checked,
+                }))
+              }
+              defaultChecked
+            />
+          }
+          label="Do you want to Public Export?"
+        />
         <Button onClick={onClose}>Cancel</Button>
         <Button variant="contained" onClick={handleSave}>
           Accept

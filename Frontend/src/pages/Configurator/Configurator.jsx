@@ -88,10 +88,16 @@ const Configurator = () => {
         case "WCS":
           res = await waterCoolingSystemService.getAllSystems(page, limit, search);
           break;
-        case "Bluetooth module":
-          res = await bluetoothModuleService.getAllBluetoothModules(page, limit, search);
+
+        case "Bluetooth":
+          res = await bluetoothModuleService.getAllBluetoothModules(
+            page,
+            limit,
+            search
+          );
           break;
-        case "Wifi module":
+
+        case "Wifi":
           res = await wifiModule.getAllWifiModules(page, limit, search);
           break;
       }
@@ -108,6 +114,7 @@ const Configurator = () => {
 
   const handleAddToBuild = (component, category) => {
     if (build[category]) {
+      console.log(build);
       setPendingPart(component);
       setPendingCategory(category);
       setDialogOpen(true);
@@ -128,7 +135,10 @@ const Configurator = () => {
   };
 
   const calculateTotalPrice = () => {
-    return Object.values(build).reduce((total, component) => total + component.price, 0);
+    return Object.values(build).reduce(
+      (total, component) => total + component.cost,
+      0
+    );
   };
 
   const selectedCount = Object.keys(build).length;
