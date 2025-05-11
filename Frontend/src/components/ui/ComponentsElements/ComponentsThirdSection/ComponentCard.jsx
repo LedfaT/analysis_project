@@ -32,7 +32,7 @@ const ComponentCard = ({ component, addToBuild, showDetails }) => {
             sx={thirdSectionStyles.buttonSecondary}
             variant="contained"
             size="small"
-            onClick={addToBuild}
+            onClick={() => addToBuild(component)}
           >
             Add to Build
           </Button>
