@@ -9,7 +9,7 @@ import {
 import { thirdSectionStyles } from "./ThirdSection.styles";
 import StarIcon from "@mui/icons-material/Star";
 
-const BuildsThirdSection = ({ setType, type, builds }) => {
+const BuildsThirdSection = ({ setType, type, builds, setSearch }) => {
   const [activeTab, setActiveTab] = useState("official");
 
   return (
@@ -21,6 +21,7 @@ const BuildsThirdSection = ({ setType, type, builds }) => {
             fullWidth
             variant="outlined"
             placeholder="Search components..."
+            onChange={setSearch}
             size="small"
           />
           <div className={thirdSectionStyles.thirdButtonGroup}>
@@ -28,7 +29,7 @@ const BuildsThirdSection = ({ setType, type, builds }) => {
               <Button
                 sx={{
                   ...thirdSectionStyles.buttonThird,
-                  ...(type === "Official"
+                  ...(type === "official"
                     ? {
                         backgroundColor: "#000",
                         color: "#fff",

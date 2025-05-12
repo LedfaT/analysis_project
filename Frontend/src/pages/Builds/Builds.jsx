@@ -98,6 +98,7 @@ const Builds = () => {
         <BuildsThirdSection
           builds={fetchedBuilds}
           type={buildMaker}
+          setSearch={setSearch}
           setType={setBuildMaker}
         />
       </div>
