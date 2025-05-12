@@ -50,7 +50,6 @@ const Configurator = () => {
   return (
     <div>
       <div className={configuratorPageStyles.configuratorPage}>
-        <Header />
         <ConfiguratorFirstSection />
         <div className={configuratorPageStyles.mainGrid}>
           <div className={configuratorPageStyles.leftColumn}>

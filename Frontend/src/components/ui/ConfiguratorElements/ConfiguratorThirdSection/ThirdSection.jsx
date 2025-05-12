@@ -1,21 +1,32 @@
-import { useState } from 'react';
-import { styles } from './ThirdSection.styles';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Button from '@mui/material/Button';
-import SaveBuildDialog from '../SaveBuildDialog/SaveBuildDialog';
-import buildsData from '../../../../data/buildsData';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-
+import { useState } from "react";
+import { styles } from "./ThirdSection.styles";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Button from "@mui/material/Button";
+import SaveBuildDialog from "../SaveBuildDialog/SaveBuildDialog";
+import buildsData from "../../../../data/buildsData";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
 
 const partsOrder = [
-  'CPU', 'Motherboard', 'GPU', 'RAM',
-  'SSD', 'HDD', 'Case', 'Power Supply', 'FCS', 'WCS'
+  "CPU",
+  "Motherboard",
+  "GPU",
+  "RAM",
+  "SSD",
+  "HDD",
+  "Case",
+  "Power Supply",
+  "FCS",
+  "WCS",
 ];
 
-const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
+const ConfiguratorThirdSection = ({
+  build = {},
+  totalPrice = 0,
+  selectedCount,
+}) => {
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
 
@@ -23,7 +34,7 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
     if (selectedCount === 8) {
       setSaveDialogOpen(true);
     } else {
-      alert('Please select all 8 required components before saving.');
+      alert("Please select all 8 required components before saving.");
     }
   };
 
@@ -31,7 +42,7 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
     const buildData = {
       name: buildName,
       components: build,
-      totalPrice
+      totalPrice,
     };
     buildsData.push(buildData);
     setSaveDialogOpen(false);
@@ -50,7 +61,9 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
           <div key={idx} className={styles.partItem}>
             <div className="text-sm font-medium">{part}</div>
             <div className="text-xs text-gray-500">
-              {build[part] ? build[part].name : `Select a ${part.toLowerCase()}`}
+              {build[part]
+                ? build[part].name
+                : `Select a ${part.toLowerCase()}`}
             </div>
             {build[part] && (
               <div className="text-xs text-green-600">
@@ -68,11 +81,15 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
           <span className="font-bold">${totalPrice.toFixed(2)}</span>
         </div>
         <div className="text-xs text-gray-500 mt-1">
-          {selectedCount} of 10 components selected{' '}
-          <span className={`ml-1 px-2 rounded-full ${
-            selectedCount === 8 ? 'bg-green-200 text-green-800' : 'bg-gray-200'
-          }`}>
-            {selectedCount === 8 ? 'Complete' : 'Incomplete'}
+          {selectedCount} of 10 components selected{" "}
+          <span
+            className={`ml-1 px-2 rounded-full ${
+              selectedCount === 8
+                ? "bg-green-200 text-green-800"
+                : "bg-gray-200"
+            }`}
+          >
+            {selectedCount === 8 ? "Complete" : "Incomplete"}
           </span>
         </div>
 
@@ -95,11 +112,12 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
       />
 
       {/* Success Message Dialog */}
-      <Dialog open={successDialogOpen} onClose={() => setSuccessDialogOpen(false)}>
+      <Dialog
+        open={successDialogOpen}
+        onClose={() => setSuccessDialogOpen(false)}
+      >
         <DialogTitle>Success</DialogTitle>
-        <DialogContent>
-          Your build has been successfully saved!
-        </DialogContent>
+        <DialogContent>Your build has been successfully saved!</DialogContent>
         <DialogActions>
           <Button onClick={() => setSuccessDialogOpen(false)}>OK</Button>
         </DialogActions>
