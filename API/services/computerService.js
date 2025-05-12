@@ -19,8 +19,6 @@ class ComputerService {
       where: {
         user_id: userId,
       },
-      offset,
-      limit: newLimit,
       include: [
         "BluetoothModule",
         "Tower",
@@ -38,16 +36,18 @@ class ComputerService {
     });
 
     const totalPages = Math.ceil(count / newLimit);
-
     const computers = rows.map((comp) => {
       const compObj = comp.toJSON();
       const computerOut = new ComputerOut(compObj);
-      return AutoMapperService.computers(computerOut);
+
+      const mapped = AutoMapperService.computers(computerOut);
+
+      return mapped;
     });
 
     return {
       meta: { count, totalPages },
-      data: AutoMapperService.computers(computers),
+      data: computers,
     };
   }
 

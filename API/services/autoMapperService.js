@@ -33,7 +33,9 @@ module.exports = class AutoMapperService {
       computer.tower.fan_type
     );
 
-    newComputer.ssd = reverseSsdRadiator.get(computer.ssd.radiator_type);
+    newComputer.ssd.radiator_type = reverseSsdRadiator.get(
+      computer.ssd.radiator_type
+    );
 
     newComputer.cooling_system.type_size = reversedTypeSizeCooling.get(
       computer.cooling_system.type_size

@@ -42,7 +42,7 @@ module.exports = class ComputerOut {
     this.cost = computer.cost;
     this.title = computer.title;
     this.type = computer.type;
-    this.user = new userDto(computer.User) || null;
+    this.user = computer.User ? new userDto(computer.User) : null;
     this.bluetooth_module =
       new BluetoothModuleListOut(computer.BluetoothModule) || null;
     this.tower = new TowerListOut(computer.Tower) || null;

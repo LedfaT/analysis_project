@@ -15,9 +15,9 @@ class ComputerController {
 
   async getAllUserComputers(req, res, next) {
     try {
-      const { userId } = req.user;
+      const { id } = req.user;
       const computers = await ComputerService.getAllUserComputers(
-        userId,
+        id,
         req.query
       );
 
