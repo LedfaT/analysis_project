@@ -34,6 +34,7 @@ module.exports = class ComputerOut {
   image;
   title;
   type;
+  createdAt;
   constructor(computer) {
     this.id = computer.id;
     this.description = computer.description;
@@ -58,5 +59,6 @@ module.exports = class ComputerOut {
     this.water_cooling_system =
       new WaterCoolingSystemListOut(computer.WaterCoolingSystem) || null;
     this.wifi_module = new WifiModuleListOut(computer.WifiModule) || null;
+    this.createdAt = computer.createdAt;
   }
 };

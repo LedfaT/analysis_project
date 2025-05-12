@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import computerService from "@services/computerService";
 
 const SavedBuildsSection = () => {
-  const [buildss, setBuilds] = useState([]);
+  const [builds, setBuilds] = useState([]);
   const [block, setBlock] = useState(true);
 
   const transformBuildData = (computerData) => {
@@ -107,7 +107,7 @@ const SavedBuildsSection = () => {
       summary: {
         totalPrice: `$${computerData.cost.toFixed(2)}`,
         componentsCount: components.length,
-        created: computerData.createdAt,
+        created: computerData.createdAt.split("T")[0],
         type: computerData.type || "Custom",
       },
     };
@@ -118,12 +118,14 @@ const SavedBuildsSection = () => {
       const res = await computerService.getAllUserComputers();
 
       if (res.status === 200) {
-        console.log(res.data.data[0]);
         const transformed = res.data.data.map(transformBuildData);
 
         setBuilds(transformed);
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    } finally {
+    }
   };
 
   useEffect(() => {
@@ -143,12 +145,12 @@ const SavedBuildsSection = () => {
         <div className={styles.header}>
           <h1 className={styles.title}>Your Builds</h1>
           <div className={styles.subtitle}>
-            {buildss.length} builds saved to your profile
+            {builds.length} builds saved to your profile
           </div>
         </div>
 
         <div className={styles.buildsList}>
-          {buildss.map((build, index) => (
+          {builds.map((build, index) => (
             <div
               key={index}
               className={`${styles.buildItem} ${
