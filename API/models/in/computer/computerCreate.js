@@ -17,8 +17,11 @@ module.exports = class ComputerCreate {
   wifi_module_id;
   image;
   description;
-
+  title;
+  type;
   constructor(data) {
+    this.type = data.type;
+    this.title = data.title;
     this.image = data.image;
     this.description = data.description;
     this.isPublished = data.isPublished;

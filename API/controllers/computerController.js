@@ -15,8 +15,11 @@ class ComputerController {
 
   async getAllUserComputers(req, res, next) {
     try {
-      const { userId } = req.user;
-      const computers = await ComputerService.getAllUserComputers(userId);
+      const { id } = req.user;
+      const computers = await ComputerService.getAllUserComputers(
+        id,
+        req.query
+      );
 
       return res.json(computers);
     } catch (error) {
@@ -31,6 +34,26 @@ class ComputerController {
       const computers = await ComputerService.userComputersCount(id);
 
       return res.json(computers.length);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getAdminPublicComputers(req, res, next) {
+    try {
+      const computers = await ComputerService.adminPublicComputers(req.query);
+
+      return res.json(computers);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getUserPublicComputers(req, res, next) {
+    try {
+      const computers = await ComputerService.userPublicComputers(req.query);
+
+      return res.json(computers);
     } catch (error) {
       next(error);
     }

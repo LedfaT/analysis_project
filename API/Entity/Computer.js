@@ -20,6 +20,14 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       cost: {
         type: DataTypes.FLOAT,
       },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

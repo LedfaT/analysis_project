@@ -32,14 +32,18 @@ module.exports = class ComputerOut {
   wifi_module;
   description;
   image;
-
+  title;
+  type;
+  createdAt;
   constructor(computer) {
     this.id = computer.id;
     this.description = computer.description;
     this.image = computer.image;
     this.isPublished = computer.isPublished;
     this.cost = computer.cost;
-    this.user = new userDto(computer.User) || null;
+    this.title = computer.title;
+    this.type = computer.type;
+    this.user = computer.User ? new userDto(computer.User) : null;
     this.bluetooth_module =
       new BluetoothModuleListOut(computer.BluetoothModule) || null;
     this.tower = new TowerListOut(computer.Tower) || null;
@@ -55,5 +59,6 @@ module.exports = class ComputerOut {
     this.water_cooling_system =
       new WaterCoolingSystemListOut(computer.WaterCoolingSystem) || null;
     this.wifi_module = new WifiModuleListOut(computer.WifiModule) || null;
+    this.createdAt = computer.createdAt;
   }
 };

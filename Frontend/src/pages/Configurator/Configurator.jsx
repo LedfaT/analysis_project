@@ -29,21 +29,25 @@ const Configurator = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(6);
   const [search, setSearch] = useState("");
-
   const [totalPages, setTotalPages] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [block, setBlock] = useState(false);
 
   useEffect(() => {
     setPage(1);
     setSearch("");
     fetchComponents(activeCategory);
+    setBlock(true);
   }, [activeCategory]);
 
   useEffect(() => {
+    if (!block) return;
     fetchComponents(activeCategory);
   }, [page]);
 
   useEffect(() => {
+    if (!block) return;
+
     let timeout;
     clearTimeout(timeout);
     timeout = setTimeout(function () {
@@ -62,7 +66,11 @@ const Configurator = () => {
           res = await cpuService.getAllCpus(page, limit, search);
           break;
         case "Motherboard":
-          res = await motherboardService.getAllMotherboards(page, limit, search);
+          res = await motherboardService.getAllMotherboards(
+            page,
+            limit,
+            search
+          );
           break;
         case "GPU":
           res = await gpuService.getAllGpus(page, limit, search);
@@ -86,7 +94,11 @@ const Configurator = () => {
           res = await coolingSystem.getAllCollingSystems(page, limit, search);
           break;
         case "WCS":
-          res = await waterCoolingSystemService.getAllSystems(page, limit, search);
+          res = await waterCoolingSystemService.getAllSystems(
+            page,
+            limit,
+            search
+          );
           break;
 
         case "Bluetooth":
@@ -148,7 +160,13 @@ const Configurator = () => {
       <ConfiguratorFirstSection />
       <div className={configuratorPageStyles.mainGrid}>
         <div className={configuratorPageStyles.leftColumn}>
-          <ConfiguratorSecondSection setActiveCategory={setActiveCategory} />
+          <ConfiguratorSecondSection
+            page={page}
+            totalPages={totalPages}
+            setPage={setPage}
+            setSearch={setSearch}
+            setActiveCategory={setActiveCategory}
+          />
           <ConfiguratorFourthSection
             activeCategory={activeCategory}
             onAddToBuild={handleAddToBuild}

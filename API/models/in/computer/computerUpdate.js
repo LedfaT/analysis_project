@@ -16,7 +16,11 @@ module.exports = class ComputerUpdate {
   wifi_module_id;
   image;
   description;
+  title;
+  type;
   constructor(data) {
+    this.title = data.title;
+    this.type = data.type;
     this.image = data.image;
     this.description = data.description;
     this.isPublished = data.isPublished;
