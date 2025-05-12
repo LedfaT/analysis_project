@@ -1,171 +1,129 @@
-// src/pages/Admin/AdminLayout.jsx
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import "./AdminLayout.css";
 import { tabsLink } from "./tabs";
-import { API_URL } from "../../http/index";
+import { API_URL } from "../../http";
 import ComponentCard from "../../components/ui/ComponentsElements/ComponentsThirdSection/ComponentCard";
 import { namesList } from "./names";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
-const AdminLayout = () => {
+export default function AdminLayout() {
   const [activeTab, setActiveTab] = useState(tabsLink[0]);
-  const tabsRef = useRef(null);
-  const [indicator, setIndicator] = useState({
-    left: 0,
-    width: 0,
-    top: 0,
-    height: 0,
-  });
   const [items, setItems] = useState<any[]>([]);
   const [modalActive, setModalActive] = useState<{
     active: boolean;
-    state?: "edit" | "create";
-  }>({ active: false });
-  const [formData, setFormData] = useState({});
+    state: "create" | "edit";
+  }>({ active: false, state: "create" });
+  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [showSuccess, setShowSuccess] = useState(false);
 
-  const handleInputChange = (key, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
-  const onDelete = (id) => {
+  // Load list whenever active tab changes
+  useEffect(() => {
     axios
-      .delete(`${API_URL}/api/${activeTab.url}/${id}`)
-      .then((res) => setItems((prev) => prev.filter((item) => item.id !== id)))
+      .get(`${API_URL}/api/${activeTab.url}/list`)
+      .then((res) => setItems(res.data.data ?? []))
+      .catch(console.error);
+  }, [activeTab]);
+
+  const refreshList = () => {
+    axios
+      .get(`${API_URL}/api/${activeTab.url}/list`)
+      .then((res) => setItems(res.data.data ?? []))
       .catch(console.error);
   };
 
-  const onEdit = (item) => {
-    setFormData(item);
-    setModalActive({ active: true, state: "edit" });
+  const handleInputChange = (key: string, value: any) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleCreateItem = () => {
     axios
       .post(`${API_URL}/api/${activeTab.url}/`, formData)
       .then(() => {
-        setModalActive({ active: false });
-        axios
-          .get(`${API_URL}/api/${activeTab.url}/list`)
-          .then((res) => {
-            const data = res?.data?.data ?? [];
-            console.log(res);
-            setItems(data);
-          })
-          .catch(console.error);
+        setModalActive({ active: false, state: "create" });
+        refreshList();
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 2000);
       })
       .catch(console.error);
   };
 
   const handleEditItem = () => {
     axios
-      .patch(`${API_URL}/api/${activeTab.url}/${formData["id"]}`, formData)
+      .patch(`${API_URL}/api/${activeTab.url}/${formData.id}`, formData)
       .then(() => {
-        setModalActive({ active: false });
-        axios
-          .get(`${API_URL}/api/${activeTab.url}/list`)
-          .then((res) => {
-            const data = res?.data?.data ?? [];
-            console.log(res);
-            setItems(data);
-          })
-          .catch(console.error);
+        setModalActive({ active: false, state: "edit" });
+        refreshList();
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 2000);
       })
       .catch(console.error);
   };
-  console.log(items);
-  useEffect(() => {
-    axios
-      .get(`${API_URL}/api/${activeTab.url}/list`)
-      .then((res) => {
-        const data = res?.data?.data ?? [];
-        console.log(res);
-        setItems(data);
-      })
-      .catch(console.error);
-  }, [activeTab]);
 
-  useEffect(() => {
-    const container = tabsRef.current;
-    if (!container) return;
-    const btn = container.querySelector(".tab--active");
-    if (btn) {
-      setIndicator({
-        left: btn.offsetLeft,
-        width: btn.offsetWidth,
-        top: btn.offsetTop,
-        height: btn.offsetHeight,
-      });
-    }
-  }, [activeTab]);
+  const onDelete = (id: number) => {
+    axios
+      .delete(`${API_URL}/api/${activeTab.url}/${id}`)
+      .then(() => setItems((prev) => prev.filter((it) => it.id !== id)))
+      .catch(console.error);
+  };
+
+  const onEdit = (item: any) => {
+    setFormData(item);
+    setModalActive({ active: true, state: "edit" });
+  };
 
   return (
-    <>
-      <div style={{ padding: 20 }}>
-        <div className="adminHeader">
-          <h1>Панель Адміністратора</h1>
-        </div>
+    <div className="p-5">
+      <h1 className="text-2xl font-semibold mb-6">Панель Администратора</h1>
 
-        <nav className="tabsWrapper">
-          <div className="tabsScroll" ref={tabsRef}>
-            {tabsLink.map((tab) => (
-              <button
-                key={tab.name}
-                className={`tab ${
-                  tab.name === activeTab.name ? "tab--active" : ""
-                }`}
-                onClick={() => {
-                  setActiveTab(tab);
-                  setItems([]);
-                }}
-              >
-                {tab.name}
-              </button>
-            ))}
-            <span
-              className="tabIndicator"
-              style={{
-                left: indicator.left,
-                width: indicator.width,
-                top: indicator.top,
-                height: indicator.height,
+      {/* Tabs Navigation */}
+      <nav className="flex gap-2 mb-6 flex-wrap">
+        {tabsLink.map((tab) => {
+          const isActive = tab.name === activeTab.name;
+          return (
+            <button
+              key={tab.url}
+              onClick={() => {
+                if (isActive) return;
+                setActiveTab(tab);
+                setItems([]);
               }}
-            />
+              className={`px-4 py-2 rounded-md focus:outline-none transition-colors ${
+                isActive
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+              }`}
+            >
+              {tab.name}
+            </button>
+          );
+        })}
+
+        <button
+          onClick={() => setModalActive({ active: true, state: "create" })}
+          className="ml-auto px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none transition-colors"
+        >
+          Создать {activeTab.name}
+        </button>
+      </nav>
+
+      {/* Content: Cards or Empty State */}
+      <section className="mb-6">
+        {items.length === 0 ? (
+          <div className="w-full text-center py-10 text-gray-600 bg-gray-50 rounded-lg">
+            <h2 className="mb-2 text-lg">
+              Немає <strong>{activeTab.name}</strong>
+            </h2>
+            <p className="mb-1">Похоже {activeTab.name.toLowerCase()} немає.</p>
+            <p>
+              Нажмите <strong>Создать {activeTab.name}</strong>, чтобы добавить
+              новую запись.
+            </p>
           </div>
-          <button
-            className="btn btnPrimary createButton"
-            onClick={() => setModalActive({ active: true, state: "create" })}
-          >
-            Створити {activeTab.name}
-          </button>
-        </nav>
-
-        <section>
-          <ul style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-            {!items.length && (
-              <div
-                style={{
-                  width: "100%",
-                  textAlign: "center",
-                  padding: "40px",
-                  color: "#666",
-                }}
-              >
-                <h2>
-                  Немає <strong>{activeTab.name}</strong>
-                </h2>
-                <p>Похоже {activeTab.name.toLowerCase()} немає.</p>
-                <p>
-                  Натисніть <strong>Створити {activeTab.name}</strong> щоб
-                  додати нову.
-                </p>
-              </div>
-            )}
-
+        ) : (
+          <ul className="flex flex-wrap gap-4">
             {items.map((item) => (
               <ComponentCard
+                key={item.id}
                 component={item}
                 adminPanel
                 onDelete={() => onDelete(item.id)}
@@ -173,49 +131,58 @@ const AdminLayout = () => {
               />
             ))}
           </ul>
-        </section>
-      </div>
+        )}
+      </section>
+
+      {/* Modal */}
       {modalActive.active && (
-        <div className="modalOverlay">
-          <div className="modalWindow">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-40">
+          <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md relative">
             <button
-              className="modalClose"
-              onClick={() => setModalActive({ active: false })}
+              onClick={() => setModalActive({ active: false, state: "create" })}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
             >
               ✕
             </button>
 
-            <ul className="formList">
+            <ul className="grid grid-cols-2 gap-4 mb-4">
               {Object.keys(activeTab.item ?? {}).map((key) => (
-                <li className="formItem" key={key}>
-                  <label className="formLabel">{namesList[key] ?? key}</label>
+                <li key={key} className="flex flex-col">
+                  <label className="mb-1 text-sm font-medium text-gray-700">
+                    {namesList[key] ?? key}
+                  </label>
                   <input
-                    className="formInput"
                     type="text"
                     value={formData[key] ?? ""}
-                    placeholder={`Enter ${key}`}
                     onChange={(e) => handleInputChange(key, e.target.value)}
+                    placeholder={key}
+                    className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-300"
                   />
                 </li>
               ))}
             </ul>
 
             <button
-              className="btn btnPrimary"
-              onClick={() => {
+              onClick={() =>
                 modalActive.state === "edit"
                   ? handleEditItem()
-                  : handleCreateItem();
-              }}
+                  : handleCreateItem()
+              }
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none transition-colors"
             >
-              {modalActive.state === "edit" ? "Змінити" : "Створити"}{" "}
+              {modalActive.state === "edit" ? "Изменить" : "Создать"}{" "}
               {activeTab.name}
             </button>
           </div>
         </div>
       )}
-    </>
-  );
-};
 
-export default AdminLayout;
+      {/* Success Checkmark */}
+      {showSuccess && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40 pointer-events-none">
+          <CheckCircleIcon className="w-24 h-24 text-green-400 animate-pop-in" />
+        </div>
+      )}
+    </div>
+  );
+}
