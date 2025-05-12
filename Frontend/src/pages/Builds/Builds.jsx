@@ -6,33 +6,47 @@ import BuildsThirdSection from "../../components/ui/BuildsElements/BuildsThirdSe
 import computerService from "@services/computerService";
 
 const Builds = () => {
-  const [selectedBuild, setSelectedBuild] = useState("official");
+  const [buildMaker, setBuildMaker] = useState("official");
   const [fetchedBuilds, setFetchedbuilds] = useState([]);
-
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(6);
   const [search, setSearch] = useState("");
-
   const [totalPages, setTotalPages] = useState(null);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [buildType, setBuildType] = useState("Gaming");
+
+  const [block, setBlock] = useState(false);
+
   useEffect(() => {
     setPage(1);
     setSearch("");
-    fetchBuilds(selectedBuild);
-  }, [selectedBuild]);
+
+    fetchBuilds(buildMaker);
+    setBlock(true);
+  }, [buildMaker]);
 
   useEffect(() => {
-    fetchBuilds(selectedBuild);
+    if (!block) return;
+
+    fetchBuilds(buildMaker);
   }, [page]);
 
   useEffect(() => {
+    if (!block) return;
+
+    setPage(1);
+    fetchBuilds(buildMaker);
+  }, [buildType]);
+
+  useEffect(() => {
+    if (!block) return;
+
     let timeout;
 
     clearTimeout(timeout);
     timeout = setTimeout(function () {
       setPage(1);
-      fetchBuilds(selectedBuild);
+      fetchBuilds(buildMaker);
     }, 1000);
     return () => clearTimeout(timeout);
   }, [search]);
@@ -47,17 +61,17 @@ const Builds = () => {
           res = await computerService.getAdminPublicComputersList(
             page,
             limit,
-            search
+            search,
+            buildType
           );
-          console.log(res);
-
           break;
 
         case "user":
           res = await computerService.getUserPublicComputersList(
             page,
             limit,
-            search
+            search,
+            buildType
           );
           break;
       }
@@ -77,11 +91,14 @@ const Builds = () => {
     <div className={buildsPageStyles.buildsPage}>
       <BuildsFirstSection />
       <div className="flex mr-20 ml-20">
-        <BuildsSecondSection />
+        <BuildsSecondSection
+          buildType={buildType}
+          setBuildType={setBuildType}
+        />
         <BuildsThirdSection
           builds={fetchedBuilds}
-          type={selectedBuild}
-          setType={setSelectedBuild}
+          type={buildMaker}
+          setType={setBuildMaker}
         />
       </div>
     </div>

@@ -9,20 +9,26 @@ export default class ComputerService {
     return $api.get("/api/computer/list");
   }
 
-  static async getAllUserComputers() {
-    return $api.get("/api/computer/user-computers/list");
+  static async getAllUserComputers(page, limit) {
+    return $api.get(
+      `/api/computer/user-computers/list?page=${page}&limit=${limit}`
+    );
   }
 
   static async getAllUserComputersCount() {
     return $api.get("/api/computer/user-computers/count");
   }
 
-  static async getAdminPublicComputersList() {
-    return $api.get("/api/computer/admins-public/list");
+  static async getAdminPublicComputersList(page, limit, search = "", type) {
+    return $api.get(
+      `/api/computer/admins-public/list?page=${page}&limit=${limit}&search=${search}&type=${type}`
+    );
   }
 
-  static async getUserPublicComputersList() {
-    return $api.get("/api/computer/users-public/list");
+  static async getUserPublicComputersList(page, limit, search = "", type) {
+    return $api.get(
+      `/api/computer/users-public/list?page=${page}&limit=${limit}&search=${search}&type=${type}`
+    );
   }
 
   static async getComputerById(id) {

@@ -10,21 +10,15 @@ class ComputerService {
     await Computer.create({ ...computerData });
   }
 
-  async getAllUserComputers(userId, { page, limit, search }) {
+  async getAllUserComputers(userId, { page, limit }) {
     const newPage = page || 1;
     const newLimit = limit || 4;
     const offset = (newPage - 1) * newLimit;
 
-    let where = {};
-    if (search) {
-      where.title = {
-        [Op.iLike]: `%${search}%`,
-      };
-    }
-    where.user_id = userId;
-
     const { count, rows } = await Computer.findAndCountAll({
-      where,
+      where: {
+        user_id: userId,
+      },
       offset,
       limit: newLimit,
       include: [
@@ -112,7 +106,7 @@ class ComputerService {
     };
   }
 
-  async adminPublicComputers({ page, limit, search }) {
+  async adminPublicComputers({ page, limit, search, type }) {
     const newPage = page || 1;
     const newLimit = limit || 12;
     const offset = (newPage - 1) * newLimit;
@@ -123,6 +117,11 @@ class ComputerService {
         [Op.iLike]: `%${search}%`,
       };
     }
+
+    if (type) {
+      where.type = type;
+    }
+
     where.isPublished = true;
 
     const { count, rows } = await Computer.findAndCountAll({
