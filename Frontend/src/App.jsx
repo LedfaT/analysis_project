@@ -8,6 +8,7 @@ import Configurator from "./pages/Configurator/Configurator.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import SignIn from "./pages/SignIn/SignIn.jsx";
 import MainLayout from "./components/layout/MainLyaout.jsx";
+import AdminLayout from "./pages/Admin/Admin.js";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -28,6 +29,14 @@ function App() {
           element={
             <MainLayout>
               <Components />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <MainLayout>
+              <AdminLayout />
             </MainLayout>
           }
         />

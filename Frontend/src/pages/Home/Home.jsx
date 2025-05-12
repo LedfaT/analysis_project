@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import Header from "../../components/layout/Header/Header.jsx";
-import Footer from "../../components/layout/Footer/Footer.jsx";
+import React from "react";
 
 import { homePageStyles } from "./Home.styles";
 import HomeFirstSection from "../../components/ui/HomeElements/HomeFirstSection/FirstSection.jsx";

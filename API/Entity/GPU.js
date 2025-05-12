@@ -38,7 +38,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         allowNull: false,
       },
       vram_type: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cost: {
