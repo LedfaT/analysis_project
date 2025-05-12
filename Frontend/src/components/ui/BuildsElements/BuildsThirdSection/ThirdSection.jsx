@@ -36,7 +36,7 @@ const BuildsThirdSection = () => {
             sx={thirdSectionStyles.searchBar}
             fullWidth
             variant="outlined"
-            placeholder="Search components..."
+            placeholder="Search builds..."
             size="small"
           />
           <div className={thirdSectionStyles.thirdButtonGroup}>

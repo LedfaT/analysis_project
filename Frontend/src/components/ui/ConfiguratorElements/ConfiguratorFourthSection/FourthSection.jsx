@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { styles } from "./FourthSection.styles";
-import ComponentCard from "@/components/ui/ComponentsElements/ComponentsThirdSection/ComponentCard";
+import ComponentCard from "../ConfiguratorCard/ComponentCard";
 import ComponentDetailsDialog from "../../../layout/ComponentDetailsDialog/ComponentDetailsDialog";
 
 const ConfiguratorFourthSection = ({

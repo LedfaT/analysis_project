@@ -35,6 +35,16 @@ const ComponentCard = ({ component, addToBuild, showDetails, category }) => {
           >
             Details
           </Button>
+          <Button
+            sx={thirdSectionStyles.buttonSecondary}
+            variant="contained"
+            size="small"
+            onClick={() => {
+              return addToBuild(component, category);
+            }}
+          >
+            Add to Build
+          </Button>
         </div>
       </CardContent>
     </Card>
