@@ -17,6 +17,8 @@ import coolingSystem from "@services/coolingSystem";
 import waterCoolingSystemService from "@services/waterCoolingSystemService";
 import bluetoothModuleService from "@services/bluetoothModuleService";
 import wifiModule from "@services/wifiModule";
+import { ToastContainer } from "react-toastify";
+import notify from "@/components/notify";
 
 const Configurator = () => {
   const [activeCategory, setActiveCategory] = useState("CPU");
@@ -118,6 +120,7 @@ const Configurator = () => {
         setTotalPages(res.data.meta.totalPages);
       }
     } catch (e) {
+      notify("Error collecting components", "error");
       console.log(e);
     } finally {
       setIsLoading(false);
@@ -157,6 +160,13 @@ const Configurator = () => {
 
   return (
     <div className={configuratorPageStyles.configuratorPage}>
+      <ToastContainer
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        draggable
+        pauseOnHover
+      />
       <ConfiguratorFirstSection />
       <div className={configuratorPageStyles.mainGrid}>
         <div className={configuratorPageStyles.leftColumn}>

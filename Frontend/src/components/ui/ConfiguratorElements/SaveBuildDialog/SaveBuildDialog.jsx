@@ -17,6 +17,7 @@ import {
   InputLabel,
   MenuItem,
 } from "@mui/material";
+import notify from "@/components/notify";
 
 import computerService from "@/services/computerService";
 
@@ -61,9 +62,10 @@ const SaveBuildDialog = ({ open, onClose, build, totalPrice }) => {
       const fullForm = { ...form, ...parseBuild(), cost: totalPrice };
       const res = await computerService.createComputer(fullForm);
       if (res.status === 200) {
-        console.log(form);
+        notify("Build was saved successfully");
       }
     } catch (e) {
+      notify("Error creating build");
       console.log(e);
     }
   };

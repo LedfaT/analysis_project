@@ -1,11 +1,18 @@
 import { signInPageStyles } from "./SignIn.styles";
-import Header from "../../components/layout/Header/Header";
-import Footer from "../../components/layout/Footer/Footer";
 import MainSection from "../../components/ui/SignInElements/SignInMainSection/MainSection";
+import { ToastContainer } from "react-toastify";
 
 const SignIn = () => {
   return (
     <div className={signInPageStyles.signInPage}>
+      <ToastContainer
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        draggable
+        pauseOnHover
+      />
+      ;
       <MainSection />
     </div>
   );

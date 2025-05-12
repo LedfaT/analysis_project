@@ -3,6 +3,7 @@ import { styles } from "./RegSection.styles";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import { Context } from "@/contextProvider";
 import { useNavigate } from "react-router-dom";
+import notify from "@/components/notify";
 
 const RegSection = ({ setActiveForm }) => {
   const [form, setForm] = useState({
@@ -27,6 +28,7 @@ const RegSection = ({ setActiveForm }) => {
       await store.registration(form);
       navigate("/profile");
     } catch (e) {
+      notify("Invalid creditals", "error");
     } finally {
       setLoading(false);
     }

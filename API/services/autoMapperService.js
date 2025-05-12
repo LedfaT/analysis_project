@@ -25,38 +25,54 @@ module.exports = class AutoMapperService {
   static computers(computer) {
     const newComputer = computer;
 
-    newComputer.tower.type_size = reverseTowerTypeSize.get(
-      computer.tower.type_size
-    );
+    if (computer.tower) {
+      newComputer.tower.type_size = reverseTowerTypeSize.get(
+        computer.tower.type_size
+      );
 
-    newComputer.tower.fan_type = reverseTowerFanType.get(
-      computer.tower.fan_type
-    );
+      newComputer.tower.fan_type = reverseTowerFanType.get(
+        computer.tower.fan_type
+      );
+    }
 
-    newComputer.ssd.radiator_type = reverseSsdRadiator.get(
-      computer.ssd.radiator_type
-    );
+    if (computer.ssd) {
+      newComputer.ssd.radiator_type = reverseSsdRadiator.get(
+        computer.ssd.radiator_type
+      );
+    }
 
-    newComputer.cooling_system.type_size = reversedTypeSizeCooling.get(
-      computer.cooling_system.type_size
-    );
+    if (computer.cooling_system) {
+      newComputer.cooling_system.type_size = reversedTypeSizeCooling.get(
+        computer.cooling_system.type_size
+      );
+    }
 
-    newComputer.water_cooling_system.type_size =
-      reverseWaterCoolingTypeSize.get(computer.water_cooling_system.type_size);
+    if (computer.water_cooling_system) {
+      newComputer.water_cooling_system.type_size =
+        reverseWaterCoolingTypeSize.get(
+          computer.water_cooling_system.type_size
+        );
+    }
 
-    newComputer.gpu.vram_type = reverseGpuvram.get(computer.gpu.vram_type);
+    if (computer.gpu) {
+      newComputer.gpu.vram_type = reverseGpuvram.get(computer.gpu.vram_type);
+    }
 
-    newComputer.motherboard.type_size = reversedTypeSizeMotherBoard.get(
-      computer.motherboard.type_size
-    );
+    if (computer.motherboard) {
+      newComputer.motherboard.type_size = reversedTypeSizeMotherBoard.get(
+        computer.motherboard.type_size
+      );
+    }
 
-    newComputer.ram.memory_type = reverseRamMemoryType.get(
-      computer.ram.memory_type
-    );
+    if (computer.ram) {
+      newComputer.ram.memory_type = reverseRamMemoryType.get(
+        computer.ram.memory_type
+      );
 
-    newComputer.ram.radiator_type = reverseRamRadiatorType.get(
-      computer.ram.radiator_type
-    );
+      newComputer.ram.radiator_type = reverseRamRadiatorType.get(
+        computer.ram.radiator_type
+      );
+    }
 
     return newComputer;
   }
