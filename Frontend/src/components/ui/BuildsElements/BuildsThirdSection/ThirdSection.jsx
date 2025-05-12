@@ -70,11 +70,9 @@ const BuildsThirdSection = ({ setType, type, builds }) => {
             <Card key={index} sx={thirdSectionStyles.card}>
               <CardContent className={thirdSectionStyles.cardContent}>
                 <Typography variant="h6" className={thirdSectionStyles.name}>
-                  {build.name}
-                </Typography>
-                <Typography className={thirdSectionStyles.title}>
                   {build.title}
                 </Typography>
+
                 <Typography
                   variant="body2"
                   className={thirdSectionStyles.price}

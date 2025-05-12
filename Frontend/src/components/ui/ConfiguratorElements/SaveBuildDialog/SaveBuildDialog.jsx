@@ -13,11 +13,23 @@ import {
   ListItemText,
   FormControlLabel,
   Checkbox,
+  Select,
+  InputLabel,
+  MenuItem,
 } from "@mui/material";
 
 import computerService from "@/services/computerService";
 
-const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
+const SaveBuildDialog = ({ open, onClose, build, totalPrice }) => {
+  const computerTypes = [
+    "Gaming",
+    "Content Creation",
+    "Office",
+    "Streaming",
+    "3D modeling",
+    "Designer",
+  ];
+
   const [form, setForm] = useState({ isPublished: true });
   const onChangeForm = (e) => {
     setForm((prev) => ({
@@ -67,6 +79,18 @@ const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
         <TextField
           autoFocus
           margin="dense"
+          label="Title"
+          name="title"
+          type="text"
+          fullWidth
+          variant="outlined"
+          value={form.title}
+          onChange={onChangeForm}
+        />
+
+        <TextField
+          autoFocus
+          margin="dense"
           label="Build description"
           name="description"
           type="text"
@@ -77,6 +101,25 @@ const SaveBuildDialog = ({ open, onClose, onSave, build, totalPrice }) => {
           value={form.description}
           onChange={onChangeForm}
         />
+
+        <InputLabel id="computerType">Type</InputLabel>
+        <Select
+          labelId="computerType"
+          id="computerType"
+          value={form.type}
+          fullWidth
+          label="Type"
+          name="type"
+          onChange={onChangeForm}
+        >
+          {computerTypes.map((type) => {
+            return (
+              <MenuItem value={type} key={type}>
+                {type}
+              </MenuItem>
+            );
+          })}
+        </Select>
 
         <TextField
           autoFocus

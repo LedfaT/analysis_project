@@ -6,7 +6,7 @@ import BuildsThirdSection from "../../components/ui/BuildsElements/BuildsThirdSe
 import computerService from "@services/computerService";
 
 const Builds = () => {
-  const [selectedBuild, setSelectedBuild] = useState("Official");
+  const [selectedBuild, setSelectedBuild] = useState("official");
   const [fetchedBuilds, setFetchedbuilds] = useState([]);
 
   const [page, setPage] = useState(1);
@@ -43,12 +43,14 @@ const Builds = () => {
     try {
       let res;
       switch (build) {
-        case "Official":
+        case "official":
           res = await computerService.getAdminPublicComputersList(
             page,
             limit,
             search
           );
+          console.log(res);
+
           break;
 
         case "user":
@@ -59,9 +61,7 @@ const Builds = () => {
           );
           break;
       }
-
       if (res.status === 200) {
-        console.log(res.data.meta);
         setFetchedbuilds(res.data.data);
 
         setTotalPages(res.data.meta.totalPages);

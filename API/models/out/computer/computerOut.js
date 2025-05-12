@@ -32,13 +32,16 @@ module.exports = class ComputerOut {
   wifi_module;
   description;
   image;
-
+  title;
+  type;
   constructor(computer) {
     this.id = computer.id;
     this.description = computer.description;
     this.image = computer.image;
     this.isPublished = computer.isPublished;
     this.cost = computer.cost;
+    this.title = computer.title;
+    this.type = computer.type;
     this.user = new userDto(computer.User) || null;
     this.bluetooth_module =
       new BluetoothModuleListOut(computer.BluetoothModule) || null;
