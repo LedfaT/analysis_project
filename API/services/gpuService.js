@@ -21,7 +21,9 @@ class GpuService {
 
     const vram_type = GPU_VRAM_TYPE.get(gpuData.vram_type);
     if (!vram_type) {
-      throw ApiError.BadRequest(`Unknown VRAM type: ${gpuData.vram_type}`);
+      throw ApiError.BadRequest(
+        `Unknown VRAM type: ${gpuData.vram_type},variant:${GPU_VRAM_TYPE}`
+      );
     }
 
     await GPU.create({

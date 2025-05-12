@@ -19,6 +19,7 @@ const waterCoolingSystemRouter = require("./router/waterCoolingSystemRouter");
 const computerRouter = require("./router/computerRouter");
 
 const errorMiddleware = require("./middlewares/error-middleware");
+const { FORCE } = require("sequelize/lib/index-hints");
 
 const app = express();
 app.use(
@@ -53,7 +54,7 @@ const start = async () => {
     console.log(`Server listens on port ${port}`);
   });
 
-  await db.sequelize.sync();
+  await db.sequelize.sync({ FORCE: true });
 };
 
 start();
