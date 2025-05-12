@@ -1,6 +1,7 @@
 const { Computer } = require("../Entity");
 const ComputerOut = require("../models/out/computer/computerOut");
 const ApiError = require("../exeptions/api-error");
+const { Op } = require("sequelize");
 
 const AutoMapperService = require("./autoMapperService");
 
@@ -9,13 +10,24 @@ class ComputerService {
     await Computer.create({ ...computerData });
   }
 
-  async getAllUserComputers(userId) {
+  async getAllUserComputers(userId, { page, limit, search }) {
+    const newPage = page || 1;
+    const newLimit = limit || 4;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+    where.user_id = userId;
+
     const computers = await Computer.findAll({
-      where: {
-        user_id: userId,
-      },
+      where,
+      offset,
+      limit: newLimit,
       include: [
-        "User",
         "BluetoothModule",
         "Tower",
         "CoolingSystem",
@@ -53,7 +65,20 @@ class ComputerService {
   }
 
   async getAllComputers() {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
     const computers = await Computer.findAll({
+      where,
+      offset,
+      limit: newLimit,
       include: [
         "User",
         "BluetoothModule",
@@ -78,12 +103,24 @@ class ComputerService {
     });
   }
 
-  async adminPublicComputersList() {
+  async adminPublicComputersList({ page, limit, search }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+    where.isPublished = true;
+    where.user_role = "ADMIN";
+
     const computers = await Computer.findAll({
-      where: {
-        isPublished: true,
-        user_role: "ADMIN",
-      },
+      where,
+      offset,
+      limit: newLimit,
       include: [
         "User",
         "BluetoothModule",
@@ -108,12 +145,24 @@ class ComputerService {
     });
   }
 
-  async getUserPublicComputers() {
+  async getUserPublicComputers({ page, limit, search }) {
+    const newPage = page || 1;
+    const newLimit = limit || 12;
+    const offset = (newPage - 1) * newLimit;
+
+    let where = {};
+    if (search) {
+      where.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+    where.isPublished = true;
+    where.user_role = "USER";
+
     const computers = await Computer.findAll({
-      where: {
-        isPublished: true,
-        user_role: "USER",
-      },
+      where,
+      offset,
+      limit: newLimit,
       include: [
         "User",
         "BluetoothModule",
