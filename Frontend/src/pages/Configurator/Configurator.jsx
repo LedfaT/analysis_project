@@ -34,10 +34,10 @@ const Configurator = () => {
   const [block, setBlock] = useState(false);
 
   useEffect(() => {
-    if (!block) return;
     setPage(1);
     setSearch("");
     fetchComponents(activeCategory);
+    setBlock(true);
   }, [activeCategory]);
 
   useEffect(() => {
@@ -46,7 +46,8 @@ const Configurator = () => {
   }, [page]);
 
   useEffect(() => {
-    setBlock(true);
+    if (!block) return;
+
     let timeout;
     clearTimeout(timeout);
     timeout = setTimeout(function () {

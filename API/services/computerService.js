@@ -23,7 +23,7 @@ class ComputerService {
     }
     where.user_id = userId;
 
-    const computers = await Computer.findAll({
+    const { count, rows } = await Computer.findAndCountAll({
       where,
       offset,
       limit: newLimit,
@@ -43,15 +43,18 @@ class ComputerService {
       ],
     });
 
-    if (computers.length === 0) {
-      throw ApiError.notFound("No computers found");
-    }
+    const totalPages = Math.ceil(count / newLimit);
 
-    return computers.map((comp) => {
+    const computers = rows.map((comp) => {
       const compObj = comp.toJSON();
       const computerOut = new ComputerOut(compObj);
       return AutoMapperService.computers(computerOut);
     });
+
+    return {
+      meta: { count, totalPages },
+      data: AutoMapperService.computers(computers),
+    };
   }
 
   async userComputersCount(userId) {
@@ -75,7 +78,7 @@ class ComputerService {
         [Op.iLike]: `%${search}%`,
       };
     }
-    const computers = await Computer.findAll({
+    const { count, rows } = await Computer.findAndCountAll({
       where,
       offset,
       limit: newLimit,
@@ -96,14 +99,20 @@ class ComputerService {
       ],
     });
 
-    return computers.map((comp) => {
+    const totalPages = Math.ceil(count / newLimit);
+    const computers = rows.map((comp) => {
       const compObj = comp.toJSON();
       const computerOut = new ComputerOut(compObj);
       return AutoMapperService.computers(computerOut);
     });
+
+    return {
+      meta: { count, totalPages },
+      data: computers,
+    };
   }
 
-  async adminPublicComputersList({ page, limit, search }) {
+  async adminPublicComputers({ page, limit, search }) {
     const newPage = page || 1;
     const newLimit = limit || 12;
     const offset = (newPage - 1) * newLimit;
@@ -115,14 +124,16 @@ class ComputerService {
       };
     }
     where.isPublished = true;
-    where.user_role = "ADMIN";
 
-    const computers = await Computer.findAll({
+    const { count, rows } = await Computer.findAndCountAll({
       where,
       offset,
       limit: newLimit,
       include: [
-        "User",
+        {
+          association: "User",
+          where: { user_role: "ADMIN" },
+        },
         "BluetoothModule",
         "Tower",
         "CoolingSystem",
@@ -137,15 +148,18 @@ class ComputerService {
         "WifiModule",
       ],
     });
+    const totalPages = Math.ceil(count / newLimit);
 
-    return computers.map((comp) => {
+    const computers = rows.map((comp) => {
       const compObj = comp.toJSON();
       const computerOut = new ComputerOut(compObj);
       return AutoMapperService.computers(computerOut);
     });
+
+    return { meta: { count, totalPages }, data: computers };
   }
 
-  async getUserPublicComputers({ page, limit, search }) {
+  async userPublicComputers({ page, limit, search }) {
     const newPage = page || 1;
     const newLimit = limit || 12;
     const offset = (newPage - 1) * newLimit;
@@ -157,14 +171,16 @@ class ComputerService {
       };
     }
     where.isPublished = true;
-    where.user_role = "USER";
 
-    const computers = await Computer.findAll({
+    const { count, rows } = await Computer.findAndCountAll({
       where,
       offset,
       limit: newLimit,
       include: [
-        "User",
+        {
+          association: "User",
+          where: { user_role: "USER" },
+        },
         "BluetoothModule",
         "Tower",
         "CoolingSystem",
@@ -180,11 +196,15 @@ class ComputerService {
       ],
     });
 
-    return computers.map((comp) => {
+    const totalPages = Math.ceil(count / newLimit);
+
+    const computers = rows.map((comp) => {
       const compObj = comp.toJSON();
       const computerOut = new ComputerOut(compObj);
       return AutoMapperService.computers(computerOut);
     });
+
+    return { meta: { count, totalPages }, data: computers };
   }
 
   async getComputerById(id) {
