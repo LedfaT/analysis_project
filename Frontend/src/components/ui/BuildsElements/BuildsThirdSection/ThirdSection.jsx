@@ -20,7 +20,7 @@ const BuildsThirdSection = ({ setType, type, builds, setSearch }) => {
             sx={thirdSectionStyles.searchBar}
             fullWidth
             variant="outlined"
-            placeholder="Search components..."
+            placeholder="Search builds..."
             onChange={setSearch}
             size="small"
           />

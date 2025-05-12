@@ -11,7 +11,7 @@ import {
   Paper,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { styles } from "./ComponentDetailsDialog.styles"; // імпорт стилів
+import { styles } from "./ComponentDetailsDialog.styles"; 
 
 const ComponentDetailsDialog = ({ open, onClose, component }) => {
   if (!component) return null;
@@ -22,6 +22,23 @@ const ComponentDetailsDialog = ({ open, onClose, component }) => {
     Clock: component.clock,
     Cores: component.cores,
     Threads: component.threads,
+    "Vram Type": component.vram_type,
+    "Vram Quantity": component.vram_quantity,
+    Chipset: component.chipset,
+    Socket: component.socket,
+    "Size Type": component.type_size,
+    "Memory Quantity": component.memory_quantity,
+    "Memory Type": component.memory_type,
+    "Radiator Type": component.radiator_type,
+    "Reading Speed": component.reading_speed,
+    "Write Speed": component.write_speed,
+    "Fan Included": component.fan_included,
+    "Fan Type": component.fan_type,
+    Strength: component.strength,
+    Sertificate: component.sertificate,
+    "Heat Renoval": component.heat_removal,
+    Generation: component.generation
+
   };
 
   return (

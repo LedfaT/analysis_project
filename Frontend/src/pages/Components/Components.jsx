@@ -36,7 +36,7 @@ const Components = () => {
   const [fetchedComponents, setFetchedComponents] = useState([]);
 
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(6);
   const [search, setSearch] = useState("");
 
   const [totalPages, setTotalPages] = useState(null);

@@ -3,6 +3,7 @@ import { Button, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import CompareIcon from '@mui/icons-material/Compare';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import BuildComparisonCard from "./CompareCard";
 
 const buildComparisonData = [
     { component: "Price", build1: "$3,499.99", build2: "$1,799.99" },
@@ -36,46 +37,15 @@ const CompareSection = () => {
             </div>
 
             <div className="overflow-auto">
-                <table className={styles.table}>
-                    <thead>
-                        <tr className={styles.theadCell}>
-                            <th className="w-1/4">Component</th>
-                            <th className="w-1/4">
-                                <div className={styles.headerFlex}>
-                                    <span>Ultimate Gaming Rig</span>
-                                    <IconButton size="small" onClick={handleRemoveBuild1}>
-                                        <CloseIcon fontSize="small" />
-                                    </IconButton>
-                                </div>
-                            </th>
-                            <th className="w-1/4" />
-                            <th className="w-1/4">
-                                <div className={styles.headerFlex}>
-                                    <span>Mid-Range Powerhouse</span>
-                                    <IconButton size="small" onClick={handleRemoveBuild2}>
-                                        <CloseIcon fontSize="small" />
-                                    </IconButton>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-sm text-gray-800">
-                        {buildComparisonData.map(({ component, build1, build2 }, idx) => (
-                            <tr key={idx} className="bg-gray-50 rounded">
-                                <td className={styles.componentCell}>{component}</td>
-                                <td className={styles.valueCell}>{build1}</td>
-                                <td className={styles.valueCell}></td>
-                                <td className={styles.valueCell}>{build2}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            <BuildComparisonCard
+                buildComparisonData={buildComparisonData}
+                handleRemoveBuild1={handleRemoveBuild1}
+                handleRemoveBuild2={handleRemoveBuild2}
+            />
+
             </div>
 
-            <div className={styles.footer}>
-                <Button variant="outlined" sx={styles.primaryButton}><CompareIcon className="mr-2"/>Go to Full Compare Page</Button>
-                <Button variant="contained" sx={styles.secondaryButton}><FileDownloadIcon className="mr-2"/>Download Comparison</Button>
-            </div>
+            
         </div>
     );
 };
