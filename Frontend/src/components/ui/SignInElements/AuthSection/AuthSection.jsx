@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "@/contextProvider";
 import { Button, TextField, Box, Typography } from "@mui/material";
+import notify from "@/components/notify";
 
 const AuthSection = () => {
   const [form, setForm] = useState({
@@ -29,6 +30,7 @@ const AuthSection = () => {
         navigate("/profile");
       }
     } catch (e) {
+      notify("Invalid creditals", "error");
       console.log(e);
     } finally {
       setLoading(false);

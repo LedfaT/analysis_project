@@ -4,6 +4,8 @@ import BuildsFirstSection from "../../components/ui/BuildsElements/BuildsFirstSe
 import BuildsSecondSection from "../../components/ui/BuildsElements/BuildsSecondSection/SecondSection";
 import BuildsThirdSection from "../../components/ui/BuildsElements/BuildsThirdSection/ThirdSection";
 import computerService from "@services/computerService";
+import notify from "@/components/notify";
+import { ToastContainer } from "react-toastify";
 
 const Builds = () => {
   const [buildMaker, setBuildMaker] = useState("official");
@@ -77,10 +79,10 @@ const Builds = () => {
       }
       if (res.status === 200) {
         setFetchedbuilds(res.data.data);
-
         setTotalPages(res.data.meta.totalPages);
       }
     } catch (e) {
+      notify("Error collectiong builds", "error");
       console.log(e);
     } finally {
       setIsLoading(false);
@@ -89,6 +91,13 @@ const Builds = () => {
 
   return (
     <div className={buildsPageStyles.buildsPage}>
+      <ToastContainer
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        draggable
+        pauseOnHover
+      />
       <BuildsFirstSection />
       <div className="flex mr-20 ml-20">
         <BuildsSecondSection

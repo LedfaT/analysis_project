@@ -12,22 +12,22 @@ import coolingSystem from "@services/coolingSystem";
 import waterCoolingSystemService from "@services/waterCoolingSystemService";
 import bluetoothModuleService from "@services/bluetoothModuleService";
 import wifiModule from "@services/wifiModule";
-
+import notify from "@/components/notify";
+import { ToastContainer } from "react-toastify";
 import ComponentsSecondSection from "../../components/ui/ComponentsElements/ComponentsSecondSection/SecondSection";
 import ComponentsFirstSection from "../../components/ui/ComponentsElements/ComponentsFirstSection/FirstSection";
 import ComponentsThirdSection from "../../components/ui/ComponentsElements/ComponentsThirdSection/ThirdSection";
 
 const Components = () => {
-  
   const handleAddToBuild = (component, category) => {
     if (build[category]) {
       setPendingPart(component);
       setPendingCategory(category);
       setDialogOpen(true);
     } else {
-      setBuild(prev => ({
+      setBuild((prev) => ({
         ...prev,
-        [category]: component
+        [category]: component,
       }));
     }
   };
@@ -151,6 +151,7 @@ const Components = () => {
         setTotalPages(res.data.meta.totalPages);
       }
     } catch (e) {
+      notify("Error collecting components", "error");
       console.log(e);
     } finally {
       setIsLoading(false);
@@ -159,6 +160,13 @@ const Components = () => {
 
   return (
     <div className={componentsPageStyles.componentsPage}>
+      <ToastContainer
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        draggable
+        pauseOnHover
+      />
       <ComponentsFirstSection />
       <div className="flex mr-20 ml-20">
         <ComponentsSecondSection

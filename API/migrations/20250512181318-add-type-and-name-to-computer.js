@@ -6,7 +6,7 @@
       allowNull: true,
     });
     await queryInterface.addColumn("computer", "name", {
-      title: Sequelize.STRING,
+      type: Sequelize.STRING,
       allowNull: true,
     });
   },

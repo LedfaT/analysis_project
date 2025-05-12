@@ -8,6 +8,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
+import notify from "@/components/notify";
 
 const partsOrder = [
   "CPU",
@@ -32,7 +33,7 @@ const ConfiguratorThirdSection = ({ build, totalPrice, selectedCount }) => {
     if (selectedCount === partsOrder.length) {
       setSaveDialogOpen(true);
     } else {
-      alert("Please select all 8 required components before saving.");
+      notify("Add at least 8 components", "warning");
     }
   };
 
