@@ -52,11 +52,6 @@ const AccountSection = () => {
           <div className={styles.sectionTitle}>Personal Information</div>
 
           <div className={styles.infoItem}>
-            <div className={styles.label}>Photo</div>
-            <div className={styles.value}></div>
-          </div>
-
-          <div className={styles.infoItem}>
             <div className={styles.label}>Username</div>
             <div className={styles.value}>{user.username}</div>
           </div>
