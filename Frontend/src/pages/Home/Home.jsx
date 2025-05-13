@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../../components/layout/Header/Header.jsx";
 import Footer from "../../components/layout/Footer/Footer.jsx";
 
-import { homePageStyles } from "./Home.styles";
+import { homePageStyles } from "./Home.styles.js";
 import HomeFirstSection from "../../components/ui/HomeElements/HomeFirstSection/FirstSection.jsx";
 import HomeSecondSection from "../../components/ui/HomeElements/HomeSecondSection/SecondSection.jsx";
 import HomeThirdSection from "../../components/ui/HomeElements/HomeThirdSection/ThirdSection.jsx";

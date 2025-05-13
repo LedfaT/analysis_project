@@ -31,7 +31,7 @@ const SaveBuildDialog = ({ open, onClose, build, totalPrice }) => {
     "Designer",
   ];
 
-  const [form, setForm] = useState({ isPublished: true });
+  const [form, setForm] = useState({ isPublished: true, type: "" });
   const onChangeForm = (e) => {
     setForm((prev) => ({
       ...prev,
@@ -65,8 +65,10 @@ const SaveBuildDialog = ({ open, onClose, build, totalPrice }) => {
         notify("Build was saved successfully");
       }
     } catch (e) {
-      notify("Error creating build");
+      notify("Error creating build", "error");
       console.log(e);
+    } finally {
+      onClose();
     }
   };
 
