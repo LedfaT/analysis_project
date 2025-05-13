@@ -1,28 +1,30 @@
-import { Button } from "@mui/material";
-import { styles } from "./AccountSection.styles";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
+import { useState, useContext, useMemo, useEffect } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import { useContext, useMemo, useEffect, useState } from "react";
-import months from "@/data/months";
-import { Context } from "@/contextProvider";
-import computerService from "@services/computerService";
-import SettingsIcon from "@mui/icons-material/Settings";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Context } from "@/contextProvider";
+import { styles } from "./AccountSection.styles";
+import months from "@/data/months";
+import computerService from "@services/computerService";
 
 const AccountSection = () => {
-  const [count, setCount] = useState(0);
   const { store } = useContext(Context);
   const user = store.getData().user;
+  const [count, setCount] = useState(0);
+
+  const [open, setOpen] = useState(false);
+  const [newUsername, setNewUsername] = useState(user.username);
+  const [newEmail, setNewEmail] = useState(user.email);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   const parsedDate = useMemo(() => {
     const newDate = new Date(user.createdAt);
-
-    console.log(newDate.getMonth());
     const day = newDate.getDate();
     const month = months[newDate.getMonth()];
     const year = newDate.getFullYear();
-
     return `${month} ${day}, ${year}`;
-  }, []);
+  }, [user.createdAt]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,9 +36,32 @@ const AccountSection = () => {
         console.error("Error fetching computer count", e);
       }
     };
-
     fetchData();
   }, []);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSave = () => {
+    // Логіка для оновлення профілю
+    console.log("New username:", newUsername);
+    console.log("New email:", newEmail);
+
+    if (oldPassword && newPassword) {
+      // Логіка для зміни пароля
+      console.log("Changing password...");
+      console.log("Old password:", oldPassword);
+      console.log("New password:", newPassword);
+    }
+
+    handleClose(); // Закриваємо модальне вікно після збереження
+  };
+
 
   return (
     <section className={styles.section}>
@@ -79,26 +104,61 @@ const AccountSection = () => {
               variant="outlined"
               startIcon={<EditIcon />}
               sx={styles.outlinedButton}
+              onClick={handleClickOpen}
             >
               Edit Profile Information
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<SettingsIcon />}
-              sx={styles.outlinedButton}
-            >
-              Change Password
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<DeleteIcon />}
-              sx={styles.deleteButton}
-            >
-              Delete Account
             </Button>
           </div>
         </div>
       </div>
+
+      {/* Модальне вікно для редагування профілю та зміни пароля */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Edit Profile Information</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Username"
+            type="text"
+            fullWidth
+            value={newUsername}
+            onChange={(e) => setNewUsername(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            label="Email"
+            type="email"
+            fullWidth
+            value={newEmail}
+            onChange={(e) => setNewEmail(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            label="Old Password"
+            type="password"
+            fullWidth
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            label="New Password"
+            type="password"
+            fullWidth
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSave} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </section>
   );
 };
